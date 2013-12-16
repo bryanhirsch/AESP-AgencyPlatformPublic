@@ -3,9 +3,9 @@
  * @file
  * Alpha's theme implementation to display a single Drupal page.
  */
-
+/**
 drupal_add_js(drupal_get_path('theme', 'agency_1') . '/js/agency.js');
-
+ */
 if ($is_front) {
   drupal_set_title($site_name);
 }
