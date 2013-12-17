@@ -8,7 +8,7 @@
       $('body').addClass('has-js');
       var editor = ace.edit("editor");
       editor.getSession().setUseWorker(false);
-      editor.setTheme("ace/theme/ambiance");
+      editor.setTheme("ace/theme/chrome");
       editor.getSession().setMode("ace/mode/css");
 
       editor.getSession().on('change', function(e) {
@@ -22,7 +22,7 @@
       $('.disable-ace').click(function() {
         var $this = $(this);
         $this.toggleClass('ace-disabled');
-        $text = $this.text() == 'Disable syntex highlighter' ? 'Enable syntex highlighter' : 'Disable syntex highlighter';
+        $text = $this.text() == 'Disable syntax highlighter' ? 'Enable syntax highlighter' : 'Disable syntax highlighter';
         $this.text($text);
         $('.form-item-css-text .form-textarea-wrapper, .ace-editor').toggle();
       });

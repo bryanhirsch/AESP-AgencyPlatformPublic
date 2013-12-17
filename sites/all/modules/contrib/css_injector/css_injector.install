@@ -68,7 +68,7 @@ function css_injector_schema() {
 /**
  * Adds enabled rule and themes list.
  */
-function css_injector_update_7001() {
+function css_injector_update_7002() {
   $enabled = array(
     'description' => 'Whether the rules should be enabled',
     'type' => 'int',
@@ -79,10 +79,15 @@ function css_injector_update_7001() {
   $themes = array(
     'description' => 'Themes that CSS rule will be applied to',
     'type' => 'text',
-    'not null' => TRUE,
   );
-  db_add_field( 'css_injector_rule', 'enabled', $enabled);
-  db_add_field( 'css_injector_rule', 'rule_themes', $themes);
+  if (!db_field_exists('css_injector_rule', 'enabled')) {
+    db_add_field( 'css_injector_rule', 'enabled', $enabled);
+  }
+  if (!db_field_exists('css_injector_rule', 'rule_themes')) {
+    db_add_field( 'css_injector_rule', 'rule_themes', $themes);
+  } else {
+    db_change_field('css_injector_rule', 'rule_themes', 'rule_themes', array('type' => 'text', 'not null' => FALSE));
+  }
 }
 
 /**

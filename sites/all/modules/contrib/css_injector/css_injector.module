@@ -47,12 +47,12 @@ function css_injector_help($path, $arg) {
 function css_injector_init() {
   $css_rules = _css_injector_load_rule();
   foreach ($css_rules as $css_rule) {
-    if ($css_rule['enabled']) {
+    if (!isset($css_rule['enabled']) || $css_rule['enabled']) {
       if (_css_injector_evaluate_rule($css_rule)) {
         $file_uri = _css_injector_rule_uri($css_rule['crid']);
         $theme_rules = unserialize($css_rule['rule_themes']);
         global $theme;
-        if (in_array($theme, $theme_rules, true) || empty($theme_rules)) {
+        if (!is_array($theme_rules) || empty($theme_rules) || in_array($theme, $theme_rules, true)) {
           switch ($css_rule['media']) {
             case 'all':
             case 'screen':
