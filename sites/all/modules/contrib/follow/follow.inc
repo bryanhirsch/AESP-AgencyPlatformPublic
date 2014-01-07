@@ -326,6 +326,10 @@ function follow_default_networks($uid) {
       'title' => t('Facebook'),
       'domain' => 'facebook.com',
     ),
+    'instagram'  => array(
+      'title' => t('Instagram'),
+      'domain' => 'instagram.com',
+    ),
     'googleplus'    => array(
       'title' => t('Google+'),
       'domain' => 'plus.google.com',
