@@ -19,6 +19,10 @@
   background-image: url(<?php print $icon_path; ?>/icon-facebook.png);
 }
 
+<?php print $selector_prefix; ?>a.follow-link-instagram {
+  background-image: url(<?php print $icon_path; ?>/icon-instagram.png);
+}
+
 <?php print $selector_prefix; ?>a.follow-link-googleplus {
   background-image: url(<?php print $icon_path; ?>/icon-googleplus.png);
 }
