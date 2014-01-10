@@ -538,7 +538,7 @@ h1#page-title {
 }
 
 /* INJECTOR .page-services #zone-content h1:before, */
-.page-services #zone-content h1:before, .node-type-services #zone-content h1:before, #zone-content section[class*='block-views-services-block-'] h2.block-title:before {
+.node-type-services #zone-content h1:before, #zone-content section[class*='block-views-services-block-'] h2.block-title:before {
 	background: url("../img/icons/icon-services.png") no-repeat scroll 13px 8px;
 }
 
@@ -550,11 +550,11 @@ h1#page-title {
 	background: url("../img/icons/icon-events.png") no-repeat scroll 13px 8px;
 }
 
-/* INJECTOR .page-gallery #zone-content h1:before, .page-media-room #zone-content h1:before, */
+/* INJECTOR .page-gallery #zone-content h1:before, .page-media-room #zone-content h1:before, .page-multimedia #zone-content h1:before, */
 /* NB added to add icon to showcase site "gallery" */
 .node-type-gallery #zone-content h1:before,
 /*end custom*/
-.page-multimedia #zone-content h1:before, .node-type-media-gallery #zone-content h1:before, .node-type-photo #zone-content h1:before, #zone-content section[class*='block-views-media-gallery-block-'] h2.block-title:before {
+.node-type-media-gallery #zone-content h1:before, .node-type-photo #zone-content h1:before, #zone-content section[class*='block-views-media-gallery-block-'] h2.block-title:before {
 	background: url("../img/icons/icon-media.png") no-repeat scroll 13px 8px;
 }
 
@@ -992,6 +992,10 @@ div.node .field-name-field-services-photo {
 	display: inline;
 	float: left;
 	margin: 0;
+	/*
+	 * MD - added width constraint
+	 */
+	max-width:100%;
 }
 
 .view-id-resources .photo img, .view-id-business .photo img, .view-id-consumers .photo img, .view-id-metrology .photo img, .view-id-consumer_tips .photo img, .view-id-about .photo img {
@@ -2641,4 +2645,77 @@ td img{
 
 .views-field-field-secondary-phone-number .field-content{
 	padding-top:18px;
+}
+
+/*
+ * MD - added some style to edit links
+ */
+.views-field-edit-node {
+    font-style:italic;
+    text-transform:capitalize;
+    float:right;
+    height:3px
+    font-size:12px;
+}
+
+.field-widget-user-reference-autocomplete {
+    display:inline-block;
+}
+
+/*
+ * MD - Changed margin for flexslider items
+ */
+.flex-viewport li {
+    margin: 0px 5px 5px 0px;
+}
+
+/*
+ * Adds padding when 2 terms are near to each other
+ */
+.field-type-taxonomy-term-reference .field-items {
+	margin: 0px 10px 20px 0 !important;
+}
+
+.field-name-body {
+	float:left;
+}
+
+
+/*
+ * MD - Adjusted Ajax for page overlay style display
+ */
+.ajax-progress-throbber {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent; rgba(255,255,255,.5);
+}
+.ajax-progress-throbber .message {
+  display: none;
+}
+.ajax-progress-throbber .throbber {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 25px;
+  height: 25px;
+  margin: -12px 0 0 -12px;
+  background-color: #fff;
+  background-position: 6px -14px;
+  -khtml-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+  -moz-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+  -webkit-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+  box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+  -khtml-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
 }
