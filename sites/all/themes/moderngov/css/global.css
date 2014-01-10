@@ -482,7 +482,7 @@ h1#page-title {
 #zone-postscript h2,
 #zone-postscript h3 {
 	border-bottom: 4px solid #dcd2c3;
-	padding: 30px 0 5px;
+	padding: 15px 0 5px;
 	text-transform:uppercase;
 	margin-bottom:10px; 
 }
@@ -726,14 +726,19 @@ a.views-more-link,
 .file {
 	/*
 	 * MD - added display and width to correct button overflow
+	 * added bottom margin
+	 * white-space: nowrap;
 	 */
-	display:block;
-	width:100px;
+	display:inline-block;
+	width:auto;
+	max-width:100%;
+	margin:5px 0;
+	white-space:normal;
 	
 	background:  url("../img/bullet-arrow.png") no-repeat scroll 95% center transparent;
 	padding: 7px 45px 7px 20px;
 	border-radius: 50px; 
-	 white-space: nowrap;
+
 	-moz-border-radius: 50px; 
 	-webkit-border-radius: 50px; 
 	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.3);
@@ -912,6 +917,10 @@ div.node .field-name-field-services-photo {
 	 display: inline;
     float: left;
     margin:  0;
+    /*
+	 * MD - added width constraint
+	 */
+	max-width:100%;
 }
  
 .view-id-resources .photo img, 
@@ -2112,7 +2121,12 @@ div.node div.field-name-field-resource-photo {
 
 .field-name-field-document-attachment,
 .field-name-field-document-attachment div {
-	display:inline;
+	
+	/*
+	 * MD - changed display
+	 * display:inline;
+	 */
+	display:block;
 }
 
 
@@ -2621,6 +2635,7 @@ ul.twitter-list li {
 td img {
 	max-width:900px;
 }
+
 .webform-component-fieldset {
 	width:100%
 }
@@ -2630,4 +2645,76 @@ td img {
  */
 .captcha {
 	width:100%;
+}
+
+/*
+ * MD - added some style to edit links
+ */
+.views-field-edit-node {
+    font-style:italic;
+    text-transform:capitalize;
+    float:right;
+    height:3px
+    font-size:12px;
+}
+
+.field-widget-user-reference-autocomplete {
+    display:inline-block;
+}
+
+/*
+ * MD - Changed margin for flexslider items
+ */
+.flex-viewport li {
+    margin: 0px 5px 5px 0px;
+}
+
+/*
+ * Adds padding when 2 terms are near to each other
+ */
+.field-type-taxonomy-term-reference .field-items {
+	margin: 0px 10px 20px 0 !important;
+}
+
+.field-name-body {
+	float:left;
+}
+
+/*
+ * MD - Adjusted Ajax for page overlay style display
+ */
+.ajax-progress-throbber {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent; rgba(255,255,255,.5);
+}
+.ajax-progress-throbber .message {
+  display: none;
+}
+.ajax-progress-throbber .throbber {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 25px;
+  height: 25px;
+  margin: -12px 0 0 -12px;
+  background-color: #fff;
+  background-position: 6px -14px;
+  -khtml-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+  -moz-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+  -webkit-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+  box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+  -khtml-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
 }
