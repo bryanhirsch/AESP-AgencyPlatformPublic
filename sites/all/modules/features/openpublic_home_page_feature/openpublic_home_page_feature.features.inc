@@ -7,16 +7,13 @@
 /**
  * Implements hook_ctools_plugin_api().
  */
-function openpublic_home_page_feature_ctools_plugin_api() {
-  list($module, $api) = func_get_args();
+function openpublic_home_page_feature_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "context" && $api == "context") {
     return array("version" => "3");
   }
-  list($module, $api) = func_get_args();
   if ($module == "delta" && $api == "delta") {
     return array("version" => "3");
   }
-  list($module, $api) = func_get_args();
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
@@ -25,11 +22,8 @@ function openpublic_home_page_feature_ctools_plugin_api() {
 /**
  * Implements hook_views_api().
  */
-function openpublic_home_page_feature_views_api() {
-  list($module, $api) = func_get_args();
-  if ($module == "views" && $api == "views_default") {
-    return array("version" => "3.0");
-  }
+function openpublic_home_page_feature_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
 }
 
 /**
@@ -38,24 +32,25 @@ function openpublic_home_page_feature_views_api() {
 function openpublic_home_page_feature_image_default_styles() {
   $styles = array();
 
-  // Exported image style: home_page_feature
+  // Exported image style: home_page_feature.
   $styles['home_page_feature'] = array(
     'name' => 'home_page_feature',
+    'label' => 'home_page_feature',
     'effects' => array(
-      1 => array(
+      9 => array(
         'label' => 'Scale and crop',
         'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
         'effect callback' => 'image_scale_and_crop_effect',
+        'dimensions callback' => 'image_resize_dimensions',
         'form callback' => 'image_resize_form',
         'summary theme' => 'image_resize_summary',
         'module' => 'image',
         'name' => 'image_scale_and_crop',
         'data' => array(
-          'width' => '520',
-          'height' => '280',
+          'width' => 620,
+          'height' => 280,
         ),
-        'dimensions callback' => 'image_resize_dimensions',
-        'weight' => '1',
+        'weight' => 1,
       ),
     ),
   );
