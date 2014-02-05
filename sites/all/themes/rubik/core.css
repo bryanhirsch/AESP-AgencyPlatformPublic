@@ -897,3 +897,7 @@ body.tao #admin-toolbar a.menu-hover span.menu-description span.icon {
   color:#666;
   background:#fff;
   }
+
+#edit-options .form-item-options-group-info-multiple {
+    display:inline-block;
+}
