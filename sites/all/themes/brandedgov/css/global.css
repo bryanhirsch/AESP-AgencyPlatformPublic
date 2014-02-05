@@ -2719,3 +2719,19 @@ td img{
   -khtml-opacity: 0.8;
   opacity: 0.8;
 }
+
+/*
+ * MD - added Style to page tabs
+ */
+#region-content .tabs li {
+    display: inline-block;
+    height:25px;
+}
+#region-content .tabs ul.primary {
+    white-space:normal;
+}
+@media (max-width:500px){
+    #region-content .tabs li a, #region-content .tabs li {
+        display:block;
+    }
+}
