@@ -202,16 +202,12 @@ function webform_expand_time($element) {
   $element['hour'] = array(
     '#prefix' => '',
     '#type' => 'select',
-    '#title' => t('Hour'),
-    '#title_display' => 'invisible',
     '#default_value' => $default_values['hour'],
     '#options' => $hours,
   );
   $element['minute'] = array(
     '#prefix' => ':',
     '#type' => 'select',
-    '#title' => t('Minute'),
-    '#title_display' => 'invisible',
     '#default_value' => $default_values['minute'],
     '#options' => $minutes,
   );
@@ -237,8 +233,8 @@ function webform_expand_time($element) {
 function theme_webform_time($variables) {
   $element = $variables['element'];
 
-  $element['hour']['#attributes']['class'][] = 'hour';
-  $element['minute']['#attributes']['class'][] = 'minute';
+  $element['hour']['#attributes']['class'] = array('hour');
+  $element['minute']['#attributes']['class'] = array('minute');
 
   // Add error classes to all items within the element.
   if (form_get_error($element)) {
