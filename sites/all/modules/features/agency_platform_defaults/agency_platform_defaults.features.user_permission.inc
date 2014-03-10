@@ -535,15 +535,6 @@ function agency_platform_defaults_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'administer profiler builder'.
-  $permissions['administer profiler builder'] = array(
-    'name' => 'administer profiler builder',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'profiler_builder',
-  );
-
   // Exported permission: 'administer recaptcha'.
   $permissions['administer recaptcha'] = array(
     'name' => 'administer recaptcha',
