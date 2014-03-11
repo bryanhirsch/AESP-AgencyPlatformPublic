@@ -783,18 +783,6 @@ function agency_platform_defaults_user_default_permissions() {
     'module' => 'context_ui',
   );
 
-  // Exported permission: 'create flexslider_example content'.
-  $permissions['create flexslider_example content'] = array(
-    'name' => 'create flexslider_example content',
-    'roles' => array(
-      'Contributor' => 'Contributor',
-      'Editor' => 'Editor',
-      'Power User' => 'Power User',
-      'administrator' => 'administrator',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'create url aliases'.
   $permissions['create url aliases'] = array(
     'name' => 'create url aliases',
