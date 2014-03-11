@@ -125,8 +125,7 @@ function agency_platform_site_page_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_site_page';
   $strongarm->value = array(
-    0 => 'status',
-    1 => 'revision',
+    0 => 'revision',
   );
   $export['node_options_site_page'] = $strongarm;
 

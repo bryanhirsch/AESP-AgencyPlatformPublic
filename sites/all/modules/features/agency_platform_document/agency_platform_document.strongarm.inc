@@ -128,7 +128,7 @@ function agency_platform_document_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_document';
   $strongarm->value = array(
-    0 => 'status',
+    0 => 'revision',
   );
   $export['node_options_document'] = $strongarm;
 

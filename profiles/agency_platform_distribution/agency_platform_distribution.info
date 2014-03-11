@@ -95,6 +95,7 @@ dependencies[] = oauth_common
 ; Other
 dependencies[] = background_process
 dependencies[] = backup_migrate
+dependencies[] = backup_migrate_files
 dependencies[] = block_views
 dependencies[] = boxes
 dependencies[] = colorbox

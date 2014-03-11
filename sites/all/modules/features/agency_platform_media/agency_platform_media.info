@@ -6,6 +6,7 @@ version = 7.x-1.0-Alpha1
 project = agency_platform_media
 dependencies[] = agency_platform_editor_s_choice
 dependencies[] = video_embed_field
+dependencies[] = views
 dependencies[] = views_slideshow
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = video_embed_field:default_video_embed_styles:1
