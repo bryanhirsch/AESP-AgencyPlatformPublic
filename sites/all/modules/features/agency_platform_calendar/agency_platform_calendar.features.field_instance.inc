@@ -84,7 +84,7 @@ function agency_platform_calendar_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'event_calendar_date',
     'label' => 'Dates',
-    'required' => FALSE,
+    'required' => 0,
     'settings' => array(
       'default_value' => 'now',
       'default_value2' => 'blank',
