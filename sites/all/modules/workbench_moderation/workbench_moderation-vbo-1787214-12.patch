@@ -1,0 +1,45 @@
+diff --git a/workbench_moderation.module b/workbench_moderation.module
+index f510e2e..f89a717 100644
+--- a/workbench_moderation.module
++++ b/workbench_moderation.module
+@@ -2060,11 +2060,6 @@ function workbench_moderation_set_state_action_form($context) {
+     '#default_value' => isset($context['state']) ? $context['state'] : '',
+   );
+ 
+-  $form['force_transition'] = array(
+-    '#type' => 'checkbox',
+-    '#default_value' => FALSE,
+-  );
+-
+   return $form;
+ }
+ 
+@@ -2072,7 +2067,7 @@ function workbench_moderation_set_state_action_form($context) {
+  * Process workbench_moderation_set_state_action_form form submissions.
+  */
+ function workbench_moderation_set_state_action_submit($form, $form_state) {
+-  return array('state' => $form_state['values']['state'], 'force_transition' => $form_state['values']['force_transition']);
++  return array('state' => $form_state['values']['state']);
+ }
+ 
+ /**
+@@ -2081,10 +2076,18 @@ function workbench_moderation_set_state_action_submit($form, $form_state) {
+ function workbench_moderation_set_state_action($node, $context) {
+   if (empty($context['state'])) return;
+ 
+-  if ((array_key_exists('force_transition', $context) && $context['force_transition']) || _workbench_moderation_moderate_access($node, $context['state'])){
++  // Check access to perform this moderation, on the latest revision of the node
++  $node = workbench_moderation_node_current_load($node);
++  if (_workbench_moderation_moderate_access($node, $context['state'])) {
++    // Mark this node so the moderation state isn't reverted
++    $node->workbench_moderation['updating_live_revision'] = array(TRUE);
++    // Moderate the node
+     workbench_moderation_moderate($node, $context['state']);
+     watchdog('action', 'Change node %nid moderation state to %state.', array('%nid' => $node->nid, '%state' => $context['state']));
+   }
++  else {
++    drupal_set_message(t('You do not have permission to moderate %node', array('%node' => $node->title)), 'warning');
++  }
+ }
+ 
+ /**
