@@ -261,8 +261,8 @@ hr {
 	/*
 	 * MD - added height and color attributes
 	 */
-	height:3px;
-	background-color:#333;
+	height: 3px;
+	background-color: #333;
 }
 
 ul, ol {
@@ -489,7 +489,7 @@ h1#page-title {
 	 * MD Removed no wrap to wrap text when window is a certain width
 	 * white-space: nowrap;
 	 */
-	
+
 	border-bottom: none;
 }
 
@@ -502,7 +502,6 @@ h1#page-title {
 #zone-content .content h2, #zone-content #stay-connected h3, #zone-postscript h2, #zone-postscript h3 {
 	margin-bottom: 10px;
 }
-
 
 #zone-content h2.block-title:before, #zone-footer h2.block-title:before, #zone-content h1:before {
 	background: url("../img/icons/icon-news.png") no-repeat scroll 13px 8px;
@@ -519,8 +518,8 @@ h1#page-title {
  * pages removed are noted by term 'INJECTOR'
  *******************************************/
 
-/* INJECTOR .page-press-releases #zone-content h1:before, */ 
-#zone-content section[class*='block-views-press-releases-block-'] h2.block-title:before {
+/* INJECTOR .page-press-releases #zone-content h1:before, */
+#zone-content section[class*='block-views-press-releases-block-'] h2.block-title:before, #zone-content .theme-icon-default h2.block-title:before, h1#page-title.theme-icon-default:before {
 	background: url("../img/icons/icon-news.png") no-repeat scroll 13px 8px;
 }
 
@@ -528,17 +527,17 @@ h1#page-title {
 /* NB added to add icon to blog entries */
 .node-type-blog-entry #zone-content h1:before,
 /* end custom */
-#zone-content section[class*='block-views-blogs-block-'] h2.block-title:before {
+#zone-content section[class*='block-views-blogs-block-'] h2.block-title:before, #zone-content .theme-icon-blog h2.block-title:before, h1#page-title.theme-icon-blog:before {
 	background: url("../img/icons/icon-blog.png") no-repeat scroll 13px 8px;
 }
 
 /* INJECTOR .page-resources #zone-content h1:before, */
-.node-type-resource #zone-content h1:before, #zone-content section[class*='block-views-resources-block-'] h2.block-title:before {
+.node-type-resource #zone-content h1:before, #zone-content section[class*='block-views-resources-block-'] h2.block-title:before, #zone-content .theme-icon-resource h2.block-title:before, h1#page-title.theme-icon-resource:before {
 	background: url("../img/icons/icon-resources.png") no-repeat scroll 13px 8px;
 }
 
 /* INJECTOR .page-services #zone-content h1:before, */
-.node-type-services #zone-content h1:before, #zone-content section[class*='block-views-services-block-'] h2.block-title:before {
+.node-type-services #zone-content h1:before, #zone-content section[class*='block-views-services-block-'] h2.block-title:before, #zone-content .theme-icon-service h2.block-title:before, h1#page-title.theme-icon-service:before {
 	background: url("../img/icons/icon-services.png") no-repeat scroll 13px 8px;
 }
 
@@ -546,7 +545,7 @@ h1#page-title {
 /*NB added to add icon to showcase site "events" */
 .node-type-event-created #zone-content h1:before,
 /* end custom */
-.node-type-event-calendar #zone-content h1:before, #zone-content section[class*='block-views-events-list-block-'] h2.block-title:before , #zone-content section[class*='block-views-calendar-block-'] h2.block-title:before{
+.node-type-event-calendar #zone-content h1:before, #zone-content section[class*='block-views-events-list-block-'] h2.block-title:before, #zone-content section[class*='block-views-calendar-block-'] h2.block-title:before, #zone-content .theme-icon-event h2.block-title:before, h1#page-title.theme-icon-event:before {
 	background: url("../img/icons/icon-events.png") no-repeat scroll 13px 8px;
 }
 
@@ -554,26 +553,26 @@ h1#page-title {
 /* NB added to add icon to showcase site "gallery" */
 .node-type-gallery #zone-content h1:before,
 /*end custom*/
-.node-type-media-gallery #zone-content h1:before, .node-type-photo #zone-content h1:before, #zone-content section[class*='block-views-media-gallery-block-'] h2.block-title:before {
+.node-type-media-gallery #zone-content h1:before, .node-type-photo #zone-content h1:before, #zone-content section[class*='block-views-media-gallery-block-'] h2.block-title:before, #zone-content .theme-icon-media h2.block-title:before, h1#page-title.theme-icon-media:before  {
 	background: url("../img/icons/icon-media.png") no-repeat scroll 13px 8px;
 }
 
 /* INJECTOR .page-staff-directory #zone-content h1:before, .page-user  #zone-content h1:before, */
-.node-type-profile #zone-content h1:before, #zone-content section[class*='block-views-profiles-block-'] h2.block-title:before {
+.node-type-profile #zone-content h1:before, #zone-content section[class*='block-views-profiles-block-'] h2.block-title:before, #zone-content .theme-icon-profile h2.block-title:before, h1#page-title.theme-icon-profile:before {
 	background: url("../img/icons/icon-profile.png") no-repeat scroll 13px 8px;
 }
 
 /* INJECTOR .page-documents #zone-content h1:before, */
-.node-type-document #zone-content h1:before, #zone-content section[class*='block-views-documents-block-'] h2.block-title:before {
+.node-type-document #zone-content h1:before, #zone-content section[class*='block-views-documents-block-'] h2.block-title:before, #zone-content .theme-icon-documents h2.block-title:before, h1#page-title.theme-icon-document:before {
 	background: url("../img/icons/icon-documents.png") no-repeat scroll 13px 8px;
 }
 
 /* INJECTOR .page-webform #zone-content h1:before, */
-.node-type-webform #zone-content h1:before, #zone-content section[class*='block-views-webform-block'] h2.block-title:before {
+.node-type-webform #zone-content h1:before, #zone-content section[class*='block-views-webform-block'] h2.block-title:before, #zone-content .theme-icon-webform h2.block-title:before, h1#page-title.theme-icon-webform:before {
 	background: url("../img/icons/icon-webform.png") no-repeat scroll 13px 8px;
 }
 
-.context-contact-us #zone-content h1:before, #zone-footer section.block-contact-us h2.block-title:before {
+.context-contact-us #zone-content h1:before, #zone-footer section.block-contact-us h2.block-title:before, #zone-content .theme-icon-mail h2.block-title:before, h1#page-title.theme-icon-mail:before {
 	background: url("../img/icons/icon-contactus.png") no-repeat scroll 13px 8px;
 }
 
@@ -592,26 +591,23 @@ h1#page-title {
 	 * MD Adjusted line-height primarily for wrapped titles then added a top padding
 	 * line-height: 2.8em;
 	 */
-	line-height:1.5em;
-	padding-top:10px;
+	line-height: 1.5em;
+	padding-top: 10px;
 }
 #zone-content h2.block-title, #zone-content #stay-connected h3 {
 	/*
 	 * MD - Increased padding bottom to give space below icon if image is below
 	 * padding-bottom: 20px;
 	 */
-	padding-bottom:23px;
+	padding-bottom: 23px;
 }
 
 #zone-preface .views-row {
 	border-bottom: none;
-	
 }
 .views-row {
 	border-bottom: none !important;
-
 }
-
 
 .view-id-services .views-row {
 	margin: 0 0 10px;
@@ -995,7 +991,7 @@ div.node .field-name-field-services-photo {
 	/*
 	 * MD - added width constraint
 	 */
-	max-width:100%;
+	max-width: 100%;
 }
 
 .view-id-resources .photo img, .view-id-business .photo img, .view-id-consumers .photo img, .view-id-metrology .photo img, .view-id-consumer_tips .photo img, .view-id-about .photo img {
@@ -1042,7 +1038,7 @@ ul.links.inline, ul.links.inline li {
 	/*
 	 * MD Adjusted to eliminate bottom scroll bar
 	 * width: 900px;
-	 * 
+	 *
 	 * padding: 5px 20px;
 	 */
 	width: 100%;
@@ -1052,8 +1048,8 @@ ul.links.inline, ul.links.inline li {
 .breadcrumb li {
 	margin: 0;
 }
-.breadcrumb li.depth-1.odd.first{
-	padding-left:20px;
+.breadcrumb li.depth-1.odd.first {
+	padding-left: 20px;
 }
 #zone-header .breadcrumb a, #zone-header .breadcrumb a:hover {
 	margin-right: 4px;
@@ -1227,13 +1223,11 @@ position: relative;
 	margin-top: 6px;
 	top: 0;
 	box-shadow: none;
-	
 	/*
 	 * MD Added margin adjustment for chrome browser on child menu items
 	 */
-	-webkit-margin-before:-40px;
+	-webkit-margin-before: -40px;
 }
-
 
 /* custom boxes */
 #zone-content {
@@ -1702,19 +1696,19 @@ ul li a.calculator:hover {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 #block-nodeblock-contact-us {
-	
+
 	float: none;
 	/*
 	 * MD - Adjusted padding to remove spillover
 	 * padding: 0px 20px 10px 20px;
 	 */
-	padding-bottom:10px;
+	padding-bottom: 10px;
 }
 /*
  * MD - added padding since container padding was removed
  */
 #block-nodeblock-contact-us > div:nth-child(1) {
-	padding-left:20px;
+	padding-left: 20px;
 }
 #block-nodeblock-contact-us h2 {
 	padding: 0;
@@ -1755,7 +1749,7 @@ ul li a.calculator:hover {
 	/*
 	 * MD - added padding in case an extremely long slogan is used.
 	 */
-	padding:0 5px 0 110px;
+	padding: 0 5px 0 110px;
 }
 .group_address {
 	width: auto;
@@ -1810,9 +1804,9 @@ ul li a.calculator:hover {
 	 * MD Adjusted to eliminate bottom scroll bar
 	 * width: 940px;
 	 */
-	 margin: 0 auto;
-	 width:100%;
-	 max-width:960px;
+	margin: 0 auto;
+	width: 100%;
+	max-width: 960px;
 }
 #footer-logo-subscribe, #footer-nav, #footer-utility {
 	/*display: none;*/
@@ -1829,12 +1823,12 @@ ul li a.calculator:hover {
 	display: inline;
 }
 /*
-	MD  - Removed redundant element. Original found a few lines up.
-.region-footer-second-inner {
-	width: 940px;
-	margin: 0 auto;
-}
-*/
+ MD  - Removed redundant element. Original found a few lines up.
+ .region-footer-second-inner {
+ width: 940px;
+ margin: 0 auto;
+ }
+ */
 .footer-nav ul:after {
 	/*content: ".";*/
 	font-size: 0;
@@ -2195,45 +2189,44 @@ div.node div.field-name-field-resource-photo {
 	/* background: #f5fafb; */
 }
 
-
 /*
  * MD - Removed first row formatting per NB Request
 
-.staff-page  .views-row-first {
-	border: 1px solid #ccc !important;
-	background: #efefef;
-}
-.staff-page .views-row-first h4 {
-	font-size: 1.4em;
-}
+ .staff-page  .views-row-first {
+ border: 1px solid #ccc !important;
+ background: #efefef;
+ }
+ .staff-page .views-row-first h4 {
+ font-size: 1.4em;
+ }
 
-.page-node .leadership-status, .staff-page .field-name-field-profile-leadership {
-	background: url("../img/icons/icon-exec.png") no-repeat 0 4px;
-	float: left;
-	height: 40px;
-	margin: 4px 4px 0 0;
-	overflow: hidden;
-	text-indent: -9999px;
-	width: 31px;
-}
-*/
+ .page-node .leadership-status, .staff-page .field-name-field-profile-leadership {
+ background: url("../img/icons/icon-exec.png") no-repeat 0 4px;
+ float: left;
+ height: 40px;
+ margin: 4px 4px 0 0;
+ overflow: hidden;
+ text-indent: -9999px;
+ width: 31px;
+ }
+ */
 
 /*
- * MD changed formatting of views using the "staff-page" css. 
+ * MD changed formatting of views using the "staff-page" css.
  */
-.staff-page .views-row-odd{
+.staff-page .views-row-odd {
 	background-color: rgb(238, 238, 238);
 	border-bottom: 1px solid rgb(204, 204, 204);
-	margin-bottom:10px;
-	padding-top:10px;
-	margin-top:10px;
+	margin-bottom: 10px;
+	padding-top: 10px;
+	margin-top: 10px;
 }
 
-.staff-page .views-row:hover{
-	background-color: #FAF3E3; 
+.staff-page .views-row:hover {
+	background-color: #FAF3E3;
 }
 
-.field-name-field-profile-phone, .views-field-field-profile-phone{
+.field-name-field-profile-phone, .views-field-field-profile-phone {
 	clear: left;
 	background: url("../img/icons/icon-phone-small.png") no-repeat 0 0px;
 	width: auto;
@@ -2253,7 +2246,7 @@ div.node div.field-name-field-resource-photo {
 }
 
 .field-name-field-secondary-phone-number .field-label, .views-field-field-secondary-phone-number .views-label {
-	padding-left:40px;
+	padding-left: 40px;
 }
 
 .field-name-field-profile-email, .views-field-field-profile-email {
@@ -2289,15 +2282,14 @@ div.node div.field-name-field-resource-photo {
 	 * padding: 0px 0 20px 40px;
 	 */
 	padding: 0 0 20px 0;
-	
 }
 .field-name-field-profile-photo {
 	float: left;
 	/*
 	 * MD - added width to push other text down
 	 */
-	min-width:210px;
-	width:100%;
+	min-width: 210px;
+	width: 100%;
 }
 
 .views-field-field-profile-email, .views-field-field-profile-phone, .field-name-field-profile-phone, .field-name-field-profile-email {
@@ -2307,13 +2299,11 @@ div.node div.field-name-field-resource-photo {
 	 * MD fixes for adding profile content
 	 * padding-right: 20px;
 	 */
-	
+
 	height: auto;
 	padding: 30px 0 10px 0px;
 	width: 100%;
 }
-
-
 
 /* NB adding missing margin below job title in staff block */
 .field-content {
@@ -2565,8 +2555,8 @@ ul.twitter-list li {
 	border: 0;
 }
 
-div.field:nth-child(5){
-	display:inline-block;
+div.field:nth-child(5) {
+	display: inline-block;
 }
 
 /*
@@ -2577,96 +2567,95 @@ div.field:nth-child(5){
 	font-weight: 500;
 	text-transform: uppercase;
 	margin: 10px 0 0 0;
-	padding:0;
+	padding: 0;
 	letter-spacing: 0;
 	font-size: 1.2em;
 	color: #660000;
-	display:inline-block;
-	width:100%;
+	display: inline-block;
+	width: 100%;
 }
 
 /*
  * MD - modified pager buttons to keep with the other theme
  */
 .pager li.pager-first a, .pager li.pager-previous a, .pager li.pager-next a, .pager li.pager-last a {
-	min-width:25px;
-	width:auto;
+	min-width: 25px;
+	width: auto;
 }
 .pager li.pager-next {
-	right:25px;
+	right: 25px;
 }
 
 /*
  * MD - restricted images to a width
  */
 .field-type-image {
-	max-width:100%;
-	width:auto;
+	max-width: 100%;
+	width: auto;
 }
 
 /*
  * MD - Calendar link in main menu overflows
  */
 .navigation a.calendar {
-    width:178px;
+	width: 178px;
 }
 
 /*
  * MD - Added first name and last name formating for display in profiles
  */
 .field-name-field-profile-first-name, .field-name-field-profile-last-name {
-	display:inline-block;
-	width:100%;
+	display: inline-block;
+	width: 100%;
 }
 
 /*
  * MD - added formatting of iframe components
  */
-.field-name-body iframe{
+.field-name-body iframe {
 	max-width: 100%;
 }
 
 /*
  * MD - overrides 100% max width to fix webkit rendering image width wrong
  */
-td img{
-	max-width:900px;
+td img {
+	max-width: 900px;
 }
 
 /*
  * MD added captcha width to prevent it from pushing to the right
  */
 .captcha {
-	width:100%;
+	width: 100%;
 }
 .webform-component-fieldset {
-	width:100%
+	width: 100%
 }
 
-.views-field-field-secondary-phone-number .field-content{
-	padding-top:18px;
+.views-field-field-secondary-phone-number .field-content {
+	padding-top: 18px;
 }
 
 /*
  * MD - added some style to edit links
  */
 .views-field-edit-node {
-    font-style:italic;
-    text-transform:capitalize;
-    float:right;
-    height:3px
-    font-size:12px;
+	font-style: italic;
+	text-transform: capitalize;
+	float: right;
+	height: 3px font-size :12px;
 }
 
 .field-widget-user-reference-autocomplete {
-    display:inline-block;
+	display: inline-block;
 }
 
 /*
  * MD - Changed margin for flexslider items
  */
 .flex-viewport li {
-    margin: 0px 5px 5px 0px;
+	margin: 0px 5px 5px 0px;
 }
 
 /*
@@ -2677,61 +2666,48 @@ td img{
 }
 
 .field-name-body {
-	float:left;
+	float: left;
 }
-
 
 /*
  * MD - Adjusted Ajax for page overlay style display
  */
 .ajax-progress-throbber {
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent; rgba(255,255,255,.5);
+	position: fixed;
+	z-index: 9999;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: transparent;rgba(255,255,255,.5);
 }
 .ajax-progress-throbber .message {
-  display: none;
+	display: none;
 }
 .ajax-progress-throbber .throbber {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  width: 25px;
-  height: 25px;
-  margin: -12px 0 0 -12px;
-  background-color: #fff;
-  background-position: 6px -14px;
-  -khtml-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
-  -moz-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
-  -webkit-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
-  box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
-  -khtml-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
-  filter: alpha(opacity=80);
-  -moz-opacity: 0.8;
-  -khtml-opacity: 0.8;
-  opacity: 0.8;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	width: 25px;
+	height: 25px;
+	margin: -12px 0 0 -12px;
+	background-color: #fff;
+	background-position: 6px -14px;
+	-khtml-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+	-moz-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+	-webkit-box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+	box-shadow: 0px 0px 5px 6px rgba(0,0,0,.1);
+	-khtml-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	filter: alpha(opacity=80);
+	-moz-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
 }
 
-/*
- * MD - added Style to page tabs
- */
-#region-content .tabs li {
-    display: inline-block;
-    height:25px;
-}
-#region-content .tabs ul.primary {
-    white-space:normal;
-}
-@media (max-width:500px){
-    #region-content .tabs li a, #region-content .tabs li {
-        display:block;
-    }
+#zone-preface .views-field {
+	padding: 0 0 5px;
 }
