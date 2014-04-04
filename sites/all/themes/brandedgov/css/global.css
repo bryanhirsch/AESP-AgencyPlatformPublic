@@ -592,7 +592,7 @@ h1#page-title.theme-icon-default:before {
 .node-type-blog-entry #zone-content h1:before,
 /* end custom */
 #zone-content section[class*='block-views-blogs-block-'] h2.block-title:before,
-#zone-content .theme-icon-blog h2.block-title:before,
+#zone-content [class*='theme-icon-blog'] h2.block-title:before,
 h1#page-title[class*='theme-icon-blog']:before {
 	background: url("../img/icons/icon-blog.png") no-repeat scroll 13px 8px;
 }
@@ -600,7 +600,7 @@ h1#page-title[class*='theme-icon-blog']:before {
 /* INJECTOR .page-resources #zone-content h1:before,*/
 .node-type-resource #zone-content h1:before,
 #zone-content section[class*='block-views-resources-block-'] h2.block-title:before,
-#zone-content .theme-icon-resource h2.block-title:before,
+#zone-content [class*='theme-icon-resource'] h2.block-title:before,
 h1#page-title[class*='theme-icon-resource']:before {
 	background: url("../img/icons/icon-resources.png") no-repeat scroll 13px 8px;
 }
@@ -608,7 +608,7 @@ h1#page-title[class*='theme-icon-resource']:before {
 /* INJECTOR .page-services #zone-content h1:before,*/
 .node-type-services #zone-content h1:before,
 #zone-content section[class*='block-views-services-block-'] h2.block-title:before,
-#zone-content .theme-icon-service h2.block-title:before,
+#zone-content [class*='theme-icon-service'] h2.block-title:before,
 h1#page-title[class*='theme-icon-service']:before  {
 	background: url("../img/icons/icon-services.png") no-repeat scroll 13px 8px;
 }
@@ -621,8 +621,8 @@ h1#page-title[class*='theme-icon-service']:before  {
 .node-type-event-calendar #zone-content h1:before,
 #zone-content section[class*='block-views-events-list-block-'] h2.block-title:before,
 #zone-content section[class*='block-views-calendar-block-'] h2.block-title:before,
-#zone-content .theme-icon-event h2.block-title:before,
-h1#page-title[class*='.theme-icon-event']:before {
+#zone-content .theme-icon-event_calendar h2.block-title:before,
+h1#page-title.theme-icon-event_calendar:before {
 	background: url("../img/icons/icon-events.png") no-repeat scroll 13px 8px;
 }
 
@@ -635,7 +635,9 @@ h1#page-title[class*='.theme-icon-event']:before {
 .node-type-media-gallery #zone-content h1:before,
 .node-type-photo #zone-content h1:before,
 #zone-content section[class*='block-views-media-gallery-block-'] h2.block-title:before,
-#zone-content .theme-icon-media h2.block-title:before,
+#zone-content .theme-icon-media_gallery h2.block-title:before,
+h1#page-title.theme-icon-media_gallery:before,
+#zone-content .theme-icon-photo h2.block-title:before,
 h1#page-title.theme-icon-photo:before {
 	background: url("../img/icons/icon-media.png") no-repeat scroll 13px 8px;
 }
