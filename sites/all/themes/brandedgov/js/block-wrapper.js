@@ -24,8 +24,13 @@ jQuery(document).ready(function($) {
 		while (i < blocks.length) {
 			innerString = blocks[i].innerHTML;
 			loc = innerString.indexOf('theme-icon');
+			var a = innerString.indexOf(' ', loc + 1);
+			var b = innerString.indexOf('"', loc + 1);
+			if (b < a) {
+				a = b;
+			}
 			if (loc != -1) {
-				wrapString = wrapString.concat(innerString.substring(loc, innerString.indexOf(' ', loc + 1)));
+				wrapString = wrapString.concat(innerString.substring(loc, a));
 			}
 			blocks[i].className = blocks[i].className + wrapString;
 			i++;

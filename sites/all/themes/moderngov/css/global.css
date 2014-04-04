@@ -2748,3 +2748,7 @@ td img {
     border-radius: 0;
     box-shadow:none;
 }
+
+#search-block-form .captcha-admin-links, .views-exposed-widget .captcha-admin-links {
+    display: none;
+}
