@@ -2734,3 +2734,17 @@ td img {
         display:block;
     }
 }
+
+.block-menu-block .file, .block-menu-block a.file {
+    background:none !important;
+    background-color: none;
+    border-radius:0px;
+    box-shadow:none;
+    display:list-item;
+    padding:0;
+}
+
+#block-system-main-menu .file {
+    border-radius: 0;
+    box-shadow:none;
+}
