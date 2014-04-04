@@ -237,6 +237,8 @@ function agency_platform_defaults_user_default_permissions() {
   $permissions['administer CAPTCHA settings'] = array(
     'name' => 'administer CAPTCHA settings',
     'roles' => array(
+      'Contributor' => 'Contributor',
+      'Editor' => 'Editor',
       'Power User' => 'Power User',
       'administrator' => 'administrator',
     ),

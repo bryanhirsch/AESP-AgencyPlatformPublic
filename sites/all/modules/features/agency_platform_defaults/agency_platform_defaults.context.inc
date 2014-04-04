@@ -130,12 +130,6 @@ function agency_platform_defaults_context_default_contexts() {
           'region' => 'header_second',
           'weight' => '-10',
         ),
-        'menu-menu-footer-utility' => array(
-          'module' => 'menu',
-          'delta' => 'menu-footer-utility',
-          'region' => 'footer_second',
-          'weight' => '1',
-        ),
       ),
     ),
   );

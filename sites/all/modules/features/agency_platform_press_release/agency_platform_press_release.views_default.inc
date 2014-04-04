@@ -294,9 +294,6 @@ function agency_platform_press_release_views_default_views() {
   );
   $handler->display->display_options['sitename_title'] = 0;
 
-  /* Display: Media Room pane */
-  $handler = $view->new_display('panel_pane', 'Media Room pane', 'panel_pane_1');
-
   /* Display: Annual Reports Block */
   $handler = $view->new_display('block', 'Annual Reports Block', 'block_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
