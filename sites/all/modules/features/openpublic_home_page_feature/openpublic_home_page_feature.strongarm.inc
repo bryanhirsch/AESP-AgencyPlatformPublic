@@ -122,8 +122,7 @@ function openpublic_home_page_feature_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_home_page_feature';
   $strongarm->value = array(
-    0 => 'status',
-    1 => 'revision',
+    0 => 'revision',
   );
   $export['node_options_home_page_feature'] = $strongarm;
 
