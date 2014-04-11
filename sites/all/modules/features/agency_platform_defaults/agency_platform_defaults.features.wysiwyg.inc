@@ -34,6 +34,7 @@ function agency_platform_defaults_wysiwyg_default_profiles() {
           'BidiRtl' => 1,
           'BulletedList' => 1,
           'NumberedList' => 1,
+          'Outdent' => 1,
           'Indent' => 1,
           'Undo' => 1,
           'Redo' => 1,
@@ -42,6 +43,7 @@ function agency_platform_defaults_wysiwyg_default_profiles() {
           'Anchor' => 1,
           'Image' => 1,
           'BGColor' => 1,
+          'Superscript' => 1,
           'Subscript' => 1,
           'Blockquote' => 1,
           'Source' => 1,
@@ -51,6 +53,8 @@ function agency_platform_defaults_wysiwyg_default_profiles() {
           'Paste' => 1,
           'PasteText' => 1,
           'PasteFromWord' => 1,
+          'ShowBlocks' => 1,
+          'RemoveFormat' => 1,
           'Font' => 1,
           'FontSize' => 1,
           'Styles' => 1,
@@ -62,6 +66,9 @@ function agency_platform_defaults_wysiwyg_default_profiles() {
         ),
         'imce' => array(
           'imce' => 1,
+        ),
+        'drupal' => array(
+          'media' => 1,
         ),
       ),
       'toolbar_loc' => 'top',
@@ -75,9 +82,11 @@ function agency_platform_defaults_wysiwyg_default_profiles() {
       'apply_source_formatting' => 0,
       'paste_auto_cleanup_on_paste' => 1,
       'block_formats' => 'p,address,pre,h2,h3,h4,h5,h6,div',
-      'css_setting' => 'theme',
-      'css_path' => '%t/css/editor.css',
-      'css_classes' => '',
+      'css_setting' => 'self',
+      'css_path' => '/sites/all/themes/brandedgov/css/global.css',
+      'css_classes' => 'Heading 1 = h1
+Heading 2 = h2
+Heading 3 = h3',
     ),
     'rdf_mapping' => array(),
   );

@@ -1143,26 +1143,6 @@ function agency_platform_defaults_user_default_permissions() {
     'module' => 'actions_permissions',
   );
 
-  // Exported permission: 'execute nodequeue_add_action'.
-  $permissions['execute nodequeue_add_action'] = array(
-    'name' => 'execute nodequeue_add_action',
-    'roles' => array(
-      'Power User' => 'Power User',
-      'administrator' => 'administrator',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute nodequeue_remove_action'.
-  $permissions['execute nodequeue_remove_action'] = array(
-    'name' => 'execute nodequeue_remove_action',
-    'roles' => array(
-      'Power User' => 'Power User',
-      'administrator' => 'administrator',
-    ),
-    'module' => 'actions_permissions',
-  );
-
   // Exported permission: 'execute pathauto_node_update_action'.
   $permissions['execute pathauto_node_update_action'] = array(
     'name' => 'execute pathauto_node_update_action',

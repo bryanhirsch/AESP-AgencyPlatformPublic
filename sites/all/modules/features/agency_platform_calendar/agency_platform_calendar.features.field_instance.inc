@@ -37,13 +37,14 @@ function agency_platform_calendar_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'body',
     'label' => 'Event Description',
-    'required' => FALSE,
+    'required' => 0,
     'settings' => array(
-      'display_summary' => 0,
-      'text_processing' => 0,
+      'display_summary' => 1,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'text',
       'settings' => array(
         'rows' => 7,

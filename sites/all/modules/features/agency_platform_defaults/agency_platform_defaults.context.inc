@@ -114,6 +114,12 @@ function agency_platform_defaults_context_default_contexts() {
         1 => 1,
       ),
     ),
+    'theme' => array(
+      'values' => array(
+        'agency_1' => 'agency_1',
+        'agency_2' => 'agency_2',
+      ),
+    ),
   );
   $context->reactions = array(
     'block' => array(
@@ -129,6 +135,12 @@ function agency_platform_defaults_context_default_contexts() {
           'delta' => 'messages',
           'region' => 'header_second',
           'weight' => '-10',
+        ),
+        'menu-menu-footer-utility' => array(
+          'module' => 'menu',
+          'delta' => 'menu-footer-utility',
+          'region' => 'footer_second',
+          'weight' => '1',
         ),
       ),
     ),
