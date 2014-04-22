@@ -99,6 +99,7 @@ function agency_platform_defaults_user_default_permissions() {
   $permissions['access contextual links'] = array(
     'name' => 'access contextual links',
     'roles' => array(
+      'Power User' => 'Power User',
       'administrator' => 'administrator',
     ),
     'module' => 'contextual',

@@ -86,7 +86,9 @@ function agency_platform_defaults_wysiwyg_default_profiles() {
       'css_path' => '/sites/all/themes/brandedgov/css/global.css',
       'css_classes' => 'Heading 1 = h1
 Heading 2 = h2
-Heading 3 = h3',
+Heading 3 = h3
+Paragraph = p
+File = a.file',
     ),
     'rdf_mapping' => array(),
   );
