@@ -177,9 +177,6 @@ function agency_platform_media_views_default_views() {
   $handler->display->display_options['filters']['field_blog_terms_tid']['vocabulary'] = 'blog_terms';
   $handler->display->display_options['block_description'] = 'modern palette slideshow';
 
-  /* Display: Multimedia Content pane */
-  $handler = $view->new_display('panel_pane', 'Multimedia Content pane', 'panel_pane_1');
-
   /* Display: Gallery Page */
   $handler = $view->new_display('page', 'Gallery Page', 'page_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -471,9 +468,6 @@ function agency_platform_media_views_default_views() {
   /* Display: Multimedia */
   $handler = $view->new_display('page', 'Multimedia', 'page_1');
   $handler->display->display_options['path'] = 'multimedia';
-
-  /* Display: Multimedia Content pane */
-  $handler = $view->new_display('panel_pane', 'Multimedia Content pane', 'panel_pane_1');
   $export['media_gallery'] = $view;
 
   return $export;
