@@ -139,6 +139,7 @@ function _agency_2_menu_build_tree($menu_name, $parameters = array()) {
 }
 
 function agency_2_preprocess_html(&$page) {
+	
   //Change the name of the home page
   if (drupal_is_front_page()) {
     $page['head_title'] = variable_get('site_name');
@@ -209,3 +210,4 @@ function agency_2_alpha_preprocess_html(&$variables) {
   drupal_add_css(path_to_theme() . '/css/ie-lte-8.css', array('group' => 300, 'browsers' => array('IE' => 'lte IE 8', '!IE' => FALSE), 'preprocess' => FALSE));
 }
 
+drupal_add_js(drupal_get_path('theme', 'agency_2').'/js/block-wrapper.js');

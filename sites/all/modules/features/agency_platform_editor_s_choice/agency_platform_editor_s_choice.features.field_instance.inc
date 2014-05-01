@@ -75,9 +75,9 @@ function agency_platform_editor_s_choice_field_default_field_instances() {
     'label' => 'Attachments',
     'required' => 0,
     'settings' => array(
-      'description_field' => 0,
+      'description_field' => 1,
       'file_directory' => 'editors_choice/attachments',
-      'file_extensions' => 'txt pdf png jpg gif',
+      'file_extensions' => 'txt pdf png jpg gif doc docx rtf wpd ppt pptx xls xlsx',
       'max_filesize' => '',
       'user_register_form' => FALSE,
     ),

@@ -122,7 +122,7 @@ function agency_platform_resource_field_default_field_instances() {
     'settings' => array(
       'description_field' => 1,
       'file_directory' => '',
-      'file_extensions' => 'txt doc xls pdf docx',
+      'file_extensions' => 'txt doc docx pdf rtf wpd ppt pptx xls xlsx',
       'max_filesize' => '',
       'user_register_form' => FALSE,
     ),

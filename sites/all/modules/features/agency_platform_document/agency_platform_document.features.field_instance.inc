@@ -98,7 +98,7 @@ function agency_platform_document_field_default_field_instances() {
   $field_instances['node-document-field_document_attachment'] = array(
     'bundle' => 'document',
     'deleted' => 0,
-    'description' => '',
+    'description' => 'txt, doc, docx, pdf, rtf, wpd, ppt, pptx, xls, xlsx, csv, zip',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -122,7 +122,7 @@ function agency_platform_document_field_default_field_instances() {
     'settings' => array(
       'description_field' => 1,
       'file_directory' => 'documents/files',
-      'file_extensions' => 'txt pdf doc docx xls csv zip',
+      'file_extensions' => 'txt doc docx pdf rtf wpd ppt pptx xls xlsx csv zip',
       'max_filesize' => '',
       'user_register_form' => FALSE,
     ),
@@ -188,6 +188,7 @@ function agency_platform_document_field_default_field_instances() {
   t('Body');
   t('Related Terms');
   t('The author associated with this document.');
+  t('txt, doc, docx, pdf, rtf, wpd, ppt, pptx, xls, xlsx, csv, zip');
 
   return $field_instances;
 }

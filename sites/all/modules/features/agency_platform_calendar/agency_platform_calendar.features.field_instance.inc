@@ -37,13 +37,14 @@ function agency_platform_calendar_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'body',
     'label' => 'Event Description',
-    'required' => FALSE,
+    'required' => 0,
     'settings' => array(
-      'display_summary' => 0,
-      'text_processing' => 0,
+      'display_summary' => 1,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'text',
       'settings' => array(
         'rows' => 7,
@@ -192,7 +193,7 @@ function agency_platform_calendar_field_default_field_instances() {
   $field_instances['node-event_calendar-field_document_attachment'] = array(
     'bundle' => 'event_calendar',
     'deleted' => 0,
-    'description' => '',
+    'description' => 'txt, pdf, png, jpg, gif, doc, docx, pdf, rtf, wpd, ppt, pptx, xls, xlsx',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -215,7 +216,7 @@ function agency_platform_calendar_field_default_field_instances() {
     'settings' => array(
       'description_field' => 1,
       'file_directory' => '',
-      'file_extensions' => 'txt doc docx xls pdf',
+      'file_extensions' => 'txt doc docx pdf rtf wpd ppt pptx xls xlsx',
       'max_filesize' => '',
       'user_register_form' => FALSE,
     ),
@@ -239,6 +240,7 @@ function agency_platform_calendar_field_default_field_instances() {
   t('Related Terms');
   t('Select the start and end dates for this event.');
   t('Status');
+  t('txt, pdf, png, jpg, gif, doc, docx, pdf, rtf, wpd, ppt, pptx, xls, xlsx');
 
   return $field_instances;
 }

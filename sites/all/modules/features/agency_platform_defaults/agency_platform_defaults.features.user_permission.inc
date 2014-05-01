@@ -99,6 +99,7 @@ function agency_platform_defaults_user_default_permissions() {
   $permissions['access contextual links'] = array(
     'name' => 'access contextual links',
     'roles' => array(
+      'Power User' => 'Power User',
       'administrator' => 'administrator',
     ),
     'module' => 'contextual',
@@ -237,6 +238,8 @@ function agency_platform_defaults_user_default_permissions() {
   $permissions['administer CAPTCHA settings'] = array(
     'name' => 'administer CAPTCHA settings',
     'roles' => array(
+      'Contributor' => 'Contributor',
+      'Editor' => 'Editor',
       'Power User' => 'Power User',
       'administrator' => 'administrator',
     ),
@@ -1134,26 +1137,6 @@ function agency_platform_defaults_user_default_permissions() {
   // Exported permission: 'execute node_unpublish_by_keyword_action'.
   $permissions['execute node_unpublish_by_keyword_action'] = array(
     'name' => 'execute node_unpublish_by_keyword_action',
-    'roles' => array(
-      'Power User' => 'Power User',
-      'administrator' => 'administrator',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute nodequeue_add_action'.
-  $permissions['execute nodequeue_add_action'] = array(
-    'name' => 'execute nodequeue_add_action',
-    'roles' => array(
-      'Power User' => 'Power User',
-      'administrator' => 'administrator',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute nodequeue_remove_action'.
-  $permissions['execute nodequeue_remove_action'] = array(
-    'name' => 'execute nodequeue_remove_action',
     'roles' => array(
       'Power User' => 'Power User',
       'administrator' => 'administrator',

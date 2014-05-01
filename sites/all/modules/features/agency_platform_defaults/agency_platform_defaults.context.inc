@@ -13,6 +13,49 @@ function agency_platform_defaults_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'content_display_blocks';
+  $context->description = '';
+  $context->tag = 'Site Wide';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'admin/content' => 'admin/content',
+      ),
+    ),
+    'user' => array(
+      'values' => array(
+        'Contributor' => 'Contributor',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-content_displays-block' => array(
+          'module' => 'views',
+          'delta' => 'content_displays-block',
+          'region' => 'sidebar_second',
+          'weight' => '-10',
+        ),
+        'views-content_displays-block_1' => array(
+          'module' => 'views',
+          'delta' => 'content_displays-block_1',
+          'region' => 'sidebar_second',
+          'weight' => '-9',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Site Wide');
+  $export['content_display_blocks'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'nav_breadcrumb_title';
   $context->description = 'Add Page Title to Breadcrumbs for some Pages';
   $context->tag = 'Navigation';
@@ -112,6 +155,12 @@ function agency_platform_defaults_context_default_contexts() {
     'sitewide' => array(
       'values' => array(
         1 => 1,
+      ),
+    ),
+    'theme' => array(
+      'values' => array(
+        'agency_1' => 'agency_1',
+        'agency_2' => 'agency_2',
       ),
     ),
   );
