@@ -120,15 +120,6 @@ function openpublic_home_page_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_options_home_page_feature';
-  $strongarm->value = array(
-    0 => 'revision',
-  );
-  $export['node_options_home_page_feature'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_home_page_feature';
   $strongarm->value = '0';
   $export['node_preview_home_page_feature'] = $strongarm;

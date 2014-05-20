@@ -3,6 +3,7 @@ description = 'Branded Government. Based on <a href="http://drupal.org/project/o
 core = '7.x'
 screenshot = 'screenshot.png'
 base theme = 'omega'
+
 regions[page_top] = 'Page Top'
 regions[page_bottom] = 'Page Bottom'
 regions[content] = 'Content'
@@ -23,6 +24,7 @@ regions[postscript_third] = 'Postscript Third'
 regions[postscript_fourth] = 'Postscript Fourth'
 regions[footer_first] = 'Footer First'
 regions[footer_second] = 'Footer Second'
+
 zones[header] = 'Header'
 zones[content] = 'Content'
 zones[footer] = 'Footer'
@@ -31,9 +33,11 @@ zones[branding] = 'Branding'
 zones[menu] = 'Menu'
 zones[preface] = 'Preface'
 zones[postscript] = 'Postscript'
+
 css[global.css][name] = 'Your custom global styles'
 css[global.css][description] = 'This file holds all the globally active custom CSS of your theme.'
 css[global.css][options][weight] = '10'
+
 settings[toggle_logo] = '1'
 settings[toggle_name] = '1'
 settings[toggle_slogan] = '1'
