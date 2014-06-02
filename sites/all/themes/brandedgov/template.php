@@ -1,0 +1,213 @@
+<?php
+
+/**
+ * @file
+ * This file is empty by default because the base theme chain (Alpha & Omega) provides
+ * all the basic functionality. However, in case you wish to customize the output that Drupal
+ * generates through Alpha & Omega this file is a good place to do so.
+ * 
+ * Alpha comes with a neat solution for keeping this file as clean as possible while the code
+ * for your subtheme grows. Please read the README.txt in the /preprocess and /process subfolders
+ * for more information on this topic.
+ */
+
+/**
+  * Unset the Alpha/Omega themes from the appearance page
+  * We don't want anyone enabling them directly
+  *
+  * Needs moved to module since theme isn't used for admin, but keeping here for reference
+  */ 
+function open_omega_system_themes_page_alter(&$theme_groups) {
+	$hidden = array(
+	  'alpha', 'omega',
+	);
+	foreach ($theme_groups as $state => &$group) {
+		if ($state == 'disabled') {
+	    foreach ($theme_groups[$state] as $id => &$theme) {
+	    	if(in_array($theme, $hidden)) {
+	        unset($theme_groups[$state][$id]);
+	    	}
+	    }
+	  }
+	}
+}
+
+function agency_2_preprocess_region(&$vars) {
+  global $language;
+  
+  switch($vars['region']) {
+    // menu region
+    case 'menu':
+      $footer_menu_cache = cache_get("footer_menu_data:". $language->language) ;
+		  if ($footer_menu_cache) {
+		    $footer_menu = $footer_menu_cache->data;
+		  }
+		  else {
+		    $footer_menu = menu_tree_output(_agency_2_menu_build_tree('main-menu', array('max_depth'=>2)));
+		    cache_set("footer_menu_data:" .$language->language, $footer_menu);
+		  }
+		  //set the active trail
+		  $active_trail = menu_get_active_trail();
+		  foreach($active_trail as $trail) {
+		    if (isset($trail['mlid']) && isset($footer_menu[$trail['mlid'] ] )) {
+		      $footer_menu[$trail['mlid']]['#attributes']['class'][] = 'active-trail';
+		    }
+		  }
+		  $vars['dropdown_menu'] = $footer_menu;
+    break;
+    // default footer content
+    case 'footer_first':
+      $footer_menu_cache = cache_get("footer_menu_data:". $language->language) ;
+		  if ($footer_menu_cache) {
+		    $footer_menu = $footer_menu_cache->data;
+		  }
+		  else {
+		    $footer_menu = menu_tree_output(_agency_2_menu_build_tree('main-menu', array('max_depth'=>2)));
+		    cache_set("footer_menu_data", $footer_menu);
+		  }
+		  //set the active trail
+		  $active_trail = menu_get_active_trail();
+		  foreach($active_trail as $trail) {
+		    if (isset($trail['mlid']) && isset($footer_menu[$trail['mlid'] ] )) {
+		      $footer_menu[$trail['mlid']]['#attributes']['class'][] = 'active-trail';
+		    }
+		  }
+		  $vars['footer_menu'] = $footer_menu;
+		  
+		  $vars['site_name'] = $site_name = variable_get('site_name');
+		  $vars['footer_logo'] = l(theme('image', array('path'=>drupal_get_path('theme', 'agency_2') . "/logo-sm.png", 'alt'=>"$site_name logo")), '', array("html"=>TRUE, 'attributes'=>array('class'=>'logo')));
+
+                  //Branding
+                  $vars['display_footer_branding'] = theme_get_setting('display_footer_branding');
+
+                  //Contact Us Block
+                  $vars['display_footer_contact'] = theme_get_setting('display_footer_contact');
+                  $vars['footer_contact_us_title'] = theme_get_setting('footer_contact_us_title');
+                  $vars['footer_contact_us_agency_title'] = theme_get_setting('footer_contact_us_agency_title');
+                  $vars['footer_contact_us_address_1'] = theme_get_setting('footer_contact_us_address_1');
+                  $vars['footer_contact_us_address_2'] = theme_get_setting('footer_contact_us_address_2');
+                  $vars['footer_contact_us_phone'] = theme_get_setting('footer_contact_us_phone');
+                  $vars['footer_contact_us_fax'] = theme_get_setting('footer_contact_us_fax');
+                  $vars['footer_contact_us_map_link'] = theme_get_setting('footer_contact_us_map_link');
+                  $vars['footer_contact_us_map_image'] = theme_get_setting('footer_contact_us_map_image');
+                  $vars['footer_contact_us_title_link'] = theme_get_setting('footer_contact_us_title_link');
+                  $vars['footer_contact_us_map_path'] = theme_get_setting('footer_contact_us_map_path');
+		  
+		  if(function_exists('defaultcontent_get_node') && ($node = defaultcontent_get_node("email_update")) ) {
+                    $node = node_view($node);
+                    $vars['subscribe_form'] = $node['webform'];
+                  }
+    break;
+  }
+}
+/* Fix the horrid menu_tree theme function to clearfix since most LI's are floated */
+function agency_2_menu_tree($variables) {
+  return '<ul class="menu clearfix">' . $variables['tree'] . '</ul>';
+}
+
+function agency_2_menu_link($variables) {
+  //Add classes to the menu <li> and <a> tags
+  //<li>
+  $variables['element']['#attributes']['class'][] = 'menu-li-' . strtolower($variables['element']['#original_link']['link_title']);
+  //<a>
+  if (!empty($variables['element']['#localized_options'])) {
+    $variables['element']['#localized_options']['attributes']['class'][] = 'menu-' . strtolower($variables['element']['#original_link']['link_title']);
+  }
+  return theme_menu_link($variables);
+}
+
+/* Add the 'clearfix' class to all unformatted views rows */
+function agency_2_preprocess_views_view_unformatted(&$vars) {
+  foreach($vars['classes'] as &$rowclasses) {
+    $rowclasses[] = 'clearfix';
+  }
+  foreach($vars['classes_array'] as &$rowclasses) {
+    $rowclasses .= ' clearfix';
+  }
+  foreach($vars['attributes_array']['class'] as &$rowclasses) {
+    $rowclasses .= ' clearfix';
+  }
+}
+
+function _agency_2_menu_build_tree($menu_name, $parameters = array()) {
+  $tree = menu_build_tree($menu_name, $parameters);
+  if (function_exists('i18n_menu_localize_tree')) {
+    $tree = i18n_menu_localize_tree($tree);
+  }
+
+  return $tree;
+}
+
+function agency_2_preprocess_html(&$page) {
+	
+  //Change the name of the home page
+  if (drupal_is_front_page()) {
+    $page['head_title'] = variable_get('site_name');
+  }
+
+  if ($bg_url = theme_get_setting('background_path')) {
+    if ( theme_get_setting('default_background')) {
+      //drupal_add_css
+      //add some default css?  or just rely on the css files to handle it?
+    }
+    else {
+
+      $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
+      if(stripos($ua,'android') == false) { //Exclude Android
+
+        drupal_add_css('
+html {
+  background: url("' . $bg_url  . '") no-repeat center center fixed !important;
+  -webkit-background-size: 100% !important;
+  -moz-background-size: 100% !important;
+  -o-background-size: 100% !important;
+  background-size: 100% !important;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  background-size: cover !important;
+}
+@media only screen and (min-width: 800px) {
+  body { background-color: transparent !important; }
+}
+', 'inline');
+        //Early version of IE don't support media queries, so we need to make sure the bg image is visible
+        drupal_add_css('body { background-color: transparent !important; }', array('browsers' => array('IE' => 'lte IE 8', '!IE' => FALSE),'type' => 'inline',) );
+      }
+
+    }
+  }
+
+
+}
+
+function agency_2_page_build(&$page) {
+
+}
+
+function agency_2_preprocess_node(&$page) {
+  $page['footer_logo'] = theme_get_setting('logo');
+  $page['site_name'] = variable_get('site_name');
+  $page['site_slogan'] = variable_get('site_slogan');
+}
+
+function agency_2_process_html(&$page) {
+  //color module support
+  if (module_exists('color')) {
+    _color_html_alter($page);
+  }
+}
+
+function agency_2_process_page(&$page) {
+  //color module support
+  if (module_exists('color')) {
+    _color_page_alter($page);
+  }
+}
+
+
+function agency_2_alpha_preprocess_html(&$variables) {
+  drupal_add_css(path_to_theme() . '/css/ie-lte-8.css', array('group' => 300, 'browsers' => array('IE' => 'lte IE 8', '!IE' => FALSE), 'preprocess' => FALSE));
+}
+
+drupal_add_js(drupal_get_path('theme', 'agency_2').'/js/block-wrapper.js');
