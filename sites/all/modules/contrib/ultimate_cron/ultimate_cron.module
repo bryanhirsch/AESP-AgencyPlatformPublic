@@ -79,7 +79,7 @@ define('ULTIMATE_CRON_CLEANUP_LOG', 86400 * 30);
 /**
  * Default setting for poorman.
  */
-define('ULTIMATE_CRON_POORMAN', TRUE);
+define('ULTIMATE_CRON_POORMAN', FALSE);
 
 /**
  * Default queue polling latency.
@@ -338,7 +338,9 @@ function ultimate_cron_cron_run($return = FALSE) {
     if ($running) {
       $result = db_query("SELECT p.name FROM {progress} p WHERE p.name IN (:running)", array(':running' => array_keys($running)));
       while ($handle = $result->fetchObject()) {
-        fclose($running[$handle->name]);
+        if (is_resource($running[$handle->name])) {
+          fclose($running[$handle->name]);
+        }
         unset($running[$handle->name]);
       }
     }
@@ -348,7 +350,9 @@ function ultimate_cron_cron_run($return = FALSE) {
   // Close all jobs left
   if ($running) {
     foreach (array_keys($running) as $handle) {
-      fclose($running[$handle]);
+      if (is_resource($running[$handle])) {
+        fclose($running[$handle]);
+      }
       unset($running[$handle]);
     }
   }
@@ -422,6 +426,10 @@ function ultimate_cron_cronapi($op, $job = NULL, $hook = NULL) {
       $end = time() + (isset($info['time']) ? $info['time'] : 15);
       $queue = DrupalQueue::get($queue_name);
       $items = 0;
+
+      $settings = ultimate_cron_get_settings("ultimate_cron_queue_$queue_name");
+      $polling_throttle = isset($settings['queue_polling_throttle']) ? $settings['queue_polling_throttle'] : 0;
+
       while (time() < $end) {
         $lease_time = isset($hook['settings']['queue_lease_time']) ? $hook['settings']['queue_lease_time'] : variable_get('ultimate_cron_queue_lease_time', ULTIMATE_CRON_QUEUE_LEASE_TIME);
         $item = $queue->claimItem($lease_time);
@@ -435,6 +443,15 @@ function ultimate_cron_cronapi($op, $job = NULL, $hook = NULL) {
           }
         }
         try {
+          if (is_numeric($polling_throttle)) {
+            if ($items == 0) {
+              // Move the boundary if using a throttle, to avoid waiting for nothing
+              $end -= $polling_throttle / 1000;
+            } else {
+              // Sleep before retrieving
+              usleep($polling_throttle * 1000);
+            }
+          }
           $function($item->data);
           $queue->deleteItem($item);
           $items++;
@@ -1232,16 +1249,18 @@ function ultimate_cron_validate_rule($rule) {
  * @return boolean
  *   TRUE if rule is scheduled to run, FALSE if not.
  */
-function ultimate_cron_should_run($rules, $last_run, $now = NULL, $catch_up = 0, $offset = 0) {
+function ultimate_cron_should_run($rules, $job_last_ran, $now = NULL, $catch_up = 0, $offset = 0) {
   $now = is_null($now) ? time() : $now;
   require_once 'CronRule.class.php';
   $cron = new CronRule();
   foreach ($rules as $rule) {
     $cron->rule = $rule;
     $cron->offset = $offset;
-    $last_ran = $cron->getLastRan($now);
-    if ($last_ran > $last_run && $last_ran >= $now - $catch_up) {
-      return TRUE;
+    $cron_last_ran = $cron->getLastRan($now);
+    if ($job_last_ran < $cron_last_ran && $cron_last_ran <= $now) {
+      if ($now <= $cron_last_ran + $catch_up) {
+        return TRUE;
+      }
     }
   }
   return FALSE;
@@ -1400,5 +1419,6 @@ function _ultimate_cron_default_settings($default_rule = NULL) {
     'rules' => $default_rule ? array($default_rule) : array(),
     'catch_up' => $default_rule ? variable_get('ultimate_cron_catch_up', ULTIMATE_CRON_CATCH_UP) : '',
     'queue_lease_time' => '',
+    'queue_polling_throttle' => ''
   );
 }

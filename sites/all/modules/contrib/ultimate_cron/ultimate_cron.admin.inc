@@ -196,6 +196,16 @@ function ultimate_cron_function_settings_form($form, &$form_state, $function) {
                                 'type' => 'icon')
                         ) : '') . t('Time in seconds to keep lock on claimed item. (blank = ' . variable_get('ultimate_cron_queue_lease_time', ULTIMATE_CRON_QUEUE_LEASE_TIME) . ')'),
     );
+    $form['general']['queue_polling_throttle'] = array(
+      '#title' => t("Queue polling throttle"),
+      '#type' => 'textfield',
+      '#default_value' => $conf['queue_polling_throttle'],
+      '#description' => ($advanced_help_enabled ? theme('advanced_help_topic', array(
+                                'module' => 'ultimate_cron',
+                                'topic' => 'polling_throttle',
+                                'type' => 'icon')
+                        ) : '') . t('Queue polling throttle in miliseconds.'),
+    );
   }
 
   $methods = module_invoke_all('service_group');
@@ -301,7 +311,6 @@ function ultimate_cron_view_page($status = NULL) {
     $modules[$hook['module']][$function] = $hook;
   }
 
-  $headers = array('', t('Module'), t('Function'), t('Rules'), t('Start'), t('Duration'), t('Status'), array('colspan' => 3, 'data' => ''), l(t('Run all'), 'admin/reports/status/run-cron', array('query' => drupal_get_destination())));
   $output = '';
 
   $rows = array();
@@ -447,6 +456,7 @@ function ultimate_cron_view_page($status = NULL) {
   }
 
   if (!empty($rows[0])) {
+    $headers = array(t('Enabled'), t('Module'), t('Function'), t('Rules'), t('Start'), t('Duration'), t('Status'), array('colspan' => 3, 'data' => ''), l(t('Run all'), 'admin/reports/status/run-cron', array('query' => drupal_get_destination())));
     $output .= theme('table', array(
       'header' => $headers,
       'rows' => $rows[0],
@@ -455,7 +465,7 @@ function ultimate_cron_view_page($status = NULL) {
     $output .= '<div class="clear-block"></div>';
   }
   if (!empty($rows[1])) {
-    $headers = array('', t('Module'), t('Function'), t('Rules'), t('Start'), t('Duration'), t('Status'), array('colspan' => 4, 'data' => ''));
+    $headers = array(t('Disabled'), t('Module'), t('Function'), t('Rules'), t('Start'), t('Duration'), t('Status'), array('colspan' => 4, 'data' => ''));
     $output .= theme('table', array(
       'header' => $headers,
       'rows' => $rows[1],

@@ -84,7 +84,11 @@ function event_admin_events() {
       $flag1 = "";
       $flag2 = "";
     }
-    $langcode = entity_language('node', $node);
+    $langcode = '';
+    if (function_exists('entity_language')) {
+		$langcode = entity_language('node', $node);	
+	}
+    
     $l_options = $langcode != LANGUAGE_NONE && isset($languages[$langcode]) ? array('language' => $languages[$langcode]) : array();
     $options[$node->nid] = array(
       'title' => array(
@@ -96,8 +100,8 @@ function event_admin_events() {
           '#suffix' => ' ' . theme('mark', array('type' => node_mark($node->nid, $node->changed))),
         ),
       ),
-      'start-date' => isset($dates['start_date'])?$dates['start_date']:NULL,
-      'end-date' => isset($dates['end_date'])?$dates['end_date']:NULL,
+      'start-date' => $dates['start_date'],
+      'end-date' => $dates['end_date'],
       'status' => $flag1 . $status . $flag2,
     );
   }
@@ -165,12 +169,13 @@ function event_calendar_dates($node) {
   // Build query to fetch events dates.
   // Event start date.
   $dates = array(NULL);
-  if(isset($node->event_calendar_date[$node->language][0]['value'])) {
-    $dates['start_date'] = $node->event_calendar_date[$node->language][0]['value'];
+  $field_lang_code = field_language('node', $node, 'event_calendar_date', LANGUAGE_NONE);
+  if(isset($node->event_calendar_date[$field_lang_code][0]['value'])) {
+    $dates['start_date'] = $node->event_calendar_date[$field_lang_code][0]['value'];
     // Event end date.
   }
-  if(isset($node->event_calendar_date[$node->language][0]['value2'])) {
-    $dates['end_date'] = $node->event_calendar_date[$node->language][0]['value2'];
+  if(isset($node->event_calendar_date[$field_lang_code][0]['value2'])) {
+    $dates['end_date'] = $node->event_calendar_date[$field_lang_code][0]['value2'];
   }
   return $dates;
 }
@@ -294,16 +299,10 @@ function event_admin_events_submit($form, &$form_state) {
   $node_type = variable_get('event_calendar_node_type', 'event_calendar');
   // Update each selected event node with new taxonomy status.
   foreach ($events as $nid) {
-    $node_vid = db_query("SELECT vid, language FROM {node} WHERE nid = :nid",
-    array(':nid' => $nid))->fetchObject();
-    $node = new stdClass();
-    $node->nid = $nid;
-    $node->vid = $node_vid->vid;
-    $node->uid = $user->uid;;
-    $node->type = $node_type;
-    $node->event_calendar_status[$node_vid->language][0]['tid'] = $op;
-    // Save event node.
-    $node_save = node_save($node);
+    $obj = node_load($nid);
+    $field_lang_code = field_language('node', $obj, 'event_calendar_date', LANGUAGE_NONE);  
+    $obj->event_calendar_status[$field_lang_code][0]['tid'] = $op;
+    $node_save = node_save($obj);
   }
   drupal_set_message(t('The status has been changed.'));
 }

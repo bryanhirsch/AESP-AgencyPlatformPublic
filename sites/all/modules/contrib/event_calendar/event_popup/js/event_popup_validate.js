@@ -21,7 +21,9 @@
 		  var bValid = true;
 		  allFields.removeClass( "ui-state-error" );
 		  bValid = bValid && checkLength( eventTitle, "Event title", 1 );
-		  if(showEndDate.attr('checked')) { 
+                  bValid = bValid && checkStartDateLength( startDate, "Date", 1 );
+                  if(showEndDate.attr('checked')) { 
+                    bValid = bValid && checkEndDateLength( endDate, "Date", 1 );
 		    bValid = bValid && DateCompare( startDate, endDate );
 		  }
 			if(!bValid) {
@@ -46,7 +48,27 @@
         }
       }
 
-      function DateCompare(startDate, endDate) {
+     function checkStartDateLength( o, n, min ) {
+        if ( o.val().length < 1 ) {
+          o.addClass( "ui-state-error" );
+          updateTips( "Please enter start date");
+            return false;
+        } else {
+          return true;
+        }
+      }
+      
+     function checkEndDateLength( o, n, min ) {
+        if ( o.val().length < 1 ) {
+          o.addClass( "ui-state-error" );
+          updateTips( "Please enter end date");
+            return false;
+        } else {
+          return true;
+        }
+      }
+     
+     function DateCompare(startDate, endDate) {
         var str1 = startDate.val();
         var str2 = endDate.val();
         if (str1.trim() != '' && str2.trim() != '') {

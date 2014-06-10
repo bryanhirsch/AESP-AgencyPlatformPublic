@@ -4,6 +4,11 @@ distribution_name = "Agency Platform"
 description = "Agency Platform Distribution"
 exclusive = "1"
 core = "7.x"
+
+;Version Information
+version = "7.1"
+
+
 ; ----------
 ; Dependencies
 ; ----------

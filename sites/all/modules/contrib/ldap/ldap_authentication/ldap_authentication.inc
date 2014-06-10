@@ -60,6 +60,9 @@ function _ldap_authentication_login_form_alter(&$form, &$form_state, $form_id) {
     if (isset($auth_conf->loginUIPasswordTxt)) {
       $form['pass']['#description'] = t($auth_conf->loginUIPasswordTxt);
     }
+    if ($auth_conf->templateUsageRedirectOnLogin) {
+      $form['#submit'][] = 'ldap_authentication_check_for_email_template';
+    }
   }
 }
 
@@ -89,18 +92,49 @@ function _ldap_authentication_form_user_profile_form_alter(&$form, $form_state) 
     }
 
     if (!ldap_authentication_show_reset_pwd($form['#user'])) {
-      $form['account']['current_pass']['#disabled'] = TRUE;
-      if ($auth_conf->ldapUserHelpLinkUrl) {
-        $form['account']['current_pass']['#description'] = l(t($auth_conf->ldapUserHelpLinkText), $auth_conf->ldapUserHelpLinkUrl);
+      /**  If passwordOption = LDAP_AUTHENTICATION_PASSWORD_FIELD_HIDE then don't show the password fields,
+        otherwise show the fields but in a disabled state.
+       */
+        switch ($auth_conf->passwordOption) {
+
+          case LDAP_AUTHENTICATION_PASSWORD_FIELD_HIDE:
+            $form['account']['current_pass']['#access'] = FALSE;
+            $form['account']['pass']['#access'] = FALSE;
+            break;
+
+          case LDAP_AUTHENTICATION_PASSWORD_FIELD_SHOW:
+                    // Show in a disabled state since ldap_authentication_show_reset_pwd() has returned FALSE
+            $form['account']['current_pass']['#disabled'] = TRUE;
+            if ($auth_conf->ldapUserHelpLinkUrl) {
+              $form['account']['current_pass']['#description'] = l(t($auth_conf->ldapUserHelpLinkText), $auth_conf->ldapUserHelpLinkUrl);
+            }
+            else {
+              $form['account']['current_pass']['#description'] = t('The password cannot be changed using this website');
+            }
+            $form['account']['pass']['#disabled'] = TRUE;
+            break;
       }
-      else {
-        $form['account']['current_pass']['#description'] = t('The password cannot be changed using this website');
-      }
-      $form['account']['pass']['#disabled'] = TRUE;
     }
   }
 }
 
+/**
+ * Replaces the email address in $ldap_user with one from the template in
+ * $auth_conf.
+ * 
+ * @param array $ldap_user
+ *   LDAP user entry
+ * @param LdapAuthenticationConf $auth_conf
+ *   LDAP authentication configuration class.
+ */
+function _ldap_authentication_replace_user_email(&$ldap_user, $auth_conf, $tokens) {
+  // fallback template in case one was not specified.
+  $template = '@username@localhost';
+  if (!empty($auth_conf->emailTemplate)) {
+    $template = $auth_conf->emailTemplate;
+  }
+  $ldap_user['mail'] = format_string($template, $tokens);
+}
 
 /**
   * user form validation will take care of username, pwd fields
@@ -113,8 +147,25 @@ function _ldap_authentication_form_user_profile_form_alter(&$form, $form_state) 
   */
 function _ldap_authentication_user_login_authenticate_validate(&$form_state, $return_user) {
 
+  // Check if Flood control was triggered; if so, don't authenticate
+  if (isset($form_state['flood_control_triggered'])) {
+    return;
+  }
+
   $detailed_watchdog_log = variable_get('ldap_help_watchdog_detail', 0);
-  $authname = $form_state['values']['name']; // $authname is the name the user is authenticated with from the logon form // patch 1599632
+
+  // Default to name
+  $entered_name = $form_state['values']['name'];
+  $authname_drupal_property = 'name';
+
+  // Email registration module populates name even though user entered email
+  if (!empty($form_state['values']['email'])) {
+    $entered_name = $form_state['values']['email'];
+    $authname_drupal_property = 'mail';
+  }
+
+  // $authname is the name the user is authenticated with from the logon form // patch 1599632
+  $authname = $entered_name;
 
   /*
    * If a fake form state was passed into this function from
@@ -129,7 +180,7 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state, $re
   if ($detailed_watchdog_log) {
     watchdog('ldap_authentication', '%username : Beginning authentification....', $watchdog_tokens, WATCHDOG_DEBUG);
   }
-  
+
   if (!$auth_conf = ldap_authentication_get_valid_conf()) {
     watchdog('ldap_authentication', 'Failed to get valid ldap authentication configuration.', array(), WATCHDOG_ERROR);
     form_set_error('name', 'Server Error: Failed to get valid ldap authentication configuration.' . $error);
@@ -187,6 +238,14 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state, $re
     return;
   }
 
+  /*
+   * IV.a Workaround for the provisioning server not always getting saved in
+   *      the user object.  So we save it in a session variable as a backup.
+   */
+  if ($ldap_server_authenticated_on) {
+    $_SESSION[LDAP_USER_SESSION_PROV_SID] = $ldap_server_authenticated_on->sid;
+  }
+
   /**
    * V. if account_name_attr is set, drupal username is different than authname
    */
@@ -199,9 +258,36 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state, $re
     }
   }
   else {
-    $drupal_accountname = $authname; 
+    $drupal_accountname = $authname;
   }
   $watchdog_tokens['%drupal_accountname'] = $drupal_accountname;
+
+  // @todo maybe we can add more tokens?
+  $email_template_tokens = array(
+    '@username' => $drupal_accountname,
+  );
+  
+  $email_template_used = FALSE;
+  
+  /**
+   * Ensures that we respect the email template handling settings.
+   */
+  if (!empty($auth_conf->emailTemplate)) {
+    switch ($auth_conf->emailTemplateHandling) {
+      case LDAP_AUTHENTICATION_EMAIL_TEMPLATE_IF_EMPTY:
+        if (!empty($ldap_user['mail'])) {
+          break;
+        }
+        // deliberate fallthrough
+      case LDAP_AUTHENTICATION_EMAIL_TEMPLATE_ALWAYS:
+        _ldap_authentication_replace_user_email($ldap_user, $auth_conf, $email_template_tokens);
+        if ($detailed_watchdog_log) {
+          watchdog('ldap_authentication', 'Using template generated email for %username', $watchdog_tokens, WATCHDOG_DEBUG);
+        }
+        $email_template_used = TRUE;
+        break;
+    }
+  }
   
   /**
    * VI. Find or create corresponding drupal account and set authmaps
@@ -210,10 +296,10 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state, $re
    * - a corresponding ldap account has been found
    * - user's credentials tested against it and passed
    * - their drupal accountname has been derived
-   * 
+   *
    */
 
-      
+
   /**
    * VI.A: Drupal account doesn't exist with $authname used to logon,
    *  but puid exists in another Drupal account; this means username has changed
@@ -226,7 +312,12 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state, $re
       $drupal_account = $ldap_server_authenticated_on->userUserEntityFromPuid($puid);
       if ($drupal_account) {
         $drupal_account_exists = TRUE;
-        $user_edit = array('name' => $drupal_accountname);
+        if ($drupal_accountname == $authname) {
+          $user_edit = array($authname_drupal_property => $drupal_accountname);
+        }
+        else {
+          $user_edit = array('name' => $drupal_accountname);
+        }
         $drupal_account = user_save($drupal_account, $user_edit, 'ldap_user');
         user_set_authmaps($drupal_account, array("authname_ldap_user" => $authname));
         $drupal_account_is_authmapped = TRUE;
@@ -258,15 +349,18 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state, $re
       }
     }
   }
-  
+
   /**
    * VI.C: existing Drupal account with incorrect email.  fix email if appropriate
    *
    */
-  if ($drupal_account_exists && $drupal_account->mail != $ldap_user['mail'] && (
-          $auth_conf->emailUpdate == LDAP_AUTHENTICATION_EMAIL_UPDATE_ON_LDAP_CHANGE_ENABLE_NOTIFY ||
-          $auth_conf->emailUpdate == LDAP_AUTHENTICATION_EMAIL_UPDATE_ON_LDAP_CHANGE_ENABLE
-          ))  {
+  if ((!($auth_conf->templateUsageNeverUpdate && $email_template_used)) && 
+      $drupal_account_exists && 
+      $drupal_account->mail != $ldap_user['mail'] && 
+      (
+        $auth_conf->emailUpdate == LDAP_AUTHENTICATION_EMAIL_UPDATE_ON_LDAP_CHANGE_ENABLE_NOTIFY ||
+        $auth_conf->emailUpdate == LDAP_AUTHENTICATION_EMAIL_UPDATE_ON_LDAP_CHANGE_ENABLE
+      )) {
     $user_edit = array('mail' => $ldap_user['mail']);
 
     $watchdog_tokens['%username'] = $drupal_account->name;
@@ -284,24 +378,38 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state, $re
       }
     }
   }
-  
+
   /**
    * VI.C: no existing Drupal account.  consider provisioning Drupal account.
    *
    */
   if (!$drupal_account_exists) {
-  
+
     // VI.C.1 Do not provision Drupal account if another account has same email.
     if ($account_with_same_email = user_load_by_mail($ldap_user['mail'])) {
+      $error = TRUE;
       /**
        * username does not exist but email does.  Since user_external_login_register does not deal with
        * mail attribute and the email conflict error needs to be caught beforehand, need to throw error here
        */
-      $watchdog_tokens['%duplicate_name'] = $account_with_same_email->name;
-      watchdog('ldap_authentication', 'LDAP user with DN %dn has email address
-        (%mail) conflict with a drupal user %duplicate_name', $watchdog_tokens, WATCHDOG_ERROR);
-      drupal_set_message(t('Another user already exists in the system with the same email address. You should contact the system administrator in order to solve this conflict.'), 'error');
-      return;
+      if ($auth_conf->templateUsageResolveConflict && (!$email_template_used)) {
+        if ($detailed_watchdog_log) {
+          watchdog('ldap_authentication', 'Conflict detected, using template generated email for %username', $watchdog_tokens, WATCHDOG_DEBUG);
+        }
+        _ldap_authentication_replace_user_email($ldap_user, $auth_conf, $email_template_tokens);
+        $email_template_used = TRUE;
+        // recheck with the template email to make sure it doesn't also exist.
+        if ($account_with_same_email = user_load_by_mail($ldap_user['mail'])) {
+          $error = TRUE;
+        }
+      }
+      if ($error) {
+        $watchdog_tokens['%duplicate_name'] = $account_with_same_email->name;
+        watchdog('ldap_authentication', 'LDAP user with DN %dn has email address
+          (%mail) conflict with a drupal user %duplicate_name', $watchdog_tokens, WATCHDOG_ERROR);
+        drupal_set_message(t('Another user already exists in the system with the same email address. You should contact the system administrator in order to solve this conflict.'), 'error');
+        return;
+      }
     }
 
     // VI.C.2 Do not provision Drupal account if provisioning disabled
@@ -309,7 +417,7 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state, $re
       watchdog('ldap_user', 'Drupal account for authname=%authname account name=%account_name_attr does not exist and provisioning of Drupal accounts on authentication is not enabled', $watchdog_tokens, WATCHDOG_INFO);
       return;
     }
-    
+
     // VI.C.3 Provision Drupal account
     /**
      *
@@ -323,6 +431,16 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state, $re
      *       for external authentication modules
      */
 
+      $user_register = variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
+      if ($auth_conf->ldapUser->acctCreation == LDAP_USER_ACCT_CREATION_USER_SETTINGS_FOR_LDAP &&
+            $user_register == USER_REGISTER_ADMINISTRATORS_ONLY) {
+          watchdog('ldap_user', 'Failed to create account for %drupal_accountname. Administrative user must create user.',
+              $watchdog_tokens, WATCHDOG_ERROR);
+          form_set_error('name', t('Server Error: Attempt to create account for %drupal_accountname failed. Administrative user must create user.',
+              $watchdog_tokens));
+          return;
+    }
+
     if ($auth_conf->ldapUser->acctCreation == LDAP_AUTHENTICATION_ACCT_CREATION_USER_SETTINGS_FOR_LDAP &&
         variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL) == USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL) {
       $user_edit = array('name' => $drupal_accountname, 'status' => 0); // if admin approval required, set status to 0.
@@ -330,34 +448,48 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state, $re
     else {
       $user_edit = array('name' => $drupal_accountname, 'status' => 1);
     }
+    
+    // If the email template was used, we want to pass in the email that was
+    // generated so that its not overridden by the provisioner.
+    if ($email_template_used) {
+      $user_edit['mail'] = $ldap_user['mail'];
+    }
 
     // don't pass in ldap user to provisionDrupalAccount, because want to requery with correct attributes needed
     // this may be a case where efficiency dictates querying for all attributes
     $drupal_account = $auth_conf->ldapUser->provisionDrupalAccount(NULL, $user_edit, NULL, TRUE);
-    
+
     if ($drupal_account === FALSE) {
       watchdog('ldap_user', 'Failed to find or create %drupal_accountname on logon.', $watchdog_tokens, WATCHDOG_ERROR);
       form_set_error('name', t('Server Error: Failed to create Drupal user account for %drupal_accountname', $watchdog_tokens));
       return;
     }
+    else {
+      user_set_authmaps($drupal_account, array('authname_ldap_user' => $authname));
+      // Using Rules allows emails to be fired and many other possible reactions
+      // to the creation of a user.
+      if (module_exists('rules')) {
+        rules_invoke_event('ldap_user_created', $drupal_account, $email_template_used);
+      }
+    }
   }
- 
+
   /**
   * we now have valid, ldap authenticated username with an account authmapped to ldap_authentication.
   * since user_external_login_register can't deal with user mail attribute and doesn't do much else, it is not
   * being used here.
-  * 
+  *
   * without doing the user_login_submit,
   * [#1009990],[#1865938]
   */
-  
+
   $form_state['uid'] = $drupal_account->uid;
  // $fake_form_state = array('uid' => $drupal_account->uid);
  // user_login_submit(array(), $fake_form_state);
  // global $user;
  // $form_state['uid'] = $user->uid;
- 
- 
+
+
   // the uid is returned so that special login modules, namely ldap sso, can manually call this function.
   return ($return_user) ? $drupal_account : NULL;
 }
@@ -367,7 +499,7 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state, $re
  */
 function ldap_authentication_corresponding_drupal_user($authname, $auth_conf, &$watchdog_tokens) {
   $detailed_watchdog_log = variable_get('ldap_help_watchdog_detail', 0);
-  if (!($drupal_account = user_load_by_name($authname))) {
+  if (!($drupal_account = user_load_by_name($authname)) && !($drupal_account = user_load_by_mail($authname))) {
     $uid = db_query("SELECT uid FROM {authmap} WHERE authname = :authname AND module = 'ldap_user'", array(':authname' => $authname))->fetchColumn();
     $drupal_account = $uid ? user_load($uid) : FALSE;
   }
@@ -424,26 +556,6 @@ function ldap_authentication_test_credentials($auth_conf, $sso_login, $authname,
     elseif ($detailed_watchdog_log) {
       watchdog('ldap_authentication',  '%username : Success at connecting to %sid', $watchdog_tokens, WATCHDOG_DEBUG);
     }
-
-/**
-  *
-  LDAP_SERVERS_BIND_METHOD_SERVICE_ACCT => t('Service Account Bind.  Use credentials in following section to
-  bind to ldap.  This option is usually a best practice. Service account is entered in next section.'),
-
-  LDAP_SERVERS_BIND_METHOD_USER => t('Bind with Users Credentials.  Use users\' entered credentials
-  to bind to LDAP.  This is only useful for modules that work during user logon such
-  as ldap authentication and ldap authorization.  This option is not a best practice in most cases.
-  The users dn must be of the form "cn=[username],[base dn]" for this option to work.'),
-
-  LDAP_SERVERS_BIND_METHOD_ANON_USER => t('Anonymous Bind for search, then Bind with Users Credentials.
-  Searches for user DN then uses users\' entered credentials to bind to LDAP.  This is only useful for
-  modules that work during user logon such as ldap authentication and ldap authorization.
-  The users dn must be discovered by an anonymous search for this option to work.'),
-
-  LDAP_SERVERS_BIND_METHOD_ANON => t('Anonymous Bind. Use no credentials to bind to ldap server.
-  Will not work on most ldaps.'),
-
-  */
 
     $bind_success = FALSE;
     if ($ldap_server->bind_method == LDAP_SERVERS_BIND_METHOD_SERVICE_ACCT) {
@@ -565,6 +677,11 @@ function ldap_authentication_test_credentials($auth_conf, $sso_login, $authname,
           $ldap_server->bind_method == LDAP_SERVERS_BIND_METHOD_ANON_USER) {
           $ldap_server->disconnect();
       }
+      // Update ldapUser with the sid of the server that the user authenticated
+      // on if that option was enabled in the LDAP user configuration.
+      if ($auth_conf->ldapUser->drupalAcctProvisionServer == LDAP_USER_AUTH_SERVER_SID) {
+        $auth_conf->ldapUser->drupalAcctProvisionServer = $ldap_server->sid;
+      }
       break; //success
     }
 
@@ -576,7 +693,7 @@ function ldap_authentication_test_credentials($auth_conf, $sso_login, $authname,
   if ($detailed_watchdog_log) {
     watchdog('ldap_authentication',  '%username : Authentication result id=%result auth_result=%auth_result (%err_text)', $watchdog_tokens, WATCHDOG_DEBUG);
   }
-  
+
   return array($authentication_result, $ldap_user, $ldap_server);
 }
 
@@ -605,7 +722,7 @@ function ldap_authentication_fail_response($authentication_result, $auth_conf, $
     }
   }
 }
-    
+
 /**
  * get human readable authentication error string
  *
@@ -648,3 +765,4 @@ function _ldap_authentication_err_text($error) {
 
   return $msg;
 }
+

@@ -1166,12 +1166,17 @@ form#search-block-form input.form-submit {
 
 .navigation ul.menu li.expanded ul ul {
     display:none;
-	left: 206px;
-    margin-top: 6px;
-    top: 0;
+	left: 200px;
 	box-shadow: none;
+	margin-top:-40px;
 }	
-	
+
+@-moz-document url-prefix() {
+	.navigation ul.menu li.expanded ul ul {
+		margin-top:6px;
+	}
+}
+
 /* custom boxes */
 #zone-content {
 	position: relative;
@@ -2735,19 +2740,6 @@ td img {
     }
 }
 
-.block-menu-block .file, .block-menu-block a.file {
-    background:none !important;
-    background-color: none;
-    border-radius:0px;
-    box-shadow:none;
-    display:list-item;
-    padding:0;
-}
-
-#block-system-main-menu .file {
-    border-radius: 0;
-    box-shadow:none;
-}
 
 #search-block-form .captcha-admin-links, .views-exposed-widget .captcha-admin-links {
     display: none;

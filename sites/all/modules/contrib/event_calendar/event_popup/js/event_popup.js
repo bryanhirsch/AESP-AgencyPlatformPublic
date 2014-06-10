@@ -45,7 +45,7 @@
             var url = $(this).attr('href');
             var title = $(this).attr('title');
             // Use defaults if not provided
-            var selector = $(this).attr('name') ? $(this).attr('name') : settings.event_popup.selector;
+            var selector = $(this).attr('name') ? 'event-calendar' : 'event_calendar';
             
             var options =  Drupal.event_popup.explodeOptions('width:auto;height:auto;position:[300,140]');
            
@@ -76,7 +76,7 @@
                 // Inline javascript gets removed/moved around when passed into
                 // $() so you have to create a fake div and add the raw data into
                 // it then find what you need and clone it. Fun.
-                $('#event-popup-container').html( $( '<div></div>' ).html( data ).find( '#' + selector ).clone() );
+                $('#event-popup-container').html( $( '<div></div>' ).html( data ).find( ':regex(class, .*'+selector+'.*)' ).not('.field').clone() );
                 
                 // Attach any behaviors to the loaded content
                 //Drupal.attachBehaviors($('#event-popup-container'));

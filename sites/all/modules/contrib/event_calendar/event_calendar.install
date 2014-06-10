@@ -55,12 +55,6 @@ function is_node_type_already_exist($node_type, $ext) {
  */
 function event_calendar_uninstall() {
   $node_type = variable_get('event_calendar_node_type', 'event_calendar');
-  // Delete nodes.
-  $result = db_select('node')->fields('node', array('nid'))->condition('type', $node_type)->execute();
-  while ($obj = $result->fetchObject()){
-    node_delete($obj->nid);
-  }
-
   // Delete content type and all fields.
   $instances = field_info_instances('node', $node_type);
   foreach ($instances as $instance_name => $instance) {
@@ -70,6 +64,12 @@ function event_calendar_uninstall() {
   foreach ($instances as $instance_name => $instance) {
     field_delete_field($instance);
   }
+  
+  $result= db_query("SELECT nid FROM {node} AS n WHERE n.type = '$node_type'");
+  foreach ($result as $record) {
+    node_delete($record->nid);
+  }
+  
   node_type_delete($node_type);
 
   // Delete peristant variables that control settings.
@@ -210,6 +210,7 @@ function _event_calendar_installed_fields($t) {
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
+      'required' => TRUE, 
       'entity_types' => array(),
       'field_name' => 'event_calendar_date',
       'foreign keys' => array(),
@@ -292,7 +293,7 @@ function _event_calendar_installed_instances($t) {
           'weight' => 0,
         ),
       ),
-      'label' => 'Dates',
+      'label' => 'Date',
       'settings' => array(
         'default_value' => 'now',
         'default_value2' => 'blank',

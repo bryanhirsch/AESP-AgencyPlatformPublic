@@ -268,13 +268,14 @@ function background_process_service_access($handle, $token) {
   }
 
   // Login as the user that requested the call
+  global $user;
   if ($process->uid) {
-    global $user;
-    $user = user_load($process->uid);
-    if (!$user) {
+    $load_user = user_load($process->uid);
+    if (!$load_user) {
       // Invalid user!
       return FALSE;
     }
+    $user = $load_user;
   }
   else {
     $user = drupal_anonymous_user();

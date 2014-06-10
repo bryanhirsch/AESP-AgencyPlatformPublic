@@ -27,7 +27,7 @@ function ultimate_cron_drush_command() {
   $items['cron-run'] = array(
     'description' => "Run cron job.",
     'arguments' => array(
-      'function' => 'Function to run',
+      'function' => 'Function to run. Use "all" for running all jobs (default)',
     ),
     'options' => array(
       'cli' => "Don't spawn a background process through http",
@@ -185,6 +185,11 @@ function drush_ultimate_cron_cron_run($function = NULL) {
   $check_rule = drush_get_option('check-rule');
   $logfile = drush_get_option('logfile');
   $logfile = is_string($logfile) ? $logfile : '/dev/null';
+
+  // Default to run all jobs if not specified.
+  if (is_null($function)) {
+    $function = 'all';
+  }
 
   // Get global options
   $options = drush_get_context('cli');

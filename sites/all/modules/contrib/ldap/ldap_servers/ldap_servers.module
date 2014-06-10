@@ -31,6 +31,7 @@ define('LDAP_SERVERS_ENC_TYPE_SALTED_MD5', 7);
 define('LDAP_SERVERS_ENC_TYPE_SHA', 8);
 define('LDAP_SERVERS_ENC_TYPE_SALTED_SHA', 9);
 define('LDAP_SERVERS_ENC_TYPE_CLEARTEXT', 10);
+
 define('LDAP_SERVERS_CYPHER_MODE', 'cfb', 12);
 
 define('LDAP_SERVERS_BIND_METHOD_SERVICE_ACCT', 1);
@@ -527,6 +528,7 @@ function ldap_servers_get_servers($sid = NULL, $type = NULL, $flatten = FALSE, $
   }
 }
 
+
 /**
  * see ldap_servers_get_servers()
  */
@@ -675,15 +677,24 @@ function ldap_servers_binary($value) {
  */
 
 function ldap_servers_get_user_ldap_data($drupal_user, $sid = NULL, $ldap_context = NULL) {
-
-  if (is_object($drupal_user) && property_exists($drupal_user, 'uid') && $authname = db_query("SELECT authname FROM {authmap} WHERE uid = :uid AND module = 'ldap_user'", array(':uid' => $drupal_user->uid))->fetchColumn()) {
+  if (is_object($drupal_user) && property_exists($drupal_user, 'uid') &&
+      function_exists('ldap_user_get_authname') && ($authname = ldap_user_get_authname($drupal_user))) {
     $drupal_username = $authname;
   }
   else {
     $drupal_username = (is_object($drupal_user)) ? $drupal_user->name : $drupal_user;
   }
+  //Sometimes we have username instead of a drupal user object
+  //For example, when using LDAP user test form (admin/config/people/ldap/user/test)
+  //But we can still load the user by using $drupal_username  if $drupal_user is not an object
+  if ( !(is_object($drupal_user)) ) {
+    $user_object = user_load_by_name($drupal_username);
+    if (is_object($user_object) && property_exists($user_object, 'uid')) {
+      $drupal_user = $user_object;
+    }
+  }
   // if no explicit $sid, find most appropriate one
-  if (!$sid && module_exists('ldap_user')) {
+  if (module_exists('ldap_user') && (!$sid || $sid == LDAP_USER_AUTH_SERVER_SID)) {
     if (property_exists($drupal_user, 'ldap_user_puid_sid') &&
         !empty($drupal_user->ldap_user_puid_sid['und'][0]['value'])
       ) {
@@ -691,6 +702,7 @@ function ldap_servers_get_user_ldap_data($drupal_user, $sid = NULL, $ldap_contex
     }
     else {
       $ldap_user_conf = ldap_user_conf();
+      ldap_user_reset_provision_server($ldap_user_conf, $drupal_user);
       $sid = $ldap_user_conf->drupalAcctProvisionServer;
     }
   }
@@ -872,7 +884,7 @@ function ldap_servers_help($path, $arg) {
       $servers_help .= '<dd>' . t('LDAP Server -') . ' </dd>';
       $servers_help .= '<dd>' . t('LDAP port -') . ' </dd>';
       $servers_help .= '<dd>' . t('Use Start-TLS -') . ' </dd>';
-      $servers_help .= '<dd>' . t('Follow LDAP Referrals - ') . '</dd>';
+      $servers_help .= '<dd>' . t('Follow LDAP Referrals -') . ' </dd>';
       $servers_help .= '</dl>';
       $servers_help .= '<dl>';
       $servers_help .= '<dt>' . t('BINDING METHOD') . '</dt>';
@@ -1007,7 +1019,6 @@ function ldap_servers_get_all_rdn_values_from_dn($dn, $rdn) {
     $pair = explode('=', $p);
     if (drupal_strtolower(trim($pair[0])) == $rdn) {
       $rdn_values[] = ldap_pear_unescape_dn_value(trim($pair[1]));
-      break;
     }
   }
   return $rdn_values;

@@ -11,13 +11,12 @@ function event_calendar_colors_init() {
   // Create css file and folder.
   _event_css_add();
   // Define css path.
-  $path  = base_path() . variable_get('file_public_path', conf_path() . '/files/');
-  $protocol = 'http://';
-  if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-    $protocol = 'https://';
+  $path = variable_get('file_public_path', conf_path() . '/files');
+// Define file location based on $base_url in sites settings.php
+  if (file_exists($path . '/' . 'event_calendar_colors/event_calendar_colors.css')) {
+    $dynamic_file = $GLOBALS['base_url'] . '/' . $path . '/' . 'event_calendar_colors/event_calendar_colors.css';
+    drupal_add_css($dynamic_file, 'external');
   }
-  $dynamic_file = $protocol . $_SERVER['HTTP_HOST'] . '/' . $path . 'event_calendar_colors/event_calendar_colors.css';
-  drupal_add_css($dynamic_file, 'external');
 }
 
 /**
@@ -196,15 +195,15 @@ function admin_event_calendar_colors_settings_submit($form, &$form_state) {
   $path  = $_SERVER['DOCUMENT_ROOT'] . base_path() . variable_get('file_public_path', conf_path() . '/files/');
   $dynamic_file = $path . 'event_calendar_colors/event_calendar_colors.css';
   if (is_dir($path . '/event_calendar_colors')) {
-    chmod($path . '/event_calendar_colors', 0777);
+    chmod($path . '/event_calendar_colors', 0755);
   }
   else {
     mkdir($path . '/event_calendar_colors');
-    chmod($path . '/event_calendar_colors', 0777);
+    chmod($path . '/event_calendar_colors', 0755);
   }
   $handle = fopen($dynamic_file, 'w');
   if (!is_writable($dynamic_file)) {
-    chmod($dynamic_file, 0777);
+    chmod($dynamic_file, 0755);
   }
   fwrite($handle, $css);
 }
@@ -268,18 +267,11 @@ function event_calendar_colors_preprocess_calendar_item(&$vars) {
  */
 function _event_css_add() {
   // Create css folder and add write css.
-  $path  = DRUPAL_ROOT . '/' . variable_get('file_public_path', conf_path() . '/files/');
+  $path = DRUPAL_ROOT . '/' . variable_get('file_public_path', conf_path() . '/files/');
   if (is_dir($path . '/event_calendar_colors')) {
-    chmod($path . '/event_calendar_colors', 0777);
-  }
-  else {
+    chmod($path . '/event_calendar_colors', 0755);
+  } else {
     mkdir($path . '/event_calendar_colors');
-    chmod($path . '/event_calendar_colors', 0777);
-  }
-  $our_file_name = $path . '/event_calendar_colors/event_calendar_colors.css';
-
-  if (!file_exists($our_file_name)) {
-    $our_file_handle = fopen($our_file_name, 'w') or drupal_set_message(t('Not able to open file :') . ' ' . $our_file_name, 'error');
-    fclose($our_file_handle);
+    chmod($path . '/event_calendar_colors', 0755);
   }
 }
