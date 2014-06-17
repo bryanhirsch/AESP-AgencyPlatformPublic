@@ -21,12 +21,11 @@ function lock_initialize() {
 /**
  * Acquire (or renew) a lock, but do not block if it fails.
  *
- * @param string $name
+ * @param $name
  *   The name of the lock.
- * @param int $timeout
+ * @param $timeout
  *   A number of seconds (int) before the lock expires (minimum of 1).
- *
- * @return bool
+ * @return
  *   TRUE if the lock was acquired, FALSE if it failed.
  */
 function lock_acquire($name, $timeout = 30) {
@@ -57,10 +56,9 @@ function lock_acquire($name, $timeout = 30) {
  *
  * If an existing lock has expired, it is removed.
  *
- * @param string $name
+ * @param $name
  *   The name of the lock.
- *
- * @return bool
+ * @return
  *   TRUE if there is no lock or it was removed, FALSE otherwise.
  */
 function lock_may_be_available($name) {
@@ -76,26 +74,23 @@ function lock_may_be_available($name) {
  * that are acquired very frequently, since the lock is likely to be acquired
  * again by a different request while waiting.
  *
- * @param string $name
+ * @param $name
  *   The name of the lock.
- * @param int $delay
+ * @param $delay
  *   The maximum number of seconds to wait, as an integer.
- *
- * @return bool
+ * @return
  *   TRUE if the lock holds, FALSE if it is available.
  */
 function lock_wait($name, $delay = 30) {
-  /*
-   * Pause the process for short periods between calling
-   * lock_may_be_available(). This prevents hitting the database with constant
-   * database queries while waiting, which could lead to performance issues.
-   * However, if the wait period is too long, there is the potential for a
-   * large number of processes to be blocked waiting for a lock, especially
-   * if the item being rebuilt is commonly requested. To address both of these
-   * concerns, begin waiting for 25ms, then add 25ms to the wait period each
-   * time until it reaches 500ms. After this point polling will continue every
-   * 500ms until $delay is reached.
-   */
+  // Pause the process for short periods between calling
+  // lock_may_be_available(). This prevents hitting the database with constant
+  // database queries while waiting, which could lead to performance issues.
+  // However, if the wait period is too long, there is the potential for a
+  // large number of processes to be blocked waiting for a lock, especially
+  // if the item being rebuilt is commonly requested. To address both of these
+  // concerns, begin waiting for 25ms, then add 25ms to the wait period each
+  // time until it reaches 500ms. After this point polling will continue every
+  // 500ms until $delay is reached.
 
   // $delay is passed in seconds, but we will be using usleep(), which takes
   // microseconds as a parameter. Multiply it by 1 million so that all
@@ -127,7 +122,7 @@ function lock_wait($name, $delay = 30) {
  *
  * This will release the named lock if it is still held by the current request.
  *
- * @param string $name
+ * @param $name
  *   The name of the lock.
  */
 function lock_release($name) {
@@ -154,7 +149,7 @@ function _lock_id() {
 /**
  * Release all locks acquired by this request.
  */
-function lock_release_all($lock_id = NULL) {
+function lock_release_all($lock_id) {
   global $locks;
   foreach ($locks as $name => $id) {
     $value = dmemcache_get($name, 'semaphore');
