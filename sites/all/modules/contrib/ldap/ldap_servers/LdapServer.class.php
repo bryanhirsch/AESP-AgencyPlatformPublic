@@ -7,6 +7,30 @@
  */
 
 /**
+ * TODO check if this already exists or find a better place for this function
+ *
+ * Formats a ldap-entry ready to be printed on console.
+ * TODO describe preconditions for ldap_entry
+ */
+function pretty_print_ldap_entry($ldap_entry) {
+  $m=array();
+  for ($i=0; $i < $ldap_entry['count']; $i++) {
+    $k=$ldap_entry[$i];
+    $v=$ldap_entry[$k];
+    if(is_array($v)) {
+      $m2=array();
+      $max=$v['count']>3 ? 3 : $v['count'];
+      for ($j=0; $j < $max; $j++) {
+	$m2[] = $v[$j];
+      }
+      $v="(".join(", ", $m2).")";
+    }
+    $m[] = $k . ": " . $v;
+  }
+  return join(", ", $m);
+}
+
+/**
  * LDAP Server Class
  *
  *  This class is used to create, work with, and eventually destroy ldap_server
@@ -631,17 +655,17 @@ class LdapServer {
       }
       if (count($all_entries) == 0) {
         $all_entries = $entries;
+        unset($all_entries['count']);
       }
       else {
-        $existing_count = $all_entries['count'];
+        $existing_count = count($all_entries);
         unset($entries['count']);
         foreach ($entries as $i => $entry) {
           $all_entries[$existing_count + $i] = $entry;
         }
-        $all_entries['count'] = count($all_entries);
       }
     }
-
+    $all_entries['count'] = count($all_entries);
     return $all_entries;
 
   }
@@ -957,6 +981,12 @@ class LdapServer {
     else {
       $ldap_username = $drupal_username;
     }
+
+    // Let other modules alter the ldap name
+    $context = array(
+      'ldap_server' => $this,
+    );
+    drupal_alter('ldap_servers_username_to_ldapname', $ldap_username, $drupal_username, $context);
 
     return $ldap_username;
 
@@ -1548,7 +1578,10 @@ class LdapServer {
     elseif ($this->groupGroupEntryMembershipsConfigured) {
       $group_dns = $this->groupUserMembershipsFromEntry($user_ldap_entry, $nested);
     }
-
+    else {
+      watchdog('ldap_servers', 'groupMembershipsFromUser: Group memberships for server have not been configured.', array(), WATCHDOG_WARNING);
+      return FALSE;
+    }
     if ($return == 'group_dns') {
       return $group_dns;
     }
@@ -1681,7 +1714,12 @@ class LdapServer {
       $member_value = $user_ldap_entry['attr'][$this->groupMembershipsAttrMatchingUserAttr][0];
     }
     $member_value = ldap_pear_escape_filter_value($member_value);
-    $group_query = '(&(objectClass=' . $this->groupObjectClass . ')(' . $this->groupMembershipsAttr . "=$member_value))";
+    if ($this->groupObjectClass == '') {
+      $group_query = '(' . $this->groupMembershipsAttr . "=$member_value)";
+    }
+    else {
+      $group_query = '(&(objectClass=' . $this->groupObjectClass . ')(' . $this->groupMembershipsAttr . "=$member_value))";
+    }
 
     foreach ($this->basedn as $base_dn) {  // need to search on all basedns one at a time
       $group_entries = $this->search($base_dn, $group_query, array()); // only need dn, so empty array forces return of no attributes
@@ -1729,6 +1767,28 @@ class LdapServer {
       }
       else {// maybe cn, uid, etc is held
         $member_id = ldap_servers_get_first_rdn_value_from_dn($group_entry['dn'], $this->groupMembershipsAttrMatchingUserAttr);
+	if(!$member_id) {
+	  if ($this->detailed_watchdog_log) {
+	     watchdog('ldap_server', 'group_entry: %ge', array('%ge'=>pretty_print_ldap_entry($group_entry)));
+	  }
+	  // group not identified by simple checks yet!
+
+	  // examine the entry and see if it matches the configured groupObjectClass
+	  $goc=$group_entry['objectclass']; // TODO do we need to ensure such entry is there?
+	  if(is_array($goc)) {              // TODO is it always an array?
+	    foreach($goc as $g) {
+	      $g=drupal_strtolower($g);
+	      if($g == $this->groupObjectClass) {
+		// found a group, current user must be member in it - so:
+		if ($this->detailed_watchdog_log) {
+		  watchdog('ldap_server', 'adding %mi', array('%mi'=>$member_id));
+		}
+		$member_id=$group_entry['dn'];
+		break;
+	      }
+	    }
+	  }
+	}
       }
 
       if ($member_id && !in_array($member_id, $tested_group_ids)) {

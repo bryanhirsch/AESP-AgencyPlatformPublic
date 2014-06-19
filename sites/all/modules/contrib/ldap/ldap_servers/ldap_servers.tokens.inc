@@ -76,11 +76,17 @@ function ldap_servers_token_replace($resource, $text, $resource_type = 'ldap_ent
     $tokens[drupal_strtolower($attribute)] = $value;
   }
 
+  // If $text is not present as an attribute key, insert it and set the key's value to an empty string.
+  if (!array_key_exists(drupal_strtolower($text), $tokens)) {
+    $tokens[$text] = '';
+    $tokens[drupal_strtolower($text)] = '';
+  }
+
   $attributes = array_keys($tokens); //array of attributes (sn, givenname, etc)
   $values = array_values($tokens); //array of attribute values (Lincoln, Abe, etc)
   $result = str_replace($attributes, $values, $text);
 
-  $result = preg_replace('/\[[^\]]*>/', '', $result);  // strip out any unreplace tokens
+  $result = preg_replace('/\[[^\]]*]/', '', $result);  // strip out any unreplaced tokens
   return ($result == '') ? NULL : $result; // return NULL if $result is empty, else $result
 }
 
@@ -318,9 +324,9 @@ function ldap_servers_token_tokenize_entry($ldap_entry, $token_keys = 'all', $pr
       }
 
 
-      $tokens[$pre . $full_token_key . $post] = check_plain($value);
+      $tokens[$pre . $full_token_key . $post] = $value;
       if ($full_token_key != drupal_strtolower($full_token_key)) {
-        $tokens[$pre . drupal_strtolower($full_token_key) . $post] = check_plain($value);
+        $tokens[$pre . drupal_strtolower($full_token_key) . $post] = $value;
       }
     }
   }
@@ -383,7 +389,7 @@ function ldap_servers_token_tokenize_user_account($user_account, $token_keys = '
     $parts = explode('.', $token_key);
     $attr_type = $parts[0];
     $attr_name = $parts[1];
-    $attr_conversion = (isset($parts[2])) ? $parts[1] : 'none';
+    $attr_conversion = (isset($parts[2])) ? $parts[2] : 'none';
     $value = FALSE;
     $skip = FALSE;
 
@@ -430,7 +436,7 @@ function ldap_servers_token_tokenize_user_account($user_account, $token_keys = '
           break;
 
         case 'to-md5':
-          $value = md5($value);
+          $value = "{MD5}" . base64_encode( pack( "H*", md5( $value ) ) );
           break;
 
         case 'to-lowercase':

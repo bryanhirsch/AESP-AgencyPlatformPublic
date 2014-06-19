@@ -12,3 +12,6 @@
 .color-form h2 {
 display: none !important;
 }
+.captcha-admin-links {
+    display: none;
+}

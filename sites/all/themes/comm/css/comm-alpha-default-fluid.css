@@ -1,6 +1,5 @@
 /* all and (min-width: 600px) */
 
-
 #footer-subscribe {
   position: absolute;
   right: -10px;
@@ -10,7 +9,7 @@
 }
 .logo-img {
   float: left;
-  text-align:left;
+  text-align: left;
   margin-right: 10px;
 }
 .site-name-slogan {
@@ -19,8 +18,8 @@
   width: auto;
 }
 .footer-branding {
-	width:auto; 
-	float: none;
+  width: auto;
+  float: none;
 }
 /* show navigation that was hidden for mobile. */
 #region-menu {
@@ -28,22 +27,22 @@
   width: 100%;
 }
 #block-search-form {
-    float: right;
+  float: right;
 }
 #block-system-main-menu {
-	float: left;
+  float: left;
 }
 .navigation ul {
   padding: 10px 0 0 10px;
 }
 #region-branding {
-	width: 98%;
+  width: 98%;
 }
 
 #zone-footer #stay-connected h3 {
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  font-size: 1em; 
+  font-size: 1em;
   float: none;
   margin: 0px;
   margin-bottom: 5px;
@@ -54,60 +53,54 @@
 }
 
 #footer-tab-icon {
-	width: 100%;
-	margin: 0 auto;
+  width: 100%;
+  margin: 0 auto;
 }
-#footer-tab-icon img{
-	padding: 3px 20px;
+#footer-tab-icon img {
+  padding: 3px 20px;
 }
 .footer-menu-wrapper {
-	width: 100%;
+  width: 100%;
 }
 #footer-nav-wrapper {
-	width: auto;
+  width: auto;
 }
 #block-nodeblock-lottery-footer-branding {
-    width: 100%;
-	padding-top: 0px;
+  width: 100%;
+  padding-top: 0px;
 }
 #block-nodeblock-contact-us {
-	float: left;
-    width: 100%;
-} 
-.group_address {
-	width: auto;
-	margin-right: 20px;
+  float: left;
+  width: 100%;
 }
-.group_column1{
-	float:left;
+.group_address {
+  width: auto;
+  margin-right: 20px;
+}
+.group_column1 {
+  float: left;
 }
 
-.field-name-field-address-name,
-.field-name-field-address-,
-.field-name-field-address-line-2,
-.field-name-field-google-maps-link,
-.field-name-field-phone-number,
-.field-name-field-fax {
-	border-bottom: 0px solid #efefef;
+.field-name-field-address-name, .field-name-field-address-, .field-name-field-address-line-2, .field-name-field-google-maps-link, .field-name-field-phone-number, .field-name-field-fax {
+  border-bottom: 0px solid #efefef;
 }
 .field-name-field-phone-number {
-	border-top: 0px solid #EFEFEF;
+  border-top: 0px solid #EFEFEF;
 }
 .field-name-field-map-image {
-	float: left;
-	margin-top: 0px;
+  float: left;
+  margin-top: 0px;
 }
 
-.footer-utility li,
-.footer-nav ul.menu li {
+.footer-utility li, .footer-nav ul.menu li {
   float: none;
 }
 .footer-nav ul.menu {
-	display:block;
+  display: block;
 }
 
 .footer-nav ul.menu li li {
-	float: left;
+  float: left;
 }
 
 #footer-utility {
@@ -117,11 +110,11 @@
   margin-bottom: 20px;
 }
 #footer-utility li {
-  font-family: Arial,sans-serif;
+  font-family: Arial, sans-serif;
   font-weight: 400;
   margin: 0 0 10px;
   padding-top: 0;
   text-transform: uppercase;
-  float:none;
+  float: none;
   display: block;
 }

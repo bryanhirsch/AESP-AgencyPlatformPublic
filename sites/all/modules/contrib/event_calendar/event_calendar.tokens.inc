@@ -58,25 +58,28 @@ function event_calendar_tokens($type, $tokens, array $data = array(), array $opt
   if ($type == 'event_calendar' && !empty($data['event_calendar'])) {
     $event_calendar = $data['event_calendar'];
     foreach ($tokens as $name => $original) {
-      switch ($name) {
-        // Simple key values on the event_calendar.
-        case 'start_date':
-          $replacements[$original] = $event_calendar->event_calendar_date[$event_calendar->language]['0']['value'];
-          break;
+		 switch ($name) {
+					// Simple key values on the event_calendar.
+					case 'start_date':
+						$field_lang_code = field_language('node', $event_calendar, 'event_calendar_date', LANGUAGE_NONE);
+						$replacements[$original] = $event_calendar->event_calendar_date[$field_lang_code]['0']['value'];
+						break;
 
-        case 'end_date':
-          $replacements[$original] = $event_calendar->event_calendar_date[$event_calendar->language]['0']['value2'];
-          break;
+					case 'end_date':
+						$field_lang_code = field_language('node', $event_calendar, 'event_calendar_date', LANGUAGE_NONE);
+						$replacements[$original] = $event_calendar->event_calendar_date[$field_lang_code]['0']['value2'];
+						break;
 
-        case 'event_status':
-          $term_load = taxonomy_term_load($event_calendar->event_calendar_status[$event_calendar->language]['0']['tid']);
-          $replacements[$original] = $term_load->name;
-          break;
-          
-        case 'approval_url':
-          $replacements[$original] = url("admin/config/date/manage-events", $url_options);
-          break;
-      }
+					case 'event_status':
+						$field_lang_code = field_language('node', $event_calendar, 'event_calendar_status', LANGUAGE_NONE);
+						$term_load = taxonomy_term_load($event_calendar->event_calendar_status[$field_lang_code]['0']['tid']);
+						$replacements[$original] = $term_load->name;
+						break;
+
+					case 'approval_url':
+						$replacements[$original] = url("admin/config/date/manage-events", $url_options);
+						break;
+		 }
     }
   }
 

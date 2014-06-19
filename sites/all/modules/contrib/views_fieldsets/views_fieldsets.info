@@ -9,9 +9,9 @@ dependencies[] = views
 files[] = views_fieldsets_display_extender.inc
 files[] = views_fieldsets_fieldset_field_handler.inc
 
-; Information added by drupal.org packaging script on 2013-02-12
-version = "7.x-1.1"
+; Information added by Drupal.org packaging script on 2014-02-13
+version = "7.x-1.2"
 core = "7.x"
 project = "views_fieldsets"
-datestamp = "1360701659"
+datestamp = "1392335007"
 

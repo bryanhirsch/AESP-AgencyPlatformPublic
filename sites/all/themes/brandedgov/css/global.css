@@ -592,7 +592,7 @@ h1#page-title.theme-icon-default:before {
 .node-type-blog-entry #zone-content h1:before,
 /* end custom */
 #zone-content section[class*='block-views-blogs-block-'] h2.block-title:before,
-#zone-content [class*='theme-icon-blog'] h2.block-title:before,
+#zone-content h2.block-title[class*='theme-icon-blog']:before,
 h1#page-title[class*='theme-icon-blog']:before {
 	background: url("../img/icons/icon-blog.png") no-repeat scroll 13px 8px;
 }
@@ -600,7 +600,7 @@ h1#page-title[class*='theme-icon-blog']:before {
 /* INJECTOR .page-resources #zone-content h1:before,*/
 .node-type-resource #zone-content h1:before,
 #zone-content section[class*='block-views-resources-block-'] h2.block-title:before,
-#zone-content [class*='theme-icon-resource'] h2.block-title:before,
+#zone-content h2.block-title[class*='theme-icon-resource']:before,
 h1#page-title[class*='theme-icon-resource']:before {
 	background: url("../img/icons/icon-resources.png") no-repeat scroll 13px 8px;
 }
@@ -608,7 +608,7 @@ h1#page-title[class*='theme-icon-resource']:before {
 /* INJECTOR .page-services #zone-content h1:before,*/
 .node-type-services #zone-content h1:before,
 #zone-content section[class*='block-views-services-block-'] h2.block-title:before,
-#zone-content [class*='theme-icon-service'] h2.block-title:before,
+#zone-content h2.block-title[class*='theme-icon-service']:before,
 h1#page-title[class*='theme-icon-service']:before  {
 	background: url("../img/icons/icon-services.png") no-repeat scroll 13px 8px;
 }
@@ -621,7 +621,7 @@ h1#page-title[class*='theme-icon-service']:before  {
 .node-type-event-calendar #zone-content h1:before,
 #zone-content section[class*='block-views-events-list-block-'] h2.block-title:before,
 #zone-content section[class*='block-views-calendar-block-'] h2.block-title:before,
-#zone-content .theme-icon-event_calendar h2.block-title:before,
+#zone-content h2.block-title.theme-icon-event_calendar:before,
 h1#page-title.theme-icon-event_calendar:before {
 	background: url("../img/icons/icon-events.png") no-repeat scroll 13px 8px;
 }
@@ -637,7 +637,7 @@ h1#page-title.theme-icon-event_calendar:before {
 #zone-content section[class*='block-views-media-gallery-block-'] h2.block-title:before,
 #zone-content .theme-icon-media_gallery h2.block-title:before,
 h1#page-title.theme-icon-media_gallery:before,
-#zone-content .theme-icon-photo h2.block-title:before,
+#zone-content h2.block-title.theme-icon-photo:before,
 h1#page-title.theme-icon-photo:before {
 	background: url("../img/icons/icon-media.png") no-repeat scroll 13px 8px;
 }
@@ -646,7 +646,7 @@ h1#page-title.theme-icon-photo:before {
 .page-user  #zone-content h1:before,*/
 .node-type-profile #zone-content h1:before,
 #zone-content section[class*='block-views-profiles-block-'] h2.block-title:before,
-#zone-content .theme-icon-profile h2.block-title:before,
+#zone-content h2.block-title.theme-icon-profile:before,
 h1#page-title.theme-icon-profile:before {
 	background: url("../img/icons/icon-profile.png") no-repeat scroll 13px 8px;
 }
@@ -654,7 +654,7 @@ h1#page-title.theme-icon-profile:before {
 /* INJECTOR .page-documents #zone-content h1:before,*/
 .node-type-document #zone-content h1:before,
 #zone-content section[class*='block-views-documents-block-'] h2.block-title:before,
-#zone-content .theme-icon-document h2.block-title:before,
+#zone-content h2.block-title.theme-icon-document:before,
 h1#page-title.theme-icon-document:before {
 	background: url("../img/icons/icon-documents.png") no-repeat scroll 13px 8px;
 }
@@ -662,14 +662,14 @@ h1#page-title.theme-icon-document:before {
 /* INJECTOR .page-webform #zone-content h1:before,*/
 .node-type-webform #zone-content h1:before,
 #zone-content section[class*='block-views-webform-block'] h2.block-title:before,
-#zone-content .theme-icon-webform h2.block-title:before,
+#zone-content h2.block-title.theme-icon-webform:before,
 h1#page-title.theme-icon-webform:before {
 	background: url("../img/icons/icon-webform.png") no-repeat scroll 13px 8px;
 }
 
 .context-contact-us #zone-content h1:before,
 #zone-footer section.block-contact-us h2.block-title:before,
-#zone-content .theme-icon-mail h2.block-title:before,
+#zone-content h2.block-title.theme-icon-mail:before,
 h1#page-title.theme-icon-mail:before {
 	background: url("../img/icons/icon-contactus.png") no-repeat scroll 13px 8px;
 }
@@ -1402,13 +1402,17 @@ position: relative;
 .navigation ul.menu li.expanded ul ul {
 	display: none;
 	left: 206px;
-	margin-top: 6px;
-	top: 0;
+	margin-top: -40px;
 	box-shadow: none;
 	/*
 	 * MD Added margin adjustment for chrome browser on child menu items
 	 */
 	-webkit-margin-before: -40px;
+}
+@-moz-document url-prefix() {
+	.navigation ul.menu li.expanded ul ul {
+		margin-top:6px;
+	}
 }
 
 /* custom boxes */
@@ -2837,9 +2841,8 @@ div.field:nth-child(5) {
 /*
  * MD - restricted images to a width
  */
-.field-type-image {
-	max-width: 100%;
-	width: auto;
+.node-form .field-type-image {
+	width: 100%;
 }
 
 /*
@@ -2980,6 +2983,46 @@ td.views-field-edit-node {
     box-shadow:none;
 }
 
-#search-block-form .captcha-admin-links, .views-exposed-widget .captcha-admin-links {
+
+.captcha-admin-links {
     display: none;
+}
+.webform-client-form .captcha-admin-links {
+	display:block;
+}
+
+.mean-expand {
+    height:29px !important;
+}
+
+a.mean-expand.mean-clicked {
+    height:25px !important;
+}
+
+.mean-container .mean-nav ul li {
+    width:93% !important
+}
+
+.mean-container a.meanmenu-reveal {
+	width:100%;
+}
+
+.mean-container a.meanmenu-reveal span {
+	width:30px;
+}
+
+/*
+ * MD - added Style to page tabs
+ */
+#region-content .tabs li {
+    display: inline-block;
+    height:25px;
+}
+#region-content .tabs ul.primary {
+    white-space:normal;
+}
+@media (max-width:500px){
+    #region-content .tabs li a, #region-content .tabs li {
+        display:block;
+    }
 }

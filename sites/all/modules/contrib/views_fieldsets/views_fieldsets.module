@@ -6,13 +6,6 @@
  */
 
 /**
- * Implements hook_init().
- */
-function views_fieldsets_init() {
-
-}
-
-/**
  * Implements hook_theme().
  */
 function views_fieldsets_theme() {
@@ -142,7 +135,7 @@ function views_fieldsets_render__simple($fields, $vars) {
 }
 
 /**
- * Default theme function for views_fieldsets_fieldset.
+ * Default preprocessor for views_fieldsets_fieldset.
  */
 function template_preprocess_views_fieldsets_fieldset(&$vars) {
   $view = $vars['view'];
@@ -152,13 +145,16 @@ function template_preprocess_views_fieldsets_fieldset(&$vars) {
   $views_field = $vars['fields'][$fieldset_field];
   $views_field_options = $views_field->handler->options;
 
-  // HTML tag.
+  // HTML tags.
   $vars['tag'] = $views_field_options['fieldset']['type'];
+  $vars['legend_tag'] = $vars['tag'] == 'fieldset' ? 'legend' : '';
 
   // CSS classes.
   $classes = $views_field->handler->tokenize_value($views_field_options['fieldset']['classes'], $view->row_index);
   $classes_array = array_filter(explode(' ', $classes));
-  $classes_array[] = drupal_strtolower(drupal_clean_css_identifier($views_field->label));
+  if (!$classes_array) {
+    $classes_array[] = drupal_strtolower(drupal_clean_css_identifier($views_field->label));
+  }
   $classes_array[] = 'views-fieldset';
   if (!empty($views_field_options['fieldset']['collapsible'])) {
     $classes_array[] = 'collapsible';
@@ -175,6 +171,7 @@ function template_preprocess_views_fieldsets_fieldset(&$vars) {
   else {
     $vars['legend'] = $views_field->label;
   }
+  $vars['legend'] = t($vars['legend'], array(), array('context' => 'views_fieldsets'));
 
   // Attributes?
   $vars['attributes_array'] = array(
@@ -321,8 +318,9 @@ function views_fieldsets_hierarchy_info($display_handler, $fieldsets, $get_paren
  * Implements hook_form_FORM_ID_alter() for views_ui_rearrange_form().
  */
 function views_fieldsets_form_views_ui_rearrange_form_alter(&$form, &$form_state, $form_id = 'views_ui_rearrange_form') {
-  if (!isset($form['fields']) || 'field' != end(explode('/', $form['#action']))) {
-    return;
+  $actions = array_filter(explode('/', $form['#action']));
+  if (!isset($form['fields']) || 'field' != end($actions)) {
+     return;
   }
 
   $view = $form_state['view'];

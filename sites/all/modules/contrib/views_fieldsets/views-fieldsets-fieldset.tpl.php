@@ -1,8 +1,10 @@
 
 <<?php print $tag; ?> class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-  <?php if ('fieldset' == $tag): ?>
-    <legend><span class="fieldset-legend"><?php print $legend; ?></span></legend>
+  <?php if ($legend_tag): ?>
+    <<?php print $legend_tag; ?>>
+      <span class="fieldset-legend"><?php print $legend; ?></span>
+	</<?php print $legend_tag; ?>>
     <div class="fieldset-wrapper">
   <?php endif; ?>
 
@@ -10,7 +12,7 @@
 	<?php print $field->wrapper_prefix . $field->label_html . $field->content . $field->wrapper_suffix; ?>
   <?php endforeach; ?>
 
-  <?php if ('fieldset' == $tag): ?>
+  <?php if ($legend_tag): ?>
     </div>
   <?php endif; ?>
 
