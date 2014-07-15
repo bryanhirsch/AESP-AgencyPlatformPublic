@@ -5,6 +5,8 @@
  * Node convert ubercart.module include
  *
  * Performs necessary changes regarding ubercart type conversions.
+ *
+ * @TODO Fix for Drupal 7.
  */
 
 /**
