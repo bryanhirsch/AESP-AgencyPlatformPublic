@@ -6,60 +6,40 @@ jQuery(document).ready(function($) {
         var i = 0, loc = 0;
         var wrapString = '';
 
-		//moves class for page icon
-        if (page != null) {
+        if (page.html() != null) {
             var outerString = page.html();
 
             loc = outerString.indexOf('theme-icon-');
             if (loc != -1) {
                 var a = outerString.indexOf(' ', loc + 1);
                 var b = outerString.indexOf('"', loc + 1);
-                
-                //checks if substring is at the end of class list
                 if (b < a) {
                     a = b;
                 }
                 wrapString = outerString.substring(loc, a).replace(/\s/g, '');
             }
-            
             if (pageTitle != null) {
                 $(pageTitle).addClass(wrapString);
             }
         }
         wrapString = '';
 
-		//moves class for each block
         while (i < blocks.length) {
             innerString = blocks[i].innerHTML;
             loc = innerString.indexOf('theme-icon');
             var a = innerString.indexOf(' ', loc + 1);
             var b = innerString.indexOf('"', loc + 1);
-            
-            //checks if substring is at the end of class list
             if (b < a) {
                 a = b;
             }
             if (loc != -1) {
                 wrapString = innerString.substring(loc, a).replace(/\s/g, '');
             }
-            
             $(blocks[i]).find('.block-title').addClass(wrapString);
             i++;
             wrapString = ' ';
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     function prefaces() {
         var winWidth = jQuery(window).width();
         var prefaces = new Array();

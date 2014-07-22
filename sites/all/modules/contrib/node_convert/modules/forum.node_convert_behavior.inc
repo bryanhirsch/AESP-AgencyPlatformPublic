@@ -5,6 +5,8 @@
  * Node convert forum.module include
  *
  * Performs necessary changes regarding forum type conversions.
+ *
+ * @TODO Fix for Drupal 7.
  */
 
 /**

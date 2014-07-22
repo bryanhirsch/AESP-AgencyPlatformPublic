@@ -4,10 +4,28 @@ distribution_name = "Agency Platform"
 description = "Agency Platform Distribution"
 exclusive = "1"
 core = "7.x"
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+version = "7.x-2.0"
+>>>>>>> 2a044268fb6915bfabc3728a682362bd5c0f46e9
+
+;Version Information
+version = "7.1"
 
 
-
+<<<<<<< HEAD
 ; ----------
+=======
+version = "7.x-2.0"
+
+
+
+s ----------
+>>>>>>> 6fb5a51cc5bb355bad697f5ac722fd5584cf0bc3
+=======
+s ----------
+>>>>>>> 2a044268fb6915bfabc3728a682362bd5c0f46e9
 ; Dependencies
 ; ----------
 ; Administration
@@ -120,6 +138,7 @@ dependencies[] = redirect
 dependencies[] = strongarm
 dependencies[] = tabtamer
 dependencies[] = token
+dependencies[] = module_filter
 ; Performance and scalability
 dependencies[] = entitycache
 ; Rules

@@ -5,6 +5,8 @@
  * Node convert panels_node.module include
  *
  * Performs necessary changes regarding panels_node type conversions.
+ *
+ * @TODO Fix for Drupal 7.
  */
 
 /**
