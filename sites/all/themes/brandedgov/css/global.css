@@ -662,7 +662,7 @@ h1#page-title.theme-icon-document:before {
 /* INJECTOR .page-webform #zone-content h1:before,*/
 .node-type-webform #zone-content h1:before,
 #zone-content section[class*='block-views-webform-block'] h2.block-title:before,
-#zone-content h2.block-title.theme-icon-webform:before,
+#zone-content h2.block-title.theme-icon-webfor:before,
 h1#page-title.theme-icon-webform:before {
 	background: url("../img/icons/icon-webform.png") no-repeat scroll 13px 8px;
 }
@@ -2899,7 +2899,7 @@ td img {
 	font-size :12px;
 }
 
-td.views-field-edit-node {
+table .views-field-edit-node {
 	float:none;
 } 
 
@@ -2989,40 +2989,4 @@ td.views-field-edit-node {
 }
 .webform-client-form .captcha-admin-links {
 	display:block;
-}
-
-.mean-expand {
-    height:29px !important;
-}
-
-a.mean-expand.mean-clicked {
-    height:25px !important;
-}
-
-.mean-container .mean-nav ul li {
-    width:93% !important
-}
-
-.mean-container a.meanmenu-reveal {
-	width:100%;
-}
-
-.mean-container a.meanmenu-reveal span {
-	width:30px;
-}
-
-/*
- * MD - added Style to page tabs
- */
-#region-content .tabs li {
-    display: inline-block;
-    height:25px;
-}
-#region-content .tabs ul.primary {
-    white-space:normal;
-}
-@media (max-width:500px){
-    #region-content .tabs li a, #region-content .tabs li {
-        display:block;
-    }
 }

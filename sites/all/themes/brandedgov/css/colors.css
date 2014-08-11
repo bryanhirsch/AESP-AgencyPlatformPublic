@@ -55,6 +55,7 @@ li a.active {
 #zone-header h2 a{
   color: #ffffff;
 }
+.node-basic-slideshow .field-slideshow-pager a,
 #zone-header #home-top-numbers li a,
 #right-nav li a:hover, 
 #right-nav li.active a:hover, 
@@ -63,6 +64,7 @@ li a.active {
 #right-nav li.active-trail a {
   background-color: #c5d8db;
 }
+.node-basic-slideshow .field-slideshow-pager a.activeSlide,
 #zone-header #home-top-numbers a.activeSlide {
   background-color: #009999;
 }
@@ -112,6 +114,7 @@ li a.active {
 #zone-postscript {
 	background-color: #eae5d7;
 }
+.node-basic-slideshow .file,
 #zone-content a,
 #zone-content a.active,
 #zone-content .node-content .webform-client-form input.form-submit,

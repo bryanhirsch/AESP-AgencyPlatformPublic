@@ -471,20 +471,14 @@ form#search-block-form input.form-submit {
 }
 .footer-utility li, .footer-nav ul.menu li {
   float: none;
+  border-right: 1px solid #fff;
   padding-right: 1em;
   padding: 0 1em 0 0;
 }
-
-.footer-utility li, .footer-nav .content > ul.menu > li > a {
-  border-right: 1px solid #FFFFFF;
-  padding-right:20px;
-}
-
-.footer-nav ul.menu li.last a {
+.footer-nav ul.menu li.last {
   border: none;
 }
-
-#zone-footer .footer-nav ul.menu li:hover > a {
+#zone-footer .footer-nav ul.menu li:hover a {
   text-decoration: none;
   color: #ffd046;
 }

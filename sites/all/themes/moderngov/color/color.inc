@@ -2,23 +2,23 @@
 
 /**
  * @file
- * File to integrate color module.
+ * file to integrate color module.
  */
 
 // Put the logo path into JavaScript for the live preview.
 drupal_add_js(array('color' => array('logo' => theme_get_setting('logo', 'agency_1'))), 'setting');
 
 $info = array(
-  // Available colors and color labels used in theme.
+  // available colors and color labels used in theme.
   'fields' => array(
     'base' => t('Main background'),
     'text' => t('Text color'),
     'links' => t('Links color'),
     'link' => t('Link color'),
-    'brandingzonebg' => t('Branding zone background'),
-    'brandingzonetext' => t('Branding zone text'),
-    'brandingzonelinks' => t('Branding zone links'),
-    'brandingzoneblocktitles' => t('Branding zone block titles'),
+    'brandingzonebg' => t('branding zone background'),
+    'brandingzonetext' => t('branding zone text'),
+    'brandingzonelinks' => t('branding zone links'),
+    'brandingzoneblocktitles' => t('branding zone block titles'),
     'menuzonebg' => t('Menu zone background'),
 	'menuzonehoverlinks' => t('Menu zone navigation hover links'),
 	'menuzonehoverbg' => t('Menu zone navigation hover bg'),
@@ -36,26 +36,26 @@ $info = array(
     'prefacezonetitles' => t('Preface zone titles'),
     'prefacezonetitlesbg' => t('Preface zone titles bg'),
 	'prefacezonesubtitle' => t('Preface zone subtitle'),
-    'contentzonelinks' => t('Content zone links'),
-    'contentzonebg' => t('Content zone background'),
-    'contentzonelinks' => t('Content zone links'),
-    'contentzoneblocktitles' => t('Content zone block titles'),
-	'contentzonemorebg' => t('Content zone read more'),
+    'contentzonelinks' => t('content zone links'),
+    'contentzonebg' => t('content zone background'),
+    'contentzonelinks' => t('content zone links'),
+    'contentzoneblocktitles' => t('content zone block titles'),
+	'contentzonemorebg' => t('content zone read more'),
     'postscriptzonetext' => t('Postscript zone text'),
     'postscriptzonelinks' => t('Postscript zone links'),
     'postscriptzoneblocktitles' => t('Postscript zone block titles'),
-    'footerzonebg' => t('Footer zone background'),
-    'footerzoneblocktitles' => t('Footer zone block titles'),
-    'footerzonecontactus' => t('Footer zone contact us'),
-	'footerzonemaplink' => t('Footer zone map link'),
-    'footerzonetab' => t('Footer zone plus tab bg'),
-    'footerzonelinks' => t('Footer zone links'),
-    'footerzonemenu' => t('Footer zone menu bg'),
+    'footerzonebg' => t('footer zone background'),
+    'footerzoneblocktitles' => t('footer zone block titles'),
+    'footerzonecontactus' => t('footer zone contact us'),
+	'footerzonemaplink' => t('footer zone map link'),
+    'footerzonetab' => t('footer zone plus tab bg'),
+    'footerzonelinks' => t('footer zone links'),
+    'footerzonemenu' => t('footer zone menu bg'),
   ),
   // Pre-defined color schemes.
   'schemes' => array(
     'default' => array(
-      'title' => t('Bisbee (default)'),
+      'title' => t('bisbee (default)'),
       'colors' => array(
         'base' => '#d2c0ac',
         'text' => '#333333',
@@ -134,8 +134,8 @@ $info = array(
         'footerzonebg' => '#1f1b29',
         'footerzoneblocktitles' => '#474848',
         'footerzonecontactus' => '#fff3f0',
-        'footerzonemenu' => '#865D6B',
-		'footerzonetab' => '#865d6B',
+        'footerzonemenu' => '#865d6b',
+		'footerzonetab' => '#865d6b',
         'footerzonelinks' => '#ffffff',
         'footerzonemaplink' => '#ed5c2d',
       ),
@@ -184,7 +184,7 @@ $info = array(
       ),
     ),
 	'oakcreekalt' => array(
-      'title' => t('Oak Creek'),
+      'title' => t('Oak creek'),
       'colors' => array(
         'base' => '#fff9e5',
         'text' => '#333333',
@@ -227,7 +227,7 @@ $info = array(
       ),
     ),
 	'flagstaffalt' => array(
-      'title' => t('Flagstaff'),
+      'title' => t('flagstaff'),
       'colors' => array(
         'base' => '#e5e5e5',
         'text' => '#333333',
@@ -236,22 +236,22 @@ $info = array(
         'brandingzonebg' => '#3e68ac',
         'brandingzonetext' => '#eeedee',
         'brandingzoneblocktitles' => '#aaa9aa',
-        'menuzonebg' => '#3E68AC',
+        'menuzonebg' => '#3e68ac',
 		'menuzonehoverlinks' => '#ffffff',
-		'menuzonehoverbg' => '#3E68AC',
+		'menuzonehoverbg' => '#3e68ac',
         'headerzonetext' => '#eeeeed',
         'headerzonebg' => '#494949',
         'headerzonelinks' => '#ed5c2d',
 		'headerzonehoverlinks' => '#ff6633',
         'headerzonetitle' => '#ffffff',
 		'headerzonenumlinks' => '#f6e9d1',
-		'headerzonenumactivelinks' => '#6687BC',
+		'headerzonenumactivelinks' => '#6687bc',
 		'headerzonenumhoverlinks' => '#92afdd',
         'prefacezonebg' => '#f6e9d1',
         'prefacezonetext' => '#fff',
         'prefacezonelinks' => '#ed5c2d',
         'prefacezonetitles' => '#333333',
-		'prefacezonetitlesbg' => '#6687BC',
+		'prefacezonetitlesbg' => '#6687bc',
 		'prefacezonesubtitle' => '#63270d',
         'contentzonebg' => '#ffffff',
 		'contentzonelinks' => '#ed5c2d',
@@ -442,7 +442,7 @@ $info = array(
       ),
     ),
 	'douglas' => array(
-      'title' => t('Douglas'),
+      'title' => t('douglas'),
       'colors' => array(
         'base' => '#e1caa0',
         'text' => '#333333',
@@ -486,12 +486,12 @@ $info = array(
     ),
   ),
 
-  // CSS files (excluding @import) to rewrite with new color scheme.
+  // cSS files (excluding @import) to rewrite with new color scheme.
   'css' => array(
     'css/colors.css',
   ),
 
-  // Files to copy.
+  // files to copy.
   'copy' => array(
     'logo.png',
   ),
@@ -501,17 +501,17 @@ $info = array(
     array(
       // (x, y, width, height).
       'dimension' => array(0, 0, 0, 0),
-      // Direction of gradient ('vertical' or 'horizontal').
+      // direction of gradient ('vertical' or 'horizontal').
       'direction' => 'vertical',
       // Keys of colors to use for the gradient.
       'colors' => array('top', 'bottom'),
     ),
   ),
 
-  // Color areas to fill (x, y, width, height).
+  // color areas to fill (x, y, width, height).
   'fill' => array(),
 
-  // Coordinates of all the theme slices (x, y, width, height)
+  // coordinates of all the theme slices (x, y, width, height)
   // with their filename as used in the stylesheet.
   'slices' => array(),
 
@@ -523,7 +523,7 @@ $info = array(
   'preview_js' => 'color/preview.js',
   'preview_html' => 'color/preview.html',
 
-  // Base file for image generation.
+  // base file for image generation.
   'base_image' => 'color/base.png',
 );
 

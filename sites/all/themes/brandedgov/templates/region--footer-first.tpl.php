@@ -13,7 +13,7 @@ $footer_logo_img = theme_get_setting('logo');
 <div class="footer-branding clearfix">
 <?php if ($footer_logo_img): ?>
 <div id="footer-logo">
-<?php print '<img  class="footer-logo-image" src="' . $footer_logo_img . '" />'; ?>
+<?php print '<img alt="Agency Logo" class="footer-logo-image" src="' . $footer_logo_img . '" />'; ?>
 </div>
 <?php endif; ?>
 <?php if ($site_name || $site_slogan): ?>
@@ -101,7 +101,7 @@ $footer_logo_img = theme_get_setting('logo');
           <div class="field field-name-field-map-image field-type-image field-label-hidden">
             <div class="field-items">
     <?php if($footer_contact_us_map_link): ?>
-              <div class="field-item even"><a href="<?php echo $footer_contact_us_map_link; ?>" target="_blank"><img src="<?php echo $footer_contact_us_map_path; ?>" alt="" /></a></div>
+              <div class="field-item even"><a href="<?php echo $footer_contact_us_map_link; ?>" target="_blank"><img src="<?php echo $footer_contact_us_map_path; ?>" alt="Map Image" /></a></div>
     <?php else: ?>
               <div class="field-item even"><img src="<?php echo $footer_contact_us_map_path; ?>" alt="" /></div>
     <?php endif; ?>
