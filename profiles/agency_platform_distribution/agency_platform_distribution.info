@@ -3,6 +3,7 @@ name = "Agency Platform Distribution"
 distribution_name = "Agency Platform"
 description = "Arizona's Distribution Platform"
 exclusive = "1"
+version = "7.x-3.0"
 ;
 core = "7.x"
 ; ----------
@@ -30,6 +31,12 @@ dependencies[] = overlay
 dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = rdf
+
+;media
+dependencies[] = media
+
+;administrative
+dependencies[] = module_filter
 
 ;views
 dependencies[] = views
