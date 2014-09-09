@@ -1,0 +1,267 @@
+<?php
+/**
+ * @file
+ * Custom module to place content on site using menu system
+ */
+
+/**
+ * Implements hook_field_info().
+ */
+function menu_block_placement_field_info() {
+
+  return array(
+    'menu_block_placement_reference' => array(
+      'label' => t('Menu Block Placement'),
+      'description' => t('This field allows the user to use the menu to place blocks on pages and sub pages.'),
+      'settings' => array(
+        'allowed_values' => array(),
+        'allowed_values_function' => ''
+      ),
+      'default_widget' => 'options_select',
+      'default_formatter' => 'list_default',
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function menu_block_placement_field_formatter_info() {
+
+  return array(
+    'list_default' => array(
+      'label' => t('Default'),
+      'field types' => array(
+        'list_integer',
+        'list_float',
+        'list_text',
+        'list_boolean'
+      ),
+    )
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function menu_block_placement_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'list_default':
+      $allowed_values = list_allowed_values($field, $instance, $entity_type, $entity);
+
+      foreach ($items as $delta => $item) {
+        if (isset($item['mlid'])) {
+          $element[$delta] = array('#markup' => field_filter_xss($item['mlid']));
+        }
+      }
+      break;
+
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_settings_form().
+ */
+function menu_block_placement_field_settings_form($field, $instance) {
+
+  $defaults = field_info_field_settings($field['type']);
+  $settings = array_merge($defaults, $field['settings']);
+
+  $menus = menu_get_menus();
+
+  $options = array();
+  foreach ($menus as $key => $menu) {
+    $options[$key] = $menu;
+  }
+  if (!isset($settings['default_menus'])) {
+    $settings['default_menus'] = array();
+  }
+
+  $form['default_menus'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Default Menu Options'),
+    '#options' => $options,
+    '#default_value' => $settings['default_menus'],
+    '#description' => t('Select which menus will be availible to the content editor'),
+  );
+
+  return $form;
+
+}
+
+/**
+ * Implements hook_field_widget_info_alter().
+ */
+function menu_block_placement_field_widget_info_alter(&$info) {
+  $info['options_select']['field types'][] = 'menu_block_placement_reference';
+}
+
+/**
+ * Immplements hook_options_list().
+ */
+function menu_block_placement_options_list($field, $instance, $entity_type, $entity) {
+  //return menu_block_placement_options_callback();
+
+  if (isset($field["settings"]["default_menus"])) {
+    $default_menus = $field["settings"]["default_menus"];
+  }
+  else {
+    return FALSE;
+  }
+
+
+  foreach ($default_menus as $key => $value) {
+    if ($value === 0) {
+      unset($default_menus[$key]);
+    }
+  }
+
+  $settings_form_shown = FALSE;
+  if (!empty($entity)) {
+    $settings_form_shown = TRUE;
+  }
+
+  $menus = menu_get_menus();
+
+  $options = array();
+
+  if ($settings_form_shown === TRUE) {
+
+    $options = array();
+
+    $items = menu_parent_options($default_menus, array("mlid" => 0));
+
+    foreach ($items as $key => $value) {
+      $exploded_key = explode(":", $key);
+
+      $menu_machine_name = ucwords(str_replace("-", " ", array_shift($exploded_key)));
+
+      $menu_id = array_pop($exploded_key);
+
+      if ($menu_id != 0) {
+        $options[$menu_machine_name][$menu_id] = str_replace(array(
+          "<",
+          ">"
+        ), "", $value);
+      }
+    }
+
+  }
+
+  return $options;
+}
+
+function menu_block_placement_field_widget_form_alter(&$element, &$form_state, $context) {
+
+  // Add a css class to widget form elements for all fields of type mytype.
+  if ($context['field']['type'] == 'mytype') {
+    // Be sure not to overwrite existing attributes.
+    $element['#attributes']['class'][] = 'myclass';
+  }
+}
+
+function menu_block_placement_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  die("hello");
+  $element += array(
+    '#type' => $instance['widget']['type'],
+    '#default_value' => isset($items[$delta]) ? $items[$delta] : '',
+  );
+  return array('value' => $element);
+}
+
+/**
+ * Implements hook_field_widget_error().
+ */
+function menu_block_placement_field_widget_error($element, $error, $form, &$form_state) {
+  form_error($element, $error['message']);
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function menu_block_placement_field_is_empty($item, $field) {
+  if (!is_array($item)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+
+/**
+ * Implement hook_views_api().
+ */
+function menu_block_placement_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'menu_block_placement') . '/includes',
+  );
+}
+
+/*
+ * Implements hook_permissions().
+ */
+function menu_block_placement_permission() {
+  return array(
+    'administer block placement' => array(
+      'title' => t('Administer Block Placement'),
+      'description' => t('Configure Block Placement Settings.'),
+    ),
+  );
+}
+
+/*
+ * Implements hook_menu(){
+ */
+function menu_block_placement_menu() {
+  $items = array();
+  $items['admin/config/menu-block-placement'] = array(
+    'title' => 'Menu Block Placement Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('menu_block_placement_config'),
+    'access arguments' => array('administer block placement'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/*
+ * Helper Function for settings page
+ */
+function menu_block_placement_config() {
+  $all_themes = list_themes();
+  $active_themes = array();
+
+  foreach ($all_themes as $theme) {
+    if ($theme->status == 1) {
+      $active_themes[$theme->name] = array(
+        'name' => $theme->info['name'],
+        'regions' => system_region_list($theme->name, $show = REGIONS_VISIBLE),
+      );
+    }
+  }
+
+  $form = array();
+  foreach ($active_themes as $key => $value) {
+    $form[$key . '_fieldset'] = array(
+      '#title' => t($value['name'] . ' Regions'),
+      '#type' => 'fieldset',
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form[$key . '_fieldset'][$key . '_regions'] = array(
+      '#type' => 'checkboxes',
+      '#options' => $value['regions'],
+      '#default_value' => variable_get($key . '_regions'),
+    );
+  }
+  dpm($active_themes);
+  return system_settings_form($form);
+}

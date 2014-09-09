@@ -2,7 +2,7 @@ name = 'Commercial Theme'
 description = 'Arizona Commercial Theme. Based on <a href="http://drupal.org/project/omega">Omega</a>.'
 core = '7.x'
 screenshot = 'screenshot.png'
-base theme = 'omega'
+base theme = 'parentgov'
 
 regions[page_top] = 'Page Top'
 regions[page_bottom] = 'Page Bottom'

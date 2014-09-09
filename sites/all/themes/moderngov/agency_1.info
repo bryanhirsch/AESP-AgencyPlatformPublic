@@ -2,7 +2,8 @@ name = 'Modern Government'
 description = 'Modern Government. Based on <a href="http://drupal.org/project/omega">Omega</a>.'
 core = '7.x'
 screenshot = 'screenshot.png'
-base theme = 'omega'
+base theme = 'parentgov'
+
 regions[page_top] = 'Page Top'
 regions[page_bottom] = 'Page Bottom'
 regions[content] = 'Content'
@@ -31,9 +32,11 @@ zones[branding] = 'Branding'
 zones[menu] = 'Menu'
 zones[preface] = 'Preface'
 zones[postscript] = 'Postscript'
+
 css[global.css][name] = 'Your custom global styles'
 css[global.css][description] = 'This file holds all the globally active custom CSS of your theme.'
 css[global.css][options][weight] = '10'
+
 settings[toggle_logo] = '1'
 settings[toggle_name] = '1'
 settings[toggle_slogan] = '1'
@@ -426,6 +429,7 @@ settings[alpha_region_footer_second_equal_height_container] = '0'
 
 settings[background_image_url] = '/images/background-image.jpg'
 stylesheets[all][] = 'css/colors.css'
+scripts[] = /js/agency.js
 
 ; Information added by drupal.org packaging script on 2012-03-19
 version = "7.x-1.1"

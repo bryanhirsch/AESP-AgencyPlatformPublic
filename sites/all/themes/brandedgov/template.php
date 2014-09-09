@@ -17,8 +17,7 @@
  *
  * Needs moved to module since theme isn't used for admin, but keeping here for reference
  */
-/**
-function open_omega_system_themes_page_alter(&$theme_groups) {
+/*function open_omega_system_themes_page_alter(&$theme_groups) {
   $hidden = array(
     'alpha',
     'omega',
@@ -32,8 +31,8 @@ function open_omega_system_themes_page_alter(&$theme_groups) {
       }
     }
   }
-}
-*/
+}*/
+
 function agency_2_preprocess_region(&$vars) {
   global $language;
 

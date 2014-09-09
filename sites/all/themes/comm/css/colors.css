@@ -33,7 +33,7 @@ a:hover, a:active, li a.active {
   background-color: #5C8984;
 }
 
-#block-system-main-menu ul.menu a {
+#region-menu .navigation ul.menu a {
   color: #004785;
 }
 
@@ -51,9 +51,11 @@ a:hover, a:active, li a.active {
 #zone-header h2 a {
   color: #ffffff;
 }
+.node-basic-slideshow .field-slideshow-pager a,
 #zone-header #home-top-numbers li a, #right-nav li a:hover, #right-nav li.active a:hover, #right-nav li.active-active a:hover, #right-nav li.active a, #right-nav li.active-trail a {
   background-color: #c5d8db;
 }
+.node-basic-slideshow .field-slideshow-pager a.activeSlide,
 #zone-header #home-top-numbers a.activeSlide {
   background-color: #009999;
 }
@@ -82,11 +84,13 @@ a:hover, a:active, li a.active {
 }
 
 /* Content zone */
+.node-basic-slideshow .file,
 .front-text-background, #zone-postscript .block-inner, #zone-content .block-inner, #zone-content #region-sidebar-first .block-inner, #zone-content #region-sidebar-second .block-inner, .not-front #zone-content #region-content,
 /*.not-front #zone-content #region-sidebar-first,*/
 .not-front #zone-content #region-second, #zone-postscript {
   background-color: #eae5d7;
 }
+.node-basic-slideshow .file,
 #zone-content a, #zone-content a.active, #zone-content .node-content .webform-client-form input.form-submit, #zone-content .view-id-documents .download-link, #zone-content .file {
   color: #006666;
 }

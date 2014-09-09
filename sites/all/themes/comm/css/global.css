@@ -34,29 +34,23 @@ body {
 .bold {
 	font-weight: bold;
 }
-
 .italic {
 	font-style: italic;
 }
-
 .underline {
 	border-bottom: 1px solid;
 }
-
 .highlight {
 	background: #ffc;
 }
-
 .img-left {
 	float: left;
 	margin: 4px 10px 4px 0;
 }
-
 .img-right {
 	float: right;
 	margin: 4px 0 4px 10px;
 }
-
 .nopadding {
 	padding: 0
 }
@@ -534,9 +528,7 @@ body.node-type-webform h4 {
 	font-size: 1em;
 	color: #fff;
 }
-#zone-footer ul.menu ul {
-    display: none;
-}
+
 #stay-connected {
 	padding: 0;
 }
@@ -1768,10 +1760,10 @@ ul li a.calculator:hover {
 }
 
 /***** Utility Nav *****/
-#zone-user-wrapper {
+/*MD #zone-user-wrapper {
 	background: #000;
 	background: rgba(0,0,0,0.75);
-}
+}*/
 ul#user-menu {
 	font-family: Arial, sans-serif;
 	font-size: .917em;
@@ -2074,14 +2066,6 @@ div.node div.field-name-field-resource-photo {
 	width: auto;
 	height: 30px;
 	padding: 10px 0 20px 0px;
-}
-
-.views-field-field-secondary-phone-number {
-    display: inline;
-    float: left;
-    height: auto;
-    padding: 30px 0 10px 0px;
-    width: 100%;
 }
 
 .field-name-field-secondary-phone-number .field-label, .views-field-field-secondary-phone-number .views-label {
@@ -2772,11 +2756,6 @@ a.follow-link {
 	display: inline-block !important;
 }
 
-.field-type-file .field-item .file {
-    margin-top: 10px;
-    float:none;
-}
-
 #region-content .tabs li {
 	display: inline-block;
 	height: 25px;
@@ -3059,6 +3038,9 @@ form#search-block-form .form-text {
 	color: #ffd046;
 }
 
+#sticky_nav .menu-li-home {
+    display: none !important;
+}
 
 @media (max-width: 600px) {
 	#sticky_nav .logo {
@@ -3226,29 +3208,4 @@ ul.menu ul ul ul li .expand-menu {
 }
 ul.menu ul ul ul li .contract-menu {
 	background:url('../img/round_child_buttons.png') 0 25px;
-}
-
-.views-field-edit-node {
-    float: right;
-    font-style: italic;
-    text-transform: capitalize;
-}
-
-li.views-fluid-grid-item {
-    border-bottom: 1px solid #AAAAAA;
-}
-/*
- * MD - added Style to page tabs
- */
-#region-content .tabs li {
-    display: inline-block;
-    height:25px;
-}
-#region-content .tabs ul.primary {
-    white-space:normal;
-}
-@media (max-width:500px){
-    #region-content .tabs li a, #region-content .tabs li {
-        display:block;
-    }
 }

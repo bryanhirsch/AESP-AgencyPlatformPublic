@@ -5,6 +5,7 @@ jQuery(window).load(function() {//window.load instead of document.ready because 
 jQuery(document).ready(function($) {
 
     var stickyNav = function() {
+
         var flyout = $('#region-user-flyout');
         var sticky = $('#sticky_nav');
         var winHeight = $(window).height();
@@ -19,15 +20,12 @@ jQuery(document).ready(function($) {
 
         if (sticky.length > 0 && flyout.length > 0) {
             if ($('#sticky_nav').hasClass('sticky-desktop-mobile')) {
-                if (scrollPos > 50) {
+                if (scrollPos > $('#zone-branding').height() - 20) {
                     $('#sticky_nav').show();
-                    $('#zone-branding').hide();
                 } else {
-                    $('#zone-branding').show();
                     $('#sticky_nav').hide();
                 }
             } else {
-                $('#zone-branding').show();
                 $('#sticky_nav').hide();
             }
             if (winWidth < 831) {
@@ -66,123 +64,82 @@ jQuery(document).ready(function($) {
             if ($('#sticky_nav').is(":visible") && $('#toolbar').length > 0 && winWidth > 830) {
                 $('#sticky_nav').css('top', $('#toolbar').height());
                 $('#region-user-flyout').css('top', $('#toolbar').height() + $('#sticky_nav').height());
-            } else if ($('#sticky_nav').is(":visible") && $('#toolbar').length > 0){
-            	$('#sticky_nav').css('top', '');
+            } else if ($('#sticky_nav').is(":visible") && $('#toolbar').length > 0) {
+                $('#sticky_nav').css('top', '');
                 $('#region-user-flyout').css('top', $('#toolbar').height() + $('#sticky_nav').height());
             }
 
-			
             if (scrollPos - $('#region-user-flyout').position().top < 0) {
                 $('#region-user-flyout').height(winHeight - $('#region-user-flyout').position().top + scrollPos);
             } else {
-            	$('#region-user-flyout').height(winHeight);
+                $('#region-user-flyout').height(winHeight);
             }
         }
     };
 
-
-	//This function will align the preface regions if all 3 regions contain blocks.
     function prefaces() {
         var winWidth = $(window).width();
         var prefaces = new Array();
-        prefaces[0] = document.getElementById('region-preface-first');
-        prefaces[1] = document.getElementById('region-preface-second');
-        prefaces[2] = document.getElementById('region-preface-third');
+        var num_fields = new Array();
+        prefaces[0] = $('#region-preface-first');
+        prefaces[1] = $('#region-preface-second');
+        prefaces[2] = $('#region-preface-third');
 
-		//checks if all 3 regions have contents and window width is desktop
-        if (prefaces[0] != null && prefaces[1] != null && prefaces[2] != null && winWidth > 600) {
-            var i, j = 0, w1, w2, w3, itemHeight = 0, fields = new Array();
+        //this resets the heights to auto so they can be recalculated. Helpful for window size change
+        //also counts the number of fields in each region.
+        for (var i = 0; i < 3; i++) {
+            for (var j = 0; j < prefaces[i].find('.views-field').length; j++) {
+                $(prefaces[i].find('.views-field')[j]).css('height', '');
+            }
+            $(prefaces[i]).css('height', '');
+            num_fields[i] = prefaces[i].find('.views-field').length;
+        }
 
-            for ( i = 0; i < 3; i++) {
-                fields[i] = prefaces[i].querySelectorAll('.views-field');
+        if (winWidth > 600 && prefaces[0].html() != null && prefaces[1].html() != null && prefaces[2].html() != null) {
+            //calls the field height match function if the blocks contain the same number of views fields.
+            if (num_fields[0] == num_fields[1] && num_fields[0] == num_fields[2] && num_fields[0] > 0) {
+                field_match(prefaces);
+            } else if (num_fields[0] == num_fields[1] && num_fields[0] > 0) {
+                field_match([prefaces[0], prefaces[1]]);
+            } else if (num_fields[0] == num_fields[2] && num_fields[0] > 0) {
+                field_match([prefaces[0], prefaces[2]]);
+            } else if (num_fields[1] == num_fields[2] && num_fields[1] > 0) {
+                field_match([prefaces[1], prefaces[2]]);
             }
 
-            w1 = fields[0].length;
-            w2 = fields[1].length;
-            w3 = fields[2].length;
-
-			//if all three blocks have the same number of fields
-            if (w2 == w1 && w3 == w1) {
-                while (j < w1) {//j is the counter for the number of fields for each region
-                    itemHeight = 0;
-
-					//resets all heights to auto in case a window is resized
-                    for ( i = 0; i < 3; i++) {
-                        fields[i][j].style.height = 'auto';
-                    }
-
-					//checks for the talles field of all three regions
-                    for ( i = 0; i < 3; i++) {//i is the counter to go through each of the 3 regions
-                        if (fields[i][j].clientHeight > itemHeight) {
-                            itemHeight = fields[i][j].clientHeight - 5;
-                        }
-                    }
-					
-					//sets the height for the field for all 3 blocks.
-                    itemHeight = itemHeight.toString().concat('px');
-                    for ( i = 0; i < 3; i++) {
-                        fields[i][j].style.height = itemHeight;
-                    }
-
-                    j++;
-                }
-			
-			//if only 2 blocks have the same number of fields
-            } else {
-                if (w1 == w2) {
-                    heightMatch(fields[0], fields[1]);
-                } else if (w1 == w3) {
-                    heightMatch(fields[0], fields[2]);
-                } else if (w2 == w3) {
-                    heightMatch(fields[1], fields[2]);
+            //matches the containers of all three preface regions.
+            var tallest_preface = 0;
+            for (var i = 0; i < prefaces.length; i++) {
+                if (prefaces[i].height() > tallest_preface) {
+                    tallest_preface = prefaces[i].height();
                 }
             }
-
-			//resets the containers of the regions to auto
-            itemHeight = 0;
-            for ( i = 0; i < 3; i++) {
-                prefaces[i].style.height = 'auto';
+            for (var i = 0; i < 3; i++) {
+                prefaces[i].height(tallest_preface);
             }
-
-			//finds the tallest block
-            for ( i = 0; i < 3; i++) {
-                if (itemHeight < prefaces[i].clientHeight) {
-                    itemHeight = prefaces[i].clientHeight
-                }
-            }
-            
-            //sets all three blocks to the tallest height
-            itemHeight = itemHeight.toString().concat('px');
-            for ( i = 0; i < 3; i++) {
-                prefaces[i].style.height = itemHeight;
-            }
-
         }
     };
 
-	//function to match the fields for two blocks.
-    function heightMatch(item1, item2) {
-        var itemHeight;
-        for (var j = 0; j < item1.length; j++) {
-            if (item1[j].clientHeight > item2[j].clientHeight) {
-                itemHeight = item1[j].clientHeight.toString().concat('px');
-            } else if (item1[j].clientHeight < item2[j].clientHeight) {
-                itemHeight = item2[j].clientHeight.toString().concat('px');
+    function field_match(regions) {
+        for (var j = 0; j < regions[0].find('.views-field').length; j++) {//loop to go into each field
+            var tallest_field = 0;
+            for (var i = 0; i < regions.length; i++) {//loop through each region
+                if ($(regions[i].find('.views-field')[j]).innerHeight() > tallest_field) {
+                    tallest_field = $(regions[i].find('.views-field')[j]).height();
+                }
             }
 
-            item1[j].style.height = itemHeight;
-            item2[j].style.height = itemHeight;
+            for (var i = 0; i < regions.length; i++) {
+                $(regions[i].find('.views-field')[j]).height(tallest_field);
+            }
         }
     }
 
-	//manipulates the front slideshow
     function frontSlider() {
-    	//if only 1 slide exists, this will remove the slider controls
         if ($(".front-slider .slides li").size() <= 3) {
             $(".front-slider .flex-direction-nav").css("display", "none");
         }
 
-		//counts the number of characters in the description of the slide, then will adjust the font size accordingly.
         var $quote = $(".front-slider .text-foreground");
         for (var i = 0; i < $quote.size(); i++) {
             var numChars = $quote[i].innerHTML.length;
