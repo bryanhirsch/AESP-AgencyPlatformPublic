@@ -45,11 +45,8 @@
             var url = $(this).attr('href');
             var title = $(this).attr('title');
             // Use defaults if not provided
-// Patch
-//            var selector = $(this).attr('name') ? 'event-calendar' : 'event_calendar';
-              var selector = $(this).attr('name') ? $(this).attr('name') : 'event_calendar';   
-
- 
+            var selector = $(this).attr('name') ? 'event-calendar' : 'event_calendar';
+            
             var options =  Drupal.event_popup.explodeOptions('width:auto;height:auto;position:[300,140]');
            
             if (url && title && selector) {
