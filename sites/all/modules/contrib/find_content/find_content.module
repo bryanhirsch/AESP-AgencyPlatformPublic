@@ -9,6 +9,12 @@
  * Implements hook_form_alter().
  */
 function find_content_form_node_admin_content_alter(&$form, &$form_state, $form_id) {
+  
+  // Check to see if we are on the delet submit page, if we are, don't show the form
+  if(in_array('node_multiple_delete_confirm_submit', $form['#submit'])){
+    goto end;
+  }
+
   $searched_for = '';
   $results_array = '';
   if (isset($_SESSION['node_overview_search'])) {
@@ -17,12 +23,16 @@ function find_content_form_node_admin_content_alter(&$form, &$form_state, $form_
   if (isset($_SESSION['node_overview_search_term'])) {
     $searched_for = $_SESSION['node_overview_search_term'];
   }
-  $form['admin']['nodes']['#weight'] = 2;
+  $form['admin']['options']['#weight'] = 5;
+  $form['admin']['search']['#weight'] = 10;
+  $form['admin']['nodes']['#weight'] = 15;
+  $form['admin']['pager']['#weight'] = 20;
+  
   $form['admin']['search'] = array(
     '#type' => 'fieldset',
     '#title' => 'Search by title',
     '#access' => TRUE,
-    '#weight' => 1,
+    // '#weight' => 1,
   );
   $form['admin']['search']['search_term'] = array(
     '#type' => 'textfield',
@@ -46,6 +56,7 @@ function find_content_form_node_admin_content_alter(&$form, &$form_state, $form_
       }
     }
   }
+  end:
 }
 
 /**
