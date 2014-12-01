@@ -1,0 +1,15 @@
+<?php
+
+/*
+ * Implements hook_field_schema().
+ */
+function insert_view_gen_field_schema($field){
+  $schema = array();
+  $schema['columns']['insert_view_gen'] = array(
+    'description' => 'The view to be inserted',
+    'type' => 'varchar',
+    'length' => 255,
+    'not null' => FALSE,
+  );
+  return $schema;
+}
