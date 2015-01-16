@@ -37,6 +37,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
 
   img, iframe, table, p, input {
     max-width: 100%;
+    height: auto;
   }
   p {
     line-height: 20px;
@@ -61,7 +62,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
     text-transform: none;
   }
   h2 {
-    border-bottom: 4px solid #DCD2C3;
+    border-bottom: 4px solid #dcd2c3;
     padding: 15px 0px 7px;
     margin-bottom: 10px;
     font-size: 1.3em;
@@ -119,16 +120,16 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
 
   .pagination {
     width: 100%;
-    background: none repeat scroll 0% 0% #EBEBEB;
+    background: none repeat scroll 0% 0% #ebebeb;
     border-width: 1px;
     border-style: solid;
-    border-color: #DDD #BBB #999;
+    border-color: #ddd #bbb #999;
     font-size: 1.2em;
 
     > li > a, li > span {
       padding: 0 7px;
-      border-left: 1px solid #BBB;
-      border-color: #DDD #BBB #999;
+      border-left: 1px solid #bbb;
+      border-color: #ddd #bbb #999;
     }
     li.active a {
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #1a1a1a), color-stop(1, #5a5a5a));
@@ -173,7 +174,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
       .site-name h1 {
         font-size: 2em;
         font-family: "Times New Roman", Georgia, Times, serif;
-        color: #FFF;
+        color: #fff;
         display: inline;
         text-decoration: none;
         font-style: normal;
@@ -189,7 +190,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
         font-family: "Times New Roman", Georgia, Times, serif;
         text-transform: uppercase;
         font-weight: 100;
-        color: #FFF;
+        color: #fff;
         line-height: 1.3em;
         letter-spacing: 0em;
         margin-top: 5px;
@@ -339,8 +340,8 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
     }
     li {
       display: inline-block;;
-      background-color: #DDD;
-      border-color: #BBB;
+      background-color: #ddd;
+      border-color: #bbb;
       border-style: solid solid none;
       border-width: 1px;
       height: auto;
@@ -351,10 +352,10 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
       margin-top: 5px;
     }
     li.active {
-      background-color: #FFF;
+      background-color: #fff;
       border-width: 1px;
       border-style: solid;
-      border-color: #BBB #BBB #FFF;
+      border-color: #bbb #bbb #fff;
       -moz-border-top-colors: none;
       -moz-border-right-colors: none;
       -moz-border-bottom-colors: none;
@@ -506,7 +507,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
   }
   .footer-title {
     color: #474848;
-    border-bottom: 1px solid #CCC;
+    border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
     padding-bottom: 0px;
     font-size: 1.2em;
@@ -570,7 +571,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
       content: " » ";
     }
     a.active {
-      color: #CCC;
+      color: #ccc;
     }
   }
 }
@@ -612,15 +613,15 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
 
 table {
   width: 100%;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   margin-top: 10px;
   margin-bottom: 10px;
   tbody {
     border: medium none;
   }
   th {
-    background: none repeat scroll 0% 0% #F7F7F7;
-    border-bottom: 1px solid #CCC;
+    background: none repeat scroll 0% 0% #f7f7f7;
+    border-bottom: 1px solid #ccc;
     color: #333;
     text-transform: uppercase;
     font-weight: bold;
@@ -628,7 +629,7 @@ table {
     vertical-align: middle;
   }
   tr {
-    border-bottom: 1px solid #CCC;
+    border-bottom: 1px solid #ccc;
   }
   tr.odd {
     background: #eee;
@@ -669,6 +670,15 @@ blockquote {
   border-radius: 50px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
   font-weight: normal;
+
+  .media & {
+    display: inherit;
+    margin: 0px;
+    background: none;
+    padding: 0px;
+    border-radius: 0px;
+    box-shadow: none;
+  }
 }
 
 body.front #page-title, body.front #block-system-main {
