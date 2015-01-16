@@ -240,6 +240,8 @@ function agency_2_process_page(&$page) {
 }
 
 function agency_2_alpha_preprocess_html(&$variables) {
+  drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=1');
+
   drupal_add_css(path_to_theme() . '/css/ie-lte-8.css', array(
     'group' => 300,
     'browsers' => array(
@@ -251,3 +253,52 @@ function agency_2_alpha_preprocess_html(&$variables) {
 }
 
 drupal_add_js(drupal_get_path('theme', 'agency_2') . '/js/block-wrapper.js');
+
+
+/**
+ * Theme the calendar title
+ *
+ * Copied and modified from date_views module theme.inc
+ */
+function agency_2_date_nav_title($params) {
+  $granularity = $params['granularity'];
+  $view = $params['view'];
+  $date_info = $view->date_info;
+  $link = !empty($params['link']) ? $params['link'] : FALSE;
+  $format = !empty($params['format']) ? $params['format'] : NULL;
+  $format_with_year = variable_get('date_views_' . $granularity . 'format_with_year', 'l, F j, Y');
+  $format_without_year = variable_get('date_views_' . $granularity . 'format_without_year', 'l, F j');
+  switch ($granularity) {
+    case 'year':
+      $title = $date_info->year;
+      $date_arg = $date_info->year;
+      break;
+    case 'month':
+      //customized format for month display
+      //$format = !empty($format) ? $format : (empty($date_info->mini) ? $format_with_year : $format_without_year);
+      $format = 'F Y';
+
+      $title = date_format_date($date_info->min_date, 'custom', $format);
+      $date_arg = $date_info->year . '-' . date_pad($date_info->month);
+      break;
+    case 'day':
+      $format = !empty($format) ? $format : (empty($date_info->mini) ? $format_with_year : $format_without_year);
+      $title = date_format_date($date_info->min_date, 'custom', $format);
+      $date_arg = $date_info->year . '-' . date_pad($date_info->month) . '-' . date_pad($date_info->day);
+      break;
+    case 'week':
+      $format = !empty($format) ? $format : (empty($date_info->mini) ? $format_with_year : $format_without_year);
+      $title = t('Week of @date', array('@date' => date_format_date($date_info->min_date, 'custom', $format)));
+      $date_arg = $date_info->year . '-W' . date_pad($date_info->week);
+      break;
+  }
+  if (!empty($date_info->mini) || $link) {
+    // Month navigation titles are used as links in the mini view.
+    $attributes = array('title' => t('View full page month'));
+    $url = date_pager_url($view, $granularity, $date_arg, TRUE);
+    return l($title, $url, array('attributes' => $attributes));
+  }
+  else {
+    return $title;
+  }
+}
