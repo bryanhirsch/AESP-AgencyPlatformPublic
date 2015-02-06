@@ -23,12 +23,12 @@ function feature_basic_config_install() {
     ->fields(array('permission' => 'use text format basic_html'))
     ->execute();
 
-  if(module_exists('webform')){
+  if (module_exists('webform')) {
     $query = db_select('webform_component', 'w')
       ->condition('type', 'markup')
       ->fields('w', array('nid', 'cid', 'extra'))
       ->execute();
-    while($row = $query->fetchAssoc()){
+    while ($row = $query->fetchAssoc()) {
       $extra = unserialize($row['extra']);
       $extra['format'] = 'basic_html';
       $row['extra'] = serialize($extra);
@@ -42,11 +42,13 @@ function feature_basic_config_install() {
 
   db_update('users')
     ->condition('signature_format', 'basic_html', '!=')
-    ->fields(array('signature_format'=>'basic_html'))
+    ->fields(array('signature_format' => 'basic_html'))
     ->execute();
 
   db_query('update views_display set display_options = replace(display_options,\'s:9:"full_html\', \'s:10:"basic_html\') where display_options like \'%full_html%\';');
 
   variable_set('search404_page_text', t('The page you requested could not be found. You may try one of the links listed below or try searching again.'));
   variable_set('search404_disable_error_message', '1');
+  variable_set('search404_do_custom_search', '1');
+  variable_set('search404_custom_search_path', 'search/node/@keys');
 }
