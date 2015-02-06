@@ -16,6 +16,4 @@ function feature_basic_config_preprocess_html(&$vars) {
   if (!in_array('administrator', $user->roles)) {
     drupal_add_css('.system-themes-list-disabled, #system-themes-admin-form {display:none; }', "inline");
   }
-
-
 }

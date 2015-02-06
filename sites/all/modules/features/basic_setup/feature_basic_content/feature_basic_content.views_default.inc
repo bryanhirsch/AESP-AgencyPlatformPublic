@@ -121,6 +121,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
@@ -196,6 +197,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
@@ -270,6 +272,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
@@ -344,6 +347,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
@@ -418,6 +422,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
@@ -492,6 +497,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
@@ -565,6 +571,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
   $handler->display->display_options['filters']['field_basic_block_region_value']['id'] = 'field_basic_block_region_value';
@@ -635,6 +642,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
   $handler->display->display_options['filters']['field_basic_block_region_value']['id'] = 'field_basic_block_region_value';
@@ -705,6 +713,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
   $handler->display->display_options['filters']['field_basic_block_region_value']['id'] = 'field_basic_block_region_value';
@@ -775,6 +784,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
   $handler->display->display_options['filters']['field_basic_block_region_value']['id'] = 'field_basic_block_region_value';
@@ -845,6 +855,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
   $handler->display->display_options['filters']['field_basic_block_region_value']['id'] = 'field_basic_block_region_value';
@@ -1005,6 +1016,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
@@ -1051,6 +1063,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
@@ -1091,6 +1104,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
@@ -1131,6 +1145,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
@@ -1171,6 +1186,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
@@ -1211,6 +1227,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
   $handler->display->display_options['filters']['field_basic_block_region_value']['id'] = 'field_basic_block_region_value';
@@ -1248,6 +1265,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
   $handler->display->display_options['filters']['field_basic_block_region_value']['id'] = 'field_basic_block_region_value';
@@ -1285,6 +1303,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
   $handler->display->display_options['filters']['field_basic_block_region_value']['id'] = 'field_basic_block_region_value';
@@ -1322,6 +1341,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
   $handler->display->display_options['filters']['field_basic_block_region_value']['id'] = 'field_basic_block_region_value';
@@ -1359,6 +1379,7 @@ function feature_basic_content_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'basic_block' => 'basic_block',
+    'enewsletter_subscription' => 'enewsletter_subscription',
   );
   /* Filter criterion: Content: Block Region Display (field_basic_block_region) */
   $handler->display->display_options['filters']['field_basic_block_region_value']['id'] = 'field_basic_block_region_value';

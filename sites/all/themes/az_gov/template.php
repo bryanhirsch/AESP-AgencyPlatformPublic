@@ -93,7 +93,17 @@ function az_gov_process_page(&$vars){
 }
 
 function az_gov_preprocess_html(&$vars) {
-  drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=1');
+  $meta_ie_render_engine = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'content' =>  'IE=edge,chrome=1',
+      'http-equiv' => 'X-UA-Compatible',
+    ),
+    '#weight' => '-99999',
+  );
+
+  drupal_add_html_head($meta_ie_render_engine, 'meta_ie_render_engine');
 
   //if a background image is uploaded, it will apply the css needed
   if (theme_get_setting('main_background')) {

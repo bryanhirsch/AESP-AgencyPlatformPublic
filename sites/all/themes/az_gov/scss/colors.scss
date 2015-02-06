@@ -1,7 +1,7 @@
 body {
   background-color: #d2c0ac;
   color: #333333;
-  a {
+  a, #sidebar-second .glyphicon {
     color: #ed5c2d;
   }
   a:visited {
@@ -55,7 +55,7 @@ body {
   }
 }
 
-p.file, div.file, span.file, a.file {
+p.file, div.file, span.file, a.file, div.more-link, a.more-link {
   background-color: #d9cfc6;
 }
 
