@@ -58,3 +58,9 @@ settings[bootstrap_region_well-postscript_third] = ''
 settings[bootstrap_region_well-postscript_fourth] = ''
 settings[bootstrap_region_well-footer_first] = ''
 settings[bootstrap_region_well-footer_second] = ''
+
+settings[menu_block_placement][preface_first] = 1
+settings[menu_block_placement][sidebar_first] = 1
+settings[menu_block_placement][content] = 1
+settings[menu_block_placement][sidebar_second] = 1
+settings[menu_block_placement][postscript_first] = 1
