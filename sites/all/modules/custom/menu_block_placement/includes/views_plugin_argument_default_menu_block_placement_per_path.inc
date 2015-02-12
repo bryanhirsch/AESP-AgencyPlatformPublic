@@ -7,41 +7,39 @@
 /**
  * Extending views_plugin_argument_default_node()
  */
-class views_plugin_argument_default_menu_block_placement_per_path extends views_plugin_argument_default_node {
-
-/**
- * Provide the mlid
- */
+class views_plugin_argument_default_menu_block_placement_per_path extends views_plugin_argument_default {
+  /**
+   * Provide the mlid
+   */
   function get_argument() {
-    // Since this is based on the contextual id for a NODE
-    // We can get the NID based on the parent class get_argument().
-    if ($nid = parent::get_argument()) {
-
-      $mlids = $this->get_menu_item('node/' . $nid);
-
-      return implode('+', $mlids);
+    $path = current_path();
+    if ($path == variable_get('site_frontpage', 'node')) {
+      $path = '<front>';
     }
-  }
-
-
-
-
-/**
- * Retrives the node ids that have been assigned to a specific menu link id.
- */
-  function get_menu_item($path) {
-
-    $active_trail = menu_get_active_trail();
-
-    foreach (array_reverse($active_trail) as $trail) {
-
-      if (isset($trail['mlid'])) {
-
-        $parent_items[$path][$trail['mlid']] = $trail['mlid'];
-
-        return $parent_items[$path];
+    $menus = array();
+    foreach ($this->view->argument as $arg) {
+      if (strpos($arg->options['default_argument_type'], 'menu_block_placement_mlid') !== FALSE) {
+        $field = field_info_field($arg->definition['field_name']);
+        $menus = array_merge($menus, array_filter($field['settings']['default_menus']));
       }
     }
 
+    foreach ($menus as $menu) {
+      $row = db_select('menu_links', 'm')
+        ->fields('m')
+        ->condition('menu_name', $menu)
+        ->condition('link_path', $path)
+        ->execute()
+        ->fetchAssoc();
+
+      $mlids[] = $row['mlid'];
+    }
+
+    if (!empty($mlids)) {
+      return implode('+', array_filter($mlids));
+    }
+    else {
+      return FALSE;
+    }
   }
 }

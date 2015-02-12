@@ -52,3 +52,44 @@ function feature_basic_config_install() {
   variable_set('search404_do_custom_search', '1');
   variable_set('search404_custom_search_path', 'search/node/@keys');
 }
+
+function feature_basic_config_update_7010() {
+  module_disable(array('toolbar'));
+  variable_set('search404_page_text', t('The page you requested could not be found. You may try one of the links listed below or try searching again.'));
+  variable_set('search404_disable_error_message', '1');
+  variable_set('search404_do_custom_search', '1');
+  variable_set('search404_custom_search_path', 'search/node/@keys');
+
+  $permissions = array(
+    'Contributor' => array(
+      'access administration menu' => 1,
+    ),
+    'Editor' => array(
+      'access administration menu' => 1,
+    ),
+    'Power User' => array(
+      'access administration menu' => 1,
+    ),
+  );
+
+  //obtains all the roles and role IDs
+  $query = db_select('role', 'rid')
+    ->fields('rid', array('rid', 'name'));
+  $result = $query->execute();
+  //looops through all the roles and sets the permissions if the role exists from the array of permissions above
+  while ($record = $result->fetchAssoc()) {
+    if (array_key_exists($record['name'], $permissions)) {
+      user_role_change_permissions($record['rid'], $permissions[$record['name']]);
+    }
+  }
+
+  $features = array(
+    'feature_basic_config' => array(
+      'filter',
+      'variable',
+      'wysiwyg',
+    )
+  );
+  features_revert($features);
+
+}

@@ -25,8 +25,6 @@ function feature_basic_content_field_group_info() {
     'children' => array(
       0 => 'field_basic_block_block_sections',
       1 => 'field_basic_block_front_page',
-      2 => 'field_basic_block_region',
-      3 => 'field_basic_individual_page',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
