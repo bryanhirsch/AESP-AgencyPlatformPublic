@@ -85,7 +85,8 @@ function az_gov_preprocess_page(&$vars) {
     $vars['region_wrapper'] = '';
   }
 }
-function az_gov_process_page(&$vars){
+
+function az_gov_process_page(&$vars) {
   //color module support
   if (module_exists('color')) {
     _color_page_alter($vars);
@@ -97,7 +98,7 @@ function az_gov_preprocess_html(&$vars) {
     '#type' => 'html_tag',
     '#tag' => 'meta',
     '#attributes' => array(
-      'content' =>  'IE=edge,chrome=1',
+      'content' => 'IE=edge,chrome=1',
       'http-equiv' => 'X-UA-Compatible',
     ),
     '#weight' => '-99999',
@@ -139,7 +140,8 @@ function az_gov_preprocess_html(&$vars) {
     }
   }
 }
-function az_gov_process_html(&$vars){
+
+function az_gov_process_html(&$vars) {
   //color module support
   if (module_exists('color')) {
     _color_html_alter($vars);
@@ -208,5 +210,21 @@ function az_gov_date_nav_title($params) {
   }
   else {
     return $title;
+  }
+}
+
+function az_gov_preprocess_views_exposed_form(&$vars) {
+  foreach ($vars['widgets'] as &$widget) {
+    $html = new DOMDocument();
+    $html->loadHTML($widget->widget);
+    $options = $html->getElementsByTagName('option');
+    foreach ($options as $item) {
+      if (substr($item->nodeValue, 0, 1) == '-') {
+        preg_match('~[a-z]~i', $item->nodeValue, $match, PREG_OFFSET_CAPTURE);
+        $hyphens = $match[0][1];
+        $item->nodeValue = substr($item->nodeValue, 0, $hyphens) . ' ' . substr($item->nodeValue, $hyphens);
+      }
+    }
+    $widget->widget = $html->saveHTML();
   }
 }

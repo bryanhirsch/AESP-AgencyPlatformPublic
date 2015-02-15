@@ -50,17 +50,19 @@ function insert_view_gen_config() {
     '#title' => t('Available Views'),
   );
   foreach ($view_list as $key => $view) {
-    $form[$key] = array(
-      '#type' => 'fieldset',
-      '#group' => 'views',
-      '#title' => t($view['human_name']),
-    );
-    $form[$key]['insert_view_' . $key . '_displays'] = array(
-      '#title' => t('Available Displays'),
-      '#type' => 'checkboxes',
-      '#options' => $view['displays'],
-      '#default_value' => variable_get('insert_view_' . $key . '_displays', array()),
-    );
+    if(isset($view['displays'])) {
+      $form[$key] = array(
+        '#type' => 'fieldset',
+        '#group' => 'views',
+        '#title' => t($view['human_name']),
+      );
+      $form[$key]['insert_view_' . $key . '_displays'] = array(
+        '#title' => t('Available Displays'),
+        '#type' => 'checkboxes',
+        '#options' => $view['displays'],
+        '#default_value' => variable_get('insert_view_' . $key . '_displays', array()),
+      );
+    }
   }
 
   return system_settings_form($form);

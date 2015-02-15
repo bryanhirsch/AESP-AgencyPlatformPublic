@@ -94,17 +94,17 @@
         $('#zone-content').css('padding-bottom', $('#zone-footer').height() + 20);
       });
 
-      //adds the mobile button for main menu
-      if ($('.button-link-wrapper').length == 0) {
-        var menu_button = '<div class="mobile-menu-expand">Expand Menu Item</div>';
-        $('.region-menu ul.menu li.expanded > a').wrap('<div class="button-link-wrapper">')
-        $('.button-link-wrapper a').after(menu_button);
-        $('.mobile-menu-expand').click(function () {
-          $(this).toggleClass('mobile-menu-open');
-          $(this).parent().parent().toggleClass('open-menu-item');
-          $(this).parent().siblings('ul').slideToggle(300);
-        });
-      }
+
+      //if ($('.button-link-wrapper').length == 0) {
+      //  var menu_button = '<div class="mobile-menu-expand">Expand Menu Item</div>';
+      //  $('.region-menu ul.menu li.expanded > a').wrap('<div class="button-link-wrapper">')
+      //  $('.button-link-wrapper a').after(menu_button);
+      //  $('.mobile-menu-expand').click(function () {
+      //    $(this).toggleClass('mobile-menu-open');
+      //    $(this).parent().parent().toggleClass('open-menu-item');
+      //    $(this).parent().siblings('ul').slideToggle(300);
+      //  });
+      //}
       //if the window is resized, the menu items will collapse.
       $(window).resize(function () {
         $('.mobile-menu-open').click();
@@ -171,18 +171,28 @@
       });
 
 
-      $('.sliver-container img').once(function(){
+      $('.sliver-container img').once(function () {
         $(this).attr('alt', $(this).attr('title') + ' Image');
       });
 
 
-      $('.menu-block-wrapper ul.menu li.expanded').once(function(){
+      $('.menu-block-wrapper ul.menu li.expanded').once(function () {
         $(this).find('ul').hide();
         $(this).prepend('<span class="glyphicon glyphicon-chevron-right"/>');
-        $(this).find('.glyphicon').click(function(){
+        $(this).find('.glyphicon').click(function () {
           $(this).siblings('ul').slideToggle('slow');
           $(this).toggleClass('glyphicon-chevron-down');
           $(this).toggleClass('glyphicon-chevron-right');
+        });
+      });
+
+      //adds the mobile button for main menu
+      $('#block-system-main-menu ul.menu li.expanded').once(function () {
+        $(this).prepend('<span class="glyphicon glyphicon-plus-sign" />');
+        $(this).find('.glyphicon').click(function () {
+          $(this).toggleClass('glyphicon-plus-sign');
+          $(this).toggleClass('glyphicon-minus-sign');
+          $(this).siblings('ul').slideToggle('slow');
         });
       });
     }

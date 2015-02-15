@@ -323,12 +323,12 @@ function feature_basic_content_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'insert_view_mbp_13_displays';
+  $strongarm->name = 'insert_view_mbp_10_displays';
   $strongarm->value = array(
-    'mbp_13=block' => 'mbp_13=block',
-    'mbp_13=block_1' => 'mbp_13=block_1',
+    'mbp_10=block' => 'mbp_10=block',
+    'mbp_10=block_1' => 'mbp_10=block_1',
   );
-  $export['insert_view_mbp_13_displays'] = $strongarm;
+  $export['insert_view_mbp_10_displays'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

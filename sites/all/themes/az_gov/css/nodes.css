@@ -89,6 +89,9 @@
     display: inline-block;
   }
 }
+#page .node-form .vertical-tabs-panes, #colorbox .node-form .vertical-tabs-panes {
+  overflow: visible;
+}
 
 /* Hide content title in block */
 #zone-header .node-basic-slideshow h2.title {

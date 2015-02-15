@@ -227,7 +227,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
 
     @media(max-width: 600px) {
       .content > ul.menu {
-        a {
+        a, .glyphicon {
           border-radius: 5px;
           color: #fff;
         }
@@ -236,7 +236,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
           background: #fff;
           border-radius: 5px;
           box-shadow: 0 0 6px #000;
-          a {
+          a, .glyphicon {
             color: #000;
           }
         }
@@ -249,7 +249,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
         li:hover, li.open-menu-item {
           background-color: #eee;
         }
-        li.open-menu-item > .button-link-wrapper a, li:hover > a, li:hover > .button-link-wrapper a {
+        li:hover > .glyphicon, li:hover > a {
           color: #000;
         }
 
@@ -301,7 +301,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
   .region {
     padding: 0;
   }
-  .content {
+  .node .content {
     padding: 15px;
   }
   .block-quicktabs .content {
@@ -766,4 +766,16 @@ body.front #page-title, body.front #block-system-main {
     width: 100%;
     height: 100%;
   }
+}
+
+#block-system-main-menu .glyphicon {
+  position: absolute;
+  right: 20px;
+  z-index: 10;
+  top: 10px;
+  cursor: pointer;
+  font-size:25px;
+}
+.chosen-container.form-control{
+  height:auto;
 }

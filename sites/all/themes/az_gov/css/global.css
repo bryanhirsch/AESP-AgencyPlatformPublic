@@ -210,7 +210,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
   display: none;
 }
 @media (max-width: 600px) {
-  #zone-branding .region-menu .content > ul.menu a {
+  #zone-branding .region-menu .content > ul.menu a, #zone-branding .region-menu .content > ul.menu .glyphicon {
     border-radius: 5px;
     color: #fff;
   }
@@ -220,7 +220,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
     border-radius: 5px;
     box-shadow: 0 0 6px #000;
   }
-  #zone-branding .region-menu .content > ul.menu ul a {
+  #zone-branding .region-menu .content > ul.menu ul a, #zone-branding .region-menu .content > ul.menu ul .glyphicon {
     color: #000;
   }
   #zone-branding .region-menu .content > ul.menu li {
@@ -232,7 +232,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
   #zone-branding .region-menu .content > ul.menu li:hover, #zone-branding .region-menu .content > ul.menu li.open-menu-item {
     background-color: #eee;
   }
-  #zone-branding .region-menu .content > ul.menu li.open-menu-item > .button-link-wrapper a, #zone-branding .region-menu .content > ul.menu li:hover > a, #zone-branding .region-menu .content > ul.menu li:hover > .button-link-wrapper a {
+  #zone-branding .region-menu .content > ul.menu li:hover > .glyphicon, #zone-branding .region-menu .content > ul.menu li:hover > a {
     color: #000;
   }
   #zone-branding .region-menu .content > ul.menu .button-link-wrapper {
@@ -280,7 +280,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
 #preface-group .region {
   padding: 0;
 }
-#preface-group .content {
+#preface-group .node .content {
   padding: 15px;
 }
 #preface-group .block-quicktabs .content {
@@ -716,4 +716,17 @@ body.front #page-title, body.front #block-system-main {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+#block-system-main-menu .glyphicon {
+  position: absolute;
+  right: 20px;
+  z-index: 10;
+  top: 10px;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.chosen-container.form-control {
+  height: auto;
 }

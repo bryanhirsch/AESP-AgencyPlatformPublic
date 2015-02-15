@@ -26,18 +26,6 @@ function feature_basic_content_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'mbp_defaults-mbp-13' => array(
-          'module' => 'mbp_defaults',
-          'delta' => 'mbp-13',
-          'region' => 'header_second',
-          'weight' => '-10',
-        ),
-        'menu_block-2' => array(
-          'module' => 'menu_block',
-          'delta' => '2',
-          'region' => 'content',
-          'weight' => '-10',
-        ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',

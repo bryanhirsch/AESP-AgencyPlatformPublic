@@ -99,6 +99,12 @@
       }
     }
   }
+
+  .node-form {
+    .vertical-tabs-panes {
+      overflow: visible;;
+    }
+  }
 }
 
 /* Hide content title in block */
@@ -252,6 +258,7 @@
       }
     }
   }
+
 }
 
 @media (max-width: 600px) {
