@@ -4,14 +4,18 @@
  * Configures existing fields and deletes non-needed fields
  */
 function feature_basic_content_update_7010() {
+
   foreach (field_info_fields() as $key => $field) {
-    if ($field['type'] == 'menu_block_placement_reference' && $key != 'field_basic_block_sections') {
+    if ($field['type'] == 'menu_block_placement_reference') {
       foreach ($field['bundles']['node'] as $node_type) {
         $instance = field_info_instance('node', $key, $node_type);
-        $instance['widget']['module'] = 'menu_block_placement';
-        $instance['widget']['type'] = 'menu_block_placement_widget';
-        field_update_instance($instance);
-
+        if ($instance['widget']['module'] != 'menu_block_placement') {
+          $instance['widget']['module'] = 'menu_block_placement';
+          $instance['widget']['type'] = 'menu_block_placement_widget';
+          field_update_instance($instance);
+        }
+      }
+      if ($key != 'field_basic_block_block_sections') {
         $field['settings']['default_selects'] = array(
           'region' => 0,
           'individ' => 0,
@@ -20,25 +24,15 @@ function feature_basic_content_update_7010() {
       }
     }
   }
-
-  //Basic Block Field
   $query = db_select('field_data_field_basic_block_block_sections', 'f')
     ->fields('f')
     ->execute();
-  $data = array();
+  $field_data = array();
   while ($row = $query->fetchAssoc()) {
-    $data[] = $row;
+    $field_data[] = $row;
   }
-  db_query('truncate table {field_data_field_basic_block_block_sections}');
-
-  $query = db_select('field_revision_field_basic_block_block_sections', 'f')
-    ->fields('f')
-    ->execute();
-  $revisions = array();
-  while ($row = $query->fetchAssoc()) {
-    $revisions[] = $row;
-  }
-  db_query('truncate table {field_revision_field_basic_block_block_sections}');
+  db_truncate('field_data_field_basic_block_block_sections')->execute();
+  db_truncate('field_revision_field_basic_block_block_sections')->execute();
 
   $field = field_info_field('field_basic_block_block_sections');
   $field['settings']['default_selects'] = array(
@@ -46,59 +40,51 @@ function feature_basic_content_update_7010() {
     'individ' => 'individ',
   );
   field_update_field($field);
-
-  foreach ($data as $row) {
+  foreach ($field_data as $row) {
     db_insert('field_data_field_basic_block_block_sections')
       ->fields($row)
       ->execute();
   }
 
-  foreach ($revisions as $row) {
-    db_insert('field_revision_field_basic_block_block_sections')
-      ->fields($row)
-      ->execute();
-  }
-
-  $query = db_select('field_data_field_basic_block_region', 'f')
-    ->fields('f', array('entity_id', 'field_basic_block_region_value'))
+  $query = db_select('field_data_field_basic_block_block_sections', 'f')
+    ->fields('f', array('entity_id', 'delta'))
+    ->orderBy('delta', 'desc')
+    ->groupBy('entity_id')
     ->execute();
-  while ($row = $query->fetchAssoc()) {
-    switch ($row['field_basic_block_region_value']) {
+  while ($nid = $query->fetchField()) {
+    $region = db_select('field_data_field_basic_block_region', 'r')
+      ->fields('r', array('field_basic_block_region_value'))
+      ->condition('entity_id', $nid)
+      ->execute()
+      ->fetchField();
+    switch ($region) {
       case 'preface':
-        $row['field_basic_block_block_sections_region'] = 'preface_first';
+        $region = 'preface_first';
         break;
       case 'left':
-        $row['field_basic_block_block_sections_region'] = 'sidebar_first';
-        break;
-      case 'content':
-        $row['field_basic_block_block_sections_region'] = 'content';
+        $region = 'sidebar_first';
         break;
       case 'right':
-        $row['field_basic_block_block_sections_region'] = 'sidebar_second';
+        $region = 'sidebar_second';
         break;
       case 'postscript':
-        $row['field_basic_block_block_sections_region'] = 'postscript_first';
+        $region = 'postscript_first';
         break;
     }
-    unset($row['field_basic_block_region_value']);
+    $individ = db_select('field_data_field_basic_individual_page', 'i')
+      ->fields('i', array('field_basic_individual_page_value'))
+      ->condition('entity_id', $nid)
+      ->execute()
+      ->fetchField();
     db_update('field_data_field_basic_block_block_sections')
-      ->condition('entity_id', $row['entity_id'])
-      ->fields($row)
+      ->condition('entity_id', $nid)
+      ->fields(array(
+        'field_basic_block_block_sections_region' => $region,
+        'field_basic_block_block_sections_individual_pages' => $individ
+      ))
       ->execute();
   }
 
-
-  $query = db_select('field_data_field_basic_individual_page', 'f')
-    ->fields('f', array('entity_id', 'field_basic_individual_page_value'))
-    ->execute();
-  while ($row = $query->fetchAssoc()) {
-    $row['field_basic_block_block_sections_individual_pages'] = $row['field_basic_individual_page_value'];
-    unset($row['field_basic_individual_page_value']);
-    db_update('field_data_field_basic_block_block_sections')
-      ->condition('entity_id', $row['entity_id'])
-      ->fields($row)
-      ->execute();
-  }
 
   $front = db_select('menu_links', 'm')
     ->fields('m', array('mlid'))
@@ -109,84 +95,60 @@ function feature_basic_content_update_7010() {
   $front_mlid = $front['mlid'];
 
   $query = db_select('field_data_field_basic_block_front_page', 'f')
-    ->fields('f')
     ->condition('field_basic_block_front_page_value', '1')
+    ->fields('f', array('entity_id'))
     ->execute();
-
-
-  while ($row = $query->fetchAssoc()) {
-    $row['field_basic_block_block_sections_mlid'] = $front_mlid;
-    unset($row['field_basic_block_front_page_value']);
-
-    $node = db_select('field_data_field_basic_block_block_sections', 'fb')
-      ->fields('fb')
-      ->condition('entity_id', $row['entity_id'])
-      ->condition('revision_id', $row['revision_id'])
+  while ($entity_id = $query->fetchField()) {
+    $front = db_select('field_data_field_basic_block_block_sections', 's1')
       ->condition('field_basic_block_block_sections_mlid', $front_mlid)
+      ->condition('entity_id', $entity_id)
+      ->fields('s1')
       ->execute()
       ->fetchAssoc();
-    if (empty($node)) {
-      $node = db_select('field_data_field_basic_block_block_sections', 'fb')
-        ->fields('fb')
-        ->condition('entity_id', $row['entity_id'])
-        ->condition('revision_id', $row['revision_id'])
+
+    if (empty($front)) {
+      $new_row = db_select('field_data_field_basic_block_block_sections', 's2')
+        ->condition('entity_id', $entity_id)
+        ->fields('s2')
         ->orderBy('delta', 'desc')
         ->execute()
         ->fetchAssoc();
-      $row['field_basic_block_block_sections_region'] = $node['field_basic_block_block_sections_region'];
-      $row['field_basic_block_block_sections_individual_pages'] = $node['field_basic_block_block_sections_individual_pages'];
-      $row['delta'] = $node['delta'] + 1;
+      $new_row['field_basic_block_block_sections_mlid'] = $front_mlid;
+      $new_row['delta']++;
       db_insert('field_data_field_basic_block_block_sections')
-        ->fields($row)
+        ->fields($new_row)
         ->execute();
     }
   }
 
 
   $query = db_select('field_data_field_basic_slideshow_front', 'f')
-    ->fields('f')
     ->condition('field_basic_slideshow_front_value', '1')
+    ->fields('f', array('entity_id'))
     ->execute();
-  while ($row = $query->fetchAssoc()) {
-    $row['field_basic_slideshow_assignment_mlid'] = $front_mlid;
-    unset($row['field_basic_slideshow_front_value']);
-
-    $node = db_select('field_data_field_basic_slideshow_assignment', 'fb')
-      ->fields('fb')
-      ->condition('entity_id', $row['entity_id'])
-      ->condition('revision_id', $row['revision_id'])
+  while ($entity_id = $query->fetchField()) {
+    $front = db_select('field_data_field_basic_slideshow_assignment', 's1')
       ->condition('field_basic_slideshow_assignment_mlid', $front_mlid)
+      ->condition('entity_id', $entity_id)
+      ->fields('s1')
       ->execute()
       ->fetchAssoc();
-    if (empty($node)) {
-      $node = db_select('field_data_field_basic_slideshow_assignment', 'fb')
-        ->fields('fb')
-        ->condition('entity_id', $row['entity_id'])
-        ->condition('revision_id', $row['revision_id'])
+
+    if (empty($front)) {
+      $new_row = db_select('field_data_field_basic_slideshow_assignment', 's2')
+        ->condition('entity_id', $entity_id)
+        ->fields('s2')
         ->orderBy('delta', 'desc')
         ->execute()
         ->fetchAssoc();
-      $row['delta'] = $node['delta'] + 1;
+      $new_row['field_basic_slideshow_assignment_mlid'] = $front_mlid;
+      $new_row['delta']++;
       db_insert('field_data_field_basic_slideshow_assignment')
-        ->fields($row)
+        ->fields($new_row)
         ->execute();
     }
   }
 
-  module_enable(array('mbp_defaults'));
-
-  $view = views_get_view('basic_blocks_displays');
-  if (is_object($view)) {
-    views_delete_view($view);
-  }
-  $view = views_get_view('basic_blocks_sort');
-  if (is_object($view)) {
-    views_delete_view($view);
-  }
-  $view = views_get_view('slideshow_blocks');
-  if (is_object($view)) {
-    views_delete_view($view);
-  }
 
   $instance = field_info_instance('node', 'field_basic_individual_page', 'basic_block');
   field_delete_instance($instance, TRUE);
@@ -197,42 +159,6 @@ function feature_basic_content_update_7010() {
   $instance = field_info_instance('node', 'field_basic_slideshow_front', 'basic_slideshow');
   field_delete_instance($instance, TRUE);
 
-  $blocks = array(
-    'content',
-    'sidebar_first',
-    'sidebar_second',
-    'preface_first',
-    'postscript_first',
-    'content',
-    'sidebar_first',
-    'sidebar_second',
-    'preface_first',
-    'postscript_first',
-  );
-  $query = db_select('draggableviews_structure', 'dv')
-    ->fields('dv')
-    ->condition('view_name', 'basic_blocks_sort')
-    ->execute();
-  while ($row = $query->fetchAssoc()) {
-    switch ($row['view_display']) {
-      case 'block':
-        $region = '"content"';
-        break;
-      default;
-        $id = (int) substr($row['view_display'], 6);
-        $region = $blocks[$id];
-        break;
-    }
-    $args = array('"' . $region . '"');
-    $args = array_merge($args, array_reverse(explode(',', trim($row['args'], ']['))));
-    $row['args'] = '[' . implode(',', $args) . ']';
-    $row['view_name'] = 'mbp_6';
-    $row['view_display'] = 'block_1';
-    db_update('draggableviews_structure')
-      ->condition('dvid', $row['dvid'])
-      ->fields($row)
-      ->execute();
-  }
   $features = array(
     'feature_basic_content' => array(
       'field_base',
@@ -241,4 +167,39 @@ function feature_basic_content_update_7010() {
     )
   );
   features_revert($features);
+
+  module_enable(array('mbp_defaults'));
+
+  $regions = array(
+    'content',
+    'sidebar_first',
+    'sidebar_second',
+    'preface_first',
+    'postscript_first',
+    'content',
+    'sidebar_first',
+    'sidebar_second',
+    'preface_first',
+    'postscript_first',
+
+  );
+  $query = db_select('draggableviews_structure', 'd')
+    ->condition('view_name', 'basic_blocks_sort')
+    ->fields('d')
+    ->execute();
+  while ($row = $query->fetchAssoc()) {
+    $args = trim($row['args'], '[]');
+    if ($args != '') {
+      $args = array_reverse(explode(',', $args));
+      $id = (int) substr($row['view_display'], 6);
+      $args = '["' . $regions[$id] . '",' . implode(',', $args) . ']';
+      $row['view_name'] = 'mbp_6';
+      $row['view_display'] = 'block_1';
+      $row['args'] = $args;
+      db_update('draggableviews_structure')
+        ->condition('dvid', $row['dvid'])
+        ->fields($row)
+        ->execute();
+    }
+  }
 }
