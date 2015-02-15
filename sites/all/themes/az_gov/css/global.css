@@ -718,6 +718,9 @@ body.front #page-title, body.front #block-system-main {
   height: 100%;
 }
 
+#block-system-main-menu .menu-li-home .glyphicon {
+  display: none;
+}
 #block-system-main-menu .glyphicon {
   position: absolute;
   right: 20px;

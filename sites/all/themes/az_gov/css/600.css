@@ -74,6 +74,10 @@
 #zone-branding .region-menu .content > ul.menu .glyphicon {
   display: none;
 }
+#zone-branding .region-menu .content > ul.menu .menu-li-home .glyphicon {
+  display: block;
+  text-indent: 10px;
+}
 #zone-branding .region-menu .content > ul.menu .menu-li-home > a, #zone-branding .region-menu .content > ul.menu .menu-li-home > .button-link-wrapper a {
   border-right: 1px solid rgba(0, 0, 0, 0.2);
   text-indent: -9999px;
@@ -100,18 +104,18 @@
 
 #content.both-sidebars {
   width: 43%;
-  border-left: 1px solid #CCC;
-  border-right: 1px solid #CCC;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
 }
 
 #content.left-sidebar {
   width: 75%;
-  border-left: 1px solid #CCC;
+  border-left: 1px solid #ccc;
 }
 
 #content.right-sidebar {
   width: 68%;
-  border-right: 1px solid #CCC;
+  border-right: 1px solid #ccc;
 }
 
 #sidebar-second {

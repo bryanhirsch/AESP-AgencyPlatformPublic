@@ -768,14 +768,20 @@ body.front #page-title, body.front #block-system-main {
   }
 }
 
-#block-system-main-menu .glyphicon {
-  position: absolute;
-  right: 20px;
-  z-index: 10;
-  top: 10px;
-  cursor: pointer;
-  font-size:25px;
+#block-system-main-menu {
+  .menu-li-home .glyphicon {
+    display:none;
+  }
+  .glyphicon {
+    position: absolute;
+    right: 20px;
+    z-index: 10;
+    top: 10px;
+    cursor: pointer;
+    font-size: 25px;
+  }
 }
-.chosen-container.form-control{
-  height:auto;
+
+.chosen-container.form-control {
+  height: auto;
 }
