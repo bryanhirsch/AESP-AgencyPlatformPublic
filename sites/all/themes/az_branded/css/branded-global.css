@@ -94,7 +94,7 @@ body {
   box-shadow: none;
 }
 /* line 78, ../scss/branded-global.scss */
-#preface-group .basic-block-row > div, #preface-group .region {
+#preface-group .mbp-defaults-row > div, #preface-group .region {
   box-shadow: 0px 6px 7px -1px rgba(0, 0, 0, 0.5);
 }
 

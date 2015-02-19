@@ -6,18 +6,6 @@ html, body {
   font: 13px/1.5 Verdana, Helvetica, Arial, sans-serif;
 }
 
-body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
-  display: none;
-}
-
-*[id*='block-quicktabs-draggable-views'] ul.contextual-links li.quicktabs-edit, *[id*='block-quicktabs-draggable-views'] ul.contextual-links li.block-configure {
-  display: none;
-}
-
-*[id*='block-views-slideshow-blocks'] .contextual-links-wrapper {
-  display: none !important;
-}
-
 #page, #colorbox {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 1.0em;
@@ -25,6 +13,9 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
   display: block;
   min-height: 100%;
   position: relative;
+}
+#page .block-mbp-defaults li.block-configure, #colorbox .block-mbp-defaults li.block-configure {
+  display: none !important;
 }
 #page .region, #colorbox .region {
   padding: 0px 15px 25px;
@@ -79,10 +70,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
 #page h3, #page h4, #page h5, #page h6, #colorbox h3, #colorbox h4, #colorbox h5, #colorbox h6 {
   font-size: 1.0em;
 }
-#page .node .view ul, #page .node .view ol, #colorbox .node .view ul, #colorbox .node .view ol {
-  margin: 0;
-}
-#page .node .view ul li, #page .node .view ol li, #colorbox .node .view ul li, #colorbox .node .view ol li {
+#page .node li.views-row, #colorbox .node li.views-row {
   list-style-type: none;
 }
 #page .node ul, #page .view .views-field ul, #page .view .field-content ul, #colorbox .node ul, #colorbox .view .views-field ul, #colorbox .view .field-content ul {
@@ -286,11 +274,11 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
 #preface-group .block-quicktabs .content {
   padding: 0;
 }
-#preface-group .basic-block-row {
+#preface-group .mbp-defaults-row {
   margin-bottom: 0;
   width: 100%;
 }
-#preface-group .basic-block-row .content {
+#preface-group .mbp-defaults-row .content {
   padding: 15px;
 }
 #preface-group h2.title, #preface-group h2.block-title {
@@ -361,17 +349,15 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
     display: block;
   }
 }
-#content .view-basic-blocks-sort td, #content .view-basic-blocks-sort tr, #content .view-basic-blocks-sort table, #content .view-basic-blocks-sort tbody {
-  background: #fff;
-  color: #000;
-}
 
 #sidebar-second .block-menu-block .glyphicon {
   cursor: pointer;
   position: absolute;
   top: 13px;
-  left: 5px;
-  z-index: 100;
+  z-index: 10;
+  width: 28px;
+  height: 20px;
+  text-align: center;
 }
 #sidebar-second .block-menu-block ul.menu {
   border: 1px solid #ccc;
@@ -407,7 +393,7 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
 #postscript-group {
   box-shadow: 0px 6px 7px -1px rgba(0, 0, 0, 0.5);
 }
-#postscript-group .basic-block-row {
+#postscript-group .mbp-defaults-row {
   width: 100%;
 }
 
@@ -572,27 +558,6 @@ body.not-logged-in *[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs {
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.8);
   padding: 5px;
-}
-
-*[id*='block-quicktabs-draggable-views'] h2.block-title,
-*[id*='block-quicktabs-draggable-views'] ul.quicktabs-tabs li.first.last {
-  display: none;
-}
-
-#page .view-basic-blocks-sort a.tabledrag-handle .handle, #colorbox .view-basic-blocks-sort a.tabledrag-handle .handle {
-  padding: .42em 1.5em;
-}
-#page .view-basic-blocks-sort tr .contextual-links-wrapper, #colorbox .view-basic-blocks-sort tr .contextual-links-wrapper {
-  display: none !important;
-}
-#page .view-basic-blocks-sort table, #page .view-basic-blocks-sort td, #page .view-basic-blocks-sort h2, #page .view-basic-blocks-sort tr, #colorbox .view-basic-blocks-sort table, #colorbox .view-basic-blocks-sort td, #colorbox .view-basic-blocks-sort h2, #colorbox .view-basic-blocks-sort tr {
-  background: #fff !important;
-}
-#page .view-basic-blocks-sort p, #colorbox .view-basic-blocks-sort p {
-  color: #000;
-}
-#page .view-basic-blocks-sort tr.draggable, #colorbox .view-basic-blocks-sort tr.draggable {
-  border: 1px dashed #eee;
 }
 
 table {

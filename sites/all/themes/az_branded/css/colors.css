@@ -65,7 +65,7 @@ body a:visited {
 }
 
 /* line 57, ../scss/colors.scss */
-#preface-group .basic-block-row > div, #preface-group.total-prefaces-2 .region, #preface-group.total-prefaces-3 .region {
+#preface-group .mbp-defaults-row > div, #preface-group.total-prefaces-2 .region, #preface-group.total-prefaces-3 .region {
   background-color: #c5d8db;
 }
 

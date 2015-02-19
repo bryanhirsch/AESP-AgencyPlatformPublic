@@ -245,6 +245,7 @@ function mbp_defaults_block_view($delta = '') {
 function mbp_defaults_block_view_alter(&$data, $block) {
   if (variable_get('mbp_defaults_contextual', 1) == 1 && module_exists('contextual')) {
     // Add the tabs into the contextual links section.
+    drupal_add_js(drupal_get_path('module', 'mbp_defaults') . '/mbp_defaults.js', 'file');
     if ($block->module == 'mbp_defaults') {
       if (isset($data['content']) && !empty($data['content'])) {
         $data['content']['#new_links'] = $data['content']['content']['content']['tabs']['tablinks'];

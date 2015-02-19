@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Establishes variables to be used in page template
+ */
 function az_gov_preprocess_page(&$vars) {
   //footer contact section variables
   $vars['footer_settings'] = array(
@@ -86,13 +89,18 @@ function az_gov_preprocess_page(&$vars) {
   }
 }
 
+/**
+ * color module support
+ */
 function az_gov_process_page(&$vars) {
-  //color module support
   if (module_exists('color')) {
     _color_page_alter($vars);
   }
 }
 
+/**
+ * IE Header and Background
+ */
 function az_gov_preprocess_html(&$vars) {
   $meta_ie_render_engine = array(
     '#type' => 'html_tag',
@@ -141,22 +149,29 @@ function az_gov_preprocess_html(&$vars) {
   }
 }
 
+/**
+ * color module support
+ */
 function az_gov_process_html(&$vars) {
-  //color module support
   if (module_exists('color')) {
     _color_html_alter($vars);
   }
 }
 
+/**
+ * Adds class to the views to indicate the number of results
+ */
 function az_gov_preprocess_views_view(&$vars) {
   //applies a class to the view indicating how many results.
   $total_results = 'total-results-' . count($vars['view']->result);
   $vars['classes_array'][] = $total_results;
 }
 
-
+/**
+ * Add classes to the menu <li> and <a> ta
+ */
 function az_gov_menu_link($vars) {
-  //Add classes to the menu <li> and <a> tags
+  //gs
   $menu_class = str_replace(' ', '-', strtolower($vars['element']['#original_link']['link_title']));
   $vars['element']['#attributes']['class'][] = 'menu-li-' . $menu_class;
   if (isset($variables['element']['#localized_options'])) {
@@ -213,6 +228,10 @@ function az_gov_date_nav_title($params) {
   }
 }
 
+/**
+ * Alters the views exposed filters to place a space after hyphens.
+ * Helpful with the Chosen module and taxonomy filters.
+ */
 function az_gov_preprocess_views_exposed_form(&$vars) {
   foreach ($vars['widgets'] as &$widget) {
     $html = new DOMDocument();
@@ -227,4 +246,8 @@ function az_gov_preprocess_views_exposed_form(&$vars) {
     }
     $widget->widget = $html->saveHTML();
   }
+}
+
+function az_gov_preprocess_entity(&$vars){
+  dpm($vars);
 }
