@@ -88,6 +88,12 @@ html, body {
 #page .node ul ul ul li, #page .view .views-field ul ul ul li, #page .view .field-content ul ul ul li, #colorbox .node ul ul ul li, #colorbox .view .views-field ul ul ul li, #colorbox .view .field-content ul ul ul li {
   list-style-type: square;
 }
+#page ul.chosen-results, #colorbox ul.chosen-results {
+  margin: 0;
+}
+#page .chosen-search input, #colorbox .chosen-search input {
+  width: 100%;
+}
 #page .node ol, #page .view .views-field ol, #page .view .field-content ol, #colorbox .node ol, #colorbox .view .views-field ol, #colorbox .view .field-content ol {
   margin: 10px 0 0 25px;
 }
