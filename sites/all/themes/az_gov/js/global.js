@@ -12,6 +12,9 @@
         }
       });
 
+
+      $('.quicktabs-tabpage').addClass('clearfix');
+
       $('.media').once(function () {
         var self = this;
         $(this).find('.file-image img').once(function () {
