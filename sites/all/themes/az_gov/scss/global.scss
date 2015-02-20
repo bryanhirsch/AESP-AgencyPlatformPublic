@@ -145,14 +145,16 @@ html, body {
   .fieldset {
     padding-bottom: 15px;
   }
-  .quicktabs-tabpage {
-    padding:10px;
-    border: 1px solid #ccc;
-    border-radius:5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.7);
-  }
-  ul.quicktabs-tabs.quicktabs-style-zen {
-    background: none;
+  .node-content {
+    .quicktabs-tabpage {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.7);
+    }
+    ul.quicktabs-tabs.quicktabs-style-zen {
+      background: none;
+    }
   }
 }
 

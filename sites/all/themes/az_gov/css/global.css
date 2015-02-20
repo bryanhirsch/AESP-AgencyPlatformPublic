@@ -135,13 +135,13 @@ html, body {
 #page .fieldset, #colorbox .fieldset {
   padding-bottom: 15px;
 }
-#page .quicktabs-tabpage, #colorbox .quicktabs-tabpage {
+#page .node-content .quicktabs-tabpage, #colorbox .node-content .quicktabs-tabpage {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.7);
 }
-#page ul.quicktabs-tabs.quicktabs-style-zen, #colorbox ul.quicktabs-tabs.quicktabs-style-zen {
+#page .node-content ul.quicktabs-tabs.quicktabs-style-zen, #colorbox .node-content ul.quicktabs-tabs.quicktabs-style-zen {
   background: none;
 }
 
