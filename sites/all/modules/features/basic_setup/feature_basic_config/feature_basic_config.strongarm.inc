@@ -49,7 +49,7 @@ function feature_basic_config_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'chosen_minimum_width';
-  $strongarm->value = '300';
+  $strongarm->value = '100';
   $export['chosen_minimum_width'] = $strongarm;
 
   $strongarm = new stdClass();

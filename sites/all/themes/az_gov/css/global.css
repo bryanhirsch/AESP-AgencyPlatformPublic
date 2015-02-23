@@ -76,8 +76,14 @@ html, body {
 #page .node ul, #page .view .views-field ul, #page .view .field-content ul, #colorbox .node ul, #colorbox .view .views-field ul, #colorbox .view .field-content ul {
   margin: 10px 0 0 25px;
 }
+#page .node ul.chosen-choices, #page .view .views-field ul.chosen-choices, #page .view .field-content ul.chosen-choices, #colorbox .node ul.chosen-choices, #colorbox .view .views-field ul.chosen-choices, #colorbox .view .field-content ul.chosen-choices {
+  margin: inherit;
+}
 #page .node ul li, #page .view .views-field ul li, #page .view .field-content ul li, #colorbox .node ul li, #colorbox .view .views-field ul li, #colorbox .view .field-content ul li {
   list-style-type: disc;
+}
+#page .node ul.contextual-links li, #page .view .views-field ul.contextual-links li, #page .view .field-content ul.contextual-links li, #colorbox .node ul.contextual-links li, #colorbox .view .views-field ul.contextual-links li, #colorbox .view .field-content ul.contextual-links li {
+  list-style: outside none none;
 }
 #page .node ul ul, #page .view .views-field ul ul, #page .view .field-content ul ul, #colorbox .node ul ul, #colorbox .view .views-field ul ul, #colorbox .view .field-content ul ul {
   margin: 5px 25px;
@@ -302,6 +308,9 @@ html, body {
   border-bottom: medium none;
   margin: 0 0 10px 0;
   padding: 20px 10px 10px;
+}
+#preface-group.total-prefaces-2 .block-inner > .content, #preface-group.total-prefaces-3 .block-inner > .content {
+  padding: 5px 20px;
 }
 
 #content-wrapper {
