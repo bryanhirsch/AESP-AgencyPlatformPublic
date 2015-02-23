@@ -177,27 +177,6 @@
         });
       });
 
-      var mainmenu = function () {
-        $('#block-system-main-menu .content > ul.menu').each(function () {
-          if ($(window).width() > 600) {
-            if ($(this).children('li').length > 4) {
-              $(this).css('display', 'table');
-              $(this).children('li').css('display', 'table-cell');
-              $(this).children('li').css('float', 'none');
-            }
-          } else {
-            $(this).css('display', '');
-            $(this).children('li').css('display', '');
-            $(this).children('li').css('float', '');
-          }
-        });
-      };
-
-      mainmenu();
-      $(window).resize(function () {
-        mainmenu();
-      });
-
       $('.menu-li-home a').css('background', 'none').html('<span class="glyphicon glyphicon-home"/>Home');
     }
   }

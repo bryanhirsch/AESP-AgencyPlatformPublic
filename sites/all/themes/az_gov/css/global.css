@@ -303,6 +303,9 @@ html, body {
   margin: 0 0 10px 0;
   padding: 20px 10px 10px;
 }
+#preface-group.total-prefaces-2 .block-inner > .content, #preface-group.total-prefaces-3 .block-inner > .content {
+  padding: 5px 20px;
+}
 
 #content-wrapper {
   box-shadow: 6px 0px 5px -6px rgba(0, 0, 0, 0.5), -6px 0px 5px -6px rgba(0, 0, 0, 0.5);

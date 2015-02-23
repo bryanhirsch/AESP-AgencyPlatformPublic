@@ -2,7 +2,7 @@ name = Menu Block Placement
 description = Provides a field widget to use for block placement assigned to a region taking the menu heirachry into account.
 core = 7.x
 package = Custom
-version = 7.x-1.0
+version = 7.x-1.10
 
 dependencies[] = views
 dependencies[] = menu

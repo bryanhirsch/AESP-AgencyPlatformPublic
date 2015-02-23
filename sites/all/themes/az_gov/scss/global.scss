@@ -92,10 +92,10 @@ html, body {
     }
   }
   ul.chosen-results {
-    margin:0;
+    margin: 0;
   }
   .chosen-search input {
-    width:100%;
+    width: 100%;
   }
   .node ol, .view .views-field ol, .view .field-content ol {
     margin: 10px 0 0 25px;
@@ -323,6 +323,12 @@ html, body {
     border-bottom: medium none;
     margin: 0 0 10px 0;
     padding: 20px 10px 10px;
+  }
+
+  &.total-prefaces-2, &.total-prefaces-3 {
+    .block-inner > .content {
+      padding: 5px 20px;
+    }
   }
 }
 
