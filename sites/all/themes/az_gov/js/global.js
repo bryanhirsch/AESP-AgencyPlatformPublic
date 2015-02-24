@@ -178,6 +178,17 @@
       });
 
       $('.menu-li-home a').css('background', 'none').html('<span class="glyphicon glyphicon-home"/>Home');
+
+      $('#zone-branding .region-menu li > ul').each(function () {
+        $(this).css('z-index', '10');
+        var left = $(this).offset().left;
+        var width = $(this).width();
+        var windowwidth = $(window).width();
+        if (left > windowwidth || left + width > windowwidth) {
+          $(this).css('left', '-99%').css('z-index', $(this).closest('ul').css('z-index') + 1);
+          $(this).find('ul').css('left', '-99%');
+        }
+      });
     }
   }
 })(jQuery);
