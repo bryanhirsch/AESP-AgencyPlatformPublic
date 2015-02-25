@@ -76,8 +76,14 @@ html, body {
   }
   .node ul, .view .views-field ul, .view .field-content ul {
     margin: 10px 0 0 25px;
+    &.chosen-choices, &.pagination {
+      margin: 0;
+    }
     li {
       list-style-type: disc;
+    }
+    &.contextual-links li {
+      list-style-type: none;
     }
     ul {
       margin: 5px 25px;
