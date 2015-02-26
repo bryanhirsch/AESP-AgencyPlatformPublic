@@ -76,14 +76,14 @@ html, body {
 #page .node ul, #page .view .views-field ul, #page .view .field-content ul, #colorbox .node ul, #colorbox .view .views-field ul, #colorbox .view .field-content ul {
   margin: 10px 0 0 25px;
 }
-#page .node ul.chosen-choices, #page .view .views-field ul.chosen-choices, #page .view .field-content ul.chosen-choices, #colorbox .node ul.chosen-choices, #colorbox .view .views-field ul.chosen-choices, #colorbox .view .field-content ul.chosen-choices {
-  margin: inherit;
+#page .node ul.chosen-choices, #page .node ul.pagination, #page .view .views-field ul.chosen-choices, #page .view .views-field ul.pagination, #page .view .field-content ul.chosen-choices, #page .view .field-content ul.pagination, #colorbox .node ul.chosen-choices, #colorbox .node ul.pagination, #colorbox .view .views-field ul.chosen-choices, #colorbox .view .views-field ul.pagination, #colorbox .view .field-content ul.chosen-choices, #colorbox .view .field-content ul.pagination {
+  margin: 0;
 }
 #page .node ul li, #page .view .views-field ul li, #page .view .field-content ul li, #colorbox .node ul li, #colorbox .view .views-field ul li, #colorbox .view .field-content ul li {
   list-style-type: disc;
 }
 #page .node ul.contextual-links li, #page .view .views-field ul.contextual-links li, #page .view .field-content ul.contextual-links li, #colorbox .node ul.contextual-links li, #colorbox .view .views-field ul.contextual-links li, #colorbox .view .field-content ul.contextual-links li {
-  list-style: outside none none;
+  list-style-type: none;
 }
 #page .node ul ul, #page .view .views-field ul ul, #page .view .field-content ul ul, #colorbox .node ul ul, #colorbox .view .views-field ul ul, #colorbox .view .field-content ul ul {
   margin: 5px 25px;
@@ -411,7 +411,7 @@ html, body {
 #sidebar-second .block-menu-block ul.menu li.last a {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  padding: 10px 15px 10px 25px;
+  padding: 10px 15px 10px 30px;
 }
 
 #postscript-group {

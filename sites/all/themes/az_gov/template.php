@@ -227,27 +227,3 @@ function az_gov_date_nav_title($params) {
     return $title;
   }
 }
-
-/**
- * Alters the views exposed filters to place a space after hyphens.
- * Helpful with the Chosen module and taxonomy filters.
- */
-function az_gov_preprocess_views_exposed_form(&$vars) {
-  foreach ($vars['widgets'] as &$widget) {
-    $html = new DOMDocument();
-    $html->loadHTML($widget->widget);
-    $options = $html->getElementsByTagName('option');
-    foreach ($options as $item) {
-      if (substr($item->nodeValue, 0, 1) == '-') {
-        preg_match('~[a-z]~i', $item->nodeValue, $match, PREG_OFFSET_CAPTURE);
-        $hyphens = $match[0][1];
-        $item->nodeValue = substr($item->nodeValue, 0, $hyphens) . ' ' . substr($item->nodeValue, $hyphens);
-      }
-    }
-    $widget->widget = $html->saveHTML();
-  }
-}
-
-function az_gov_preprocess_entity(&$vars){
-  dpm($vars);
-}
