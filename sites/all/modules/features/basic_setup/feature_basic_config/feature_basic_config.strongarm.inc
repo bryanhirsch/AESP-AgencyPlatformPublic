@@ -28,7 +28,7 @@ function feature_basic_config_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'chosen_jquery_selector';
-  $strongarm->value = 'select:not([name*=\'day\'],[name*=\'year\'],[name*=\'month\']) ';
+  $strongarm->value = 'select:not([name*=\'day\'],[name*=\'year\'],[name*=\'month\'],[name^="conditionals"][name$="[operator]"])';
   $export['chosen_jquery_selector'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -49,7 +49,7 @@ function feature_basic_config_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'chosen_minimum_width';
-  $strongarm->value = '100';
+  $strongarm->value = '200';
   $export['chosen_minimum_width'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -77,7 +77,7 @@ function feature_basic_config_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'chosen_search_contains';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['chosen_search_contains'] = $strongarm;
 
   $strongarm = new stdClass();

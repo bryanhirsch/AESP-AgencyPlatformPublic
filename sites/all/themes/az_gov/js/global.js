@@ -152,11 +152,6 @@
       });
 
 
-      $('.sliver-container img').once(function () {
-        $(this).attr('alt', $(this).attr('title') + ' Image');
-      });
-
-
       $('.menu-block-wrapper ul.menu li.expanded').once(function () {
         $(this).find('ul').hide();
         $(this).prepend('<span class="glyphicon glyphicon-chevron-right"/>');

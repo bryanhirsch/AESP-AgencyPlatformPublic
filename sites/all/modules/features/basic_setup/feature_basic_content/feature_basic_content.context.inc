@@ -26,6 +26,12 @@ function feature_basic_content_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'mbp_defaults-mbp-10' => array(
+          'module' => 'mbp_defaults',
+          'delta' => 'mbp-10',
+          'region' => 'header_second',
+          'weight' => '-10',
+        ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
