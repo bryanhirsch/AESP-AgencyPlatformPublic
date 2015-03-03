@@ -190,6 +190,19 @@ function _comm_menu_build_tree($menu_name, $parameters = array()) {
 }
 
 function comm_preprocess_html(&$page) {
+  $meta_ie_render_engine = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'content' =>  'IE=edge,chrome=1',
+      'http-equiv' => 'X-UA-Compatible',
+    ),
+    '#weight' => '-99999',
+  );
+
+  drupal_add_html_head($meta_ie_render_engine, 'meta_ie_render_engine');
+
+
   //Change the name of the home page
   if (drupal_is_front_page()) {
     $page['head_title'] = variable_get('site_name');
@@ -254,7 +267,7 @@ function comm_preprocess_node(&$page) {
 
 function comm_process_html(&$page) {
   drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=1');
-  
+
   //color module support
   if (module_exists('color')) {
     _color_html_alter($page);

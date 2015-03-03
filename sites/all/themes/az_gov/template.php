@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Establishes variables to be used in page template
+ */
 function az_gov_preprocess_page(&$vars) {
   //footer contact section variables
   $vars['footer_settings'] = array(
@@ -85,15 +88,31 @@ function az_gov_preprocess_page(&$vars) {
     $vars['region_wrapper'] = '';
   }
 }
-function az_gov_process_page(&$vars){
-  //color module support
+
+/**
+ * color module support
+ */
+function az_gov_process_page(&$vars) {
   if (module_exists('color')) {
     _color_page_alter($vars);
   }
 }
 
+/**
+ * IE Header and Background
+ */
 function az_gov_preprocess_html(&$vars) {
-  drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=1');
+  $meta_ie_render_engine = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'content' => 'IE=edge,chrome=1',
+      'http-equiv' => 'X-UA-Compatible',
+    ),
+    '#weight' => '-99999',
+  );
+
+  drupal_add_html_head($meta_ie_render_engine, 'meta_ie_render_engine');
 
   //if a background image is uploaded, it will apply the css needed
   if (theme_get_setting('main_background')) {
@@ -129,22 +148,30 @@ function az_gov_preprocess_html(&$vars) {
     }
   }
 }
-function az_gov_process_html(&$vars){
-  //color module support
+
+/**
+ * color module support
+ */
+function az_gov_process_html(&$vars) {
   if (module_exists('color')) {
     _color_html_alter($vars);
   }
 }
 
+/**
+ * Adds class to the views to indicate the number of results
+ */
 function az_gov_preprocess_views_view(&$vars) {
   //applies a class to the view indicating how many results.
   $total_results = 'total-results-' . count($vars['view']->result);
   $vars['classes_array'][] = $total_results;
 }
 
-
+/**
+ * Add classes to the menu <li> and <a> ta
+ */
 function az_gov_menu_link($vars) {
-  //Add classes to the menu <li> and <a> tags
+  //gs
   $menu_class = str_replace(' ', '-', strtolower($vars['element']['#original_link']['link_title']));
   $vars['element']['#attributes']['class'][] = 'menu-li-' . $menu_class;
   if (isset($variables['element']['#localized_options'])) {

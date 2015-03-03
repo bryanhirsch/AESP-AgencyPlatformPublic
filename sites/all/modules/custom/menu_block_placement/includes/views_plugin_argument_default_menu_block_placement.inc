@@ -7,46 +7,44 @@
 /**
  * Extending views_plugin_argument_default_node()
  */
-class views_plugin_argument_default_menu_block_placement extends views_plugin_argument_default_node {
+class views_plugin_argument_default_menu_block_placement extends views_plugin_argument_default {
 
   /**
    * Provide an imploded list of mlids
    */
   function get_argument() {
-    // Since this is based on the contextual id for a NODE
-    // We can get the NID based on the parent class get_argument().
-    if ($nid = parent::get_argument()) {
-
-      $mlids = $this->get_menu_parents('node/' . $nid);
-
-      return implode('+', $mlids);
+    $path = current_path();
+    if ($path == variable_get('site_frontpage', 'node')) {
+      $path = '<front>';
     }
-  }
-
-
-
-
-  /*
-   * Retrives the node ids that have been assigned to a specific menu link id.
-   * It checks for parent mlids as well.
-   */
-  function get_menu_parents($path) {
-
-    $parent_items = &drupal_static(__FUNCTION__);
-
-    if (isset($parent_items[$path])) {
-      return $parent_items[$path];
-    }
-
-    // Fetch our active trail to determine all MLIDs in the current heiarchy.
-    $active_trail = menu_get_active_trail();
-
-    foreach ($active_trail as $trail) {
-      if (isset($trail['mlid'])) {
-        $parent_items[$path][$trail['mlid']] = $trail['mlid'];
+    $menus = array();
+    foreach ($this->view->argument as $arg) {
+      if (strpos($arg->options['default_argument_type'], 'menu_block_placement_mlid') !== FALSE) {
+        $field = field_info_field($arg->definition['field_name']);
+        $menus = array_merge($menus, array_filter($field['settings']['default_menus']));
       }
     }
 
-    return $parent_items[$path];
+    foreach ($menus as $menu) {
+      $row = db_select('menu_links', 'm')
+        ->fields('m')
+        ->condition('menu_name', $menu)
+        ->condition('link_path', $path)
+        ->execute()
+        ->fetchAssoc();
+      for ($i = 1; $i < 9; $i++) {
+        if ($row['p' . $i]) {
+          $mlids[] = $row['p' . $i];
+        }
+      }
+    }
+
+    if (!empty($mlids)) {
+      return implode('+', $mlids);
+    }
+    else {
+      return FALSE;
+    }
+
   }
 }
