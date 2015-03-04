@@ -52,6 +52,12 @@ function feature_basic_config_wysiwyg_default_profiles() {
           'Table' => 1,
           'SpellChecker' => 1,
         ),
+        'wysiwyg_accordion_plugin' => array(
+          'wysiwyg_accordion_plugin_button' => 1,
+        ),
+        'drupal_path' => array(
+          'Link' => 1,
+        ),
         'drupal' => array(
           'media' => 1,
         ),
@@ -68,7 +74,7 @@ function feature_basic_config_wysiwyg_default_profiles() {
 Heading 2 = h2
 Heading 3 = h3
 Normal = p
-Button = p.file.button',
+Button = div.file.button',
       'block_formats' => 'p,address,pre,h2,h3,h4,h5,h6,div',
       'advanced__active_tab' => 'edit-css',
       'forcePasteAsPlainText' => 1,

@@ -230,10 +230,10 @@ function feature_basic_content_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '0',
+          'weight' => '1',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '3',
         ),
       ),
       'display' => array(),
@@ -275,7 +275,7 @@ function feature_basic_content_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '10',
+          'weight' => '2',
         ),
       ),
       'display' => array(),
@@ -323,38 +323,22 @@ function feature_basic_content_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'insert_view_basic_blocks_displays_displays';
+  $strongarm->name = 'insert_view_mbp_10_displays';
   $strongarm->value = array(
-    'basic_blocks_displays=block' => 'basic_blocks_displays=block',
-    'basic_blocks_displays=block_1' => 'basic_blocks_displays=block_1',
-    'basic_blocks_displays=block_2' => 'basic_blocks_displays=block_2',
-    'basic_blocks_displays=block_3' => 'basic_blocks_displays=block_3',
-    'basic_blocks_displays=block_4' => 'basic_blocks_displays=block_4',
-    'basic_blocks_displays=block_5' => 'basic_blocks_displays=block_5',
-    'basic_blocks_displays=block_6' => 'basic_blocks_displays=block_6',
-    'basic_blocks_displays=block_7' => 'basic_blocks_displays=block_7',
-    'basic_blocks_displays=block_8' => 'basic_blocks_displays=block_8',
-    'basic_blocks_displays=block_9' => 'basic_blocks_displays=block_9',
+    'mbp_10=block' => 'mbp_10=block',
+    'mbp_10=block_1' => 'mbp_10=block_1',
   );
-  $export['insert_view_basic_blocks_displays_displays'] = $strongarm;
+  $export['insert_view_mbp_10_displays'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'insert_view_basic_blocks_sort_displays';
+  $strongarm->name = 'insert_view_mbp_6_displays';
   $strongarm->value = array(
-    'basic_blocks_sort=block' => 'basic_blocks_sort=block',
-    'basic_blocks_sort=block_1' => 'basic_blocks_sort=block_1',
-    'basic_blocks_sort=block_2' => 'basic_blocks_sort=block_2',
-    'basic_blocks_sort=block_3' => 'basic_blocks_sort=block_3',
-    'basic_blocks_sort=block_4' => 'basic_blocks_sort=block_4',
-    'basic_blocks_sort=block_5' => 'basic_blocks_sort=block_5',
-    'basic_blocks_sort=block_6' => 'basic_blocks_sort=block_6',
-    'basic_blocks_sort=block_7' => 'basic_blocks_sort=block_7',
-    'basic_blocks_sort=block_8' => 'basic_blocks_sort=block_8',
-    'basic_blocks_sort=block_9' => 'basic_blocks_sort=block_9',
+    'mbp_6=block' => 'mbp_6=block',
+    'mbp_6=block_1' => 'mbp_6=block_1',
   );
-  $export['insert_view_basic_blocks_sort_displays'] = $strongarm;
+  $export['insert_view_mbp_6_displays'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -375,16 +359,6 @@ function feature_basic_content_strongarm() {
     'sitemap=attachment' => 'sitemap=attachment',
   );
   $export['insert_view_sitemap_displays'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'insert_view_slideshow_blocks_displays';
-  $strongarm->value = array(
-    'slideshow_blocks=block' => 'slideshow_blocks=block',
-    'slideshow_blocks=block_1' => 'slideshow_blocks=block_1',
-  );
-  $export['insert_view_slideshow_blocks_displays'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

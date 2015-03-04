@@ -10,6 +10,74 @@
 function feature_basic_content_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'field_collection_item-field_basic_page_tabs-field_basic_page_tab_body'
+  $field_instances['field_collection_item-field_basic_page_tabs-field_basic_page_tab_body'] = array(
+    'bundle' => 'field_basic_page_tabs',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_basic_page_tab_body',
+    'label' => 'Tab Body',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_basic_page_tabs-field_basic_page_tab_label'
+  $field_instances['field_collection_item-field_basic_page_tabs-field_basic_page_tab_label'] = array(
+    'bundle' => 'field_basic_page_tabs',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_basic_page_tab_label',
+    'label' => 'Tab Label',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'field_collection_item-field_basic_slideshow_images-field_basic_slideshow_caption'
   $field_instances['field_collection_item-field_basic_slideshow_images-field_basic_slideshow_caption'] = array(
     'bundle' => 'field_basic_slideshow_images',
@@ -81,7 +149,11 @@ function feature_basic_content_field_default_field_instances() {
       'module' => 'media',
       'settings' => array(
         'allowed_schemes' => array(
+          'feed' => 0,
+          'http' => 0,
+          'https' => 0,
           'public' => 'public',
+          'youtube' => 0,
         ),
         'allowed_types' => array(
           'audio' => 0,
@@ -90,9 +162,12 @@ function feature_basic_content_field_default_field_instances() {
           'video' => 0,
         ),
         'browser_plugins' => array(
-          'media_default--media_browser_1' => 0,
-          'media_default--media_browser_my_files' => 0,
-          'upload' => 0,
+          'media_default--media_browser_1' => 'media_default--media_browser_1',
+          'media_default--media_browser_my_files' => 'media_default--media_browser_my_files',
+          'media_internet' => 'media_internet',
+          'remote_file' => 0,
+          'upload' => 'upload',
+          'youtube' => 0,
         ),
       ),
       'type' => 'media_generic',
@@ -120,6 +195,7 @@ function feature_basic_content_field_default_field_instances() {
     'label' => 'Image\'s Link',
     'required' => 0,
     'settings' => array(
+      'absolute_url' => 1,
       'attributes' => array(
         'class' => '',
         'configurable_title' => 0,
@@ -133,6 +209,7 @@ function feature_basic_content_field_default_field_instances() {
       'enable_tokens' => 1,
       'rel_remove' => 'default',
       'title' => 'none',
+      'title_label_use_field_label' => FALSE,
       'title_maxlength' => 128,
       'title_value' => '',
       'url' => 0,
@@ -259,112 +336,12 @@ function feature_basic_content_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
+      'module' => 'menu_block_placement',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'menu_block_placement_widget',
       'weight' => 20,
-    ),
-  );
-
-  // Exported field_instance: 'node-basic_block-field_basic_block_front_page'
-  $field_instances['node-basic_block-field_basic_block_front_page'] = array(
-    'bundle' => 'basic_block',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => 'If checked, this block will appear in the desired region on the front page as well as any other selected pages.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 2,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_basic_block_front_page',
-    'label' => 'Display This Block On The Front Page',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 50,
-    ),
-  );
-
-  // Exported field_instance: 'node-basic_block-field_basic_block_region'
-  $field_instances['node-basic_block-field_basic_block_region'] = array(
-    'bundle' => 'basic_block',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Choose the region for this block to reside on the above selected pages.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 5,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_basic_block_region',
-    'label' => 'Block Region Display',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 30,
-    ),
-  );
-
-  // Exported field_instance: 'node-basic_block-field_basic_individual_page'
-  $field_instances['node-basic_block-field_basic_individual_page'] = array(
-    'bundle' => 'basic_block',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => 'Select this option if you do not want the children of the menu item to display this block.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 6,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_basic_individual_page',
-    'label' => 'Show only on selected pages',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 40,
     ),
   );
 
@@ -408,7 +385,50 @@ function feature_basic_content_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 20,
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'node-basic_page-field_basic_page_tabs'
+  $field_instances['node-basic_page-field_basic_page_tabs'] = array(
+    'bundle' => 'basic_page',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => '',
+          'delete' => '',
+          'description' => 0,
+          'edit' => '',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_basic_page_tabs',
+    'label' => 'Tabs',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 4,
     ),
   );
 
@@ -445,52 +465,12 @@ function feature_basic_content_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 30,
-    ),
-  );
-
-  // Exported field_instance: 'node-basic_slideshow-field_basic_slideshow_front'
-  $field_instances['node-basic_slideshow-field_basic_slideshow_front'] = array(
-    'bundle' => 'basic_slideshow',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_basic_slideshow_front',
-    'label' => 'Display on Front Page',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
+      'module' => 'menu_block_placement',
       'settings' => array(
-        'display_label' => 1,
+        'apply_chosen' => '',
       ),
-      'type' => 'options_onoff',
-      'weight' => 40,
+      'type' => 'menu_block_placement_widget',
+      'weight' => 1,
     ),
   );
 
@@ -558,31 +538,27 @@ function feature_basic_content_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 20,
+      'weight' => 3,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
   t('Available Views');
-  t('Block Region Display');
   t('Block Sections');
   t('Body');
-  t('Choose the region for this block to reside on the above selected pages.');
-  t('Display This Block On The Front Page');
-  t('Display on Front Page');
   t('Each of these groups acts as a slide in the slideshow. Drag and drop to reorder the slides.');
   t('Enter a absolute or relative url that the image will link to. Leave empty for no link on the image.');
   t('Enter some text to give information about the associated image. \'Read More\' links should be included in this area if desired.');
-  t('If checked, this block will appear in the desired region on the front page as well as any other selected pages.');
   t('Image');
   t('Image Caption');
   t('Image\'s Link');
   t('Select the menu item where this block will live. If the front page is desired, use the checkbox below.');
-  t('Select this option if you do not want the children of the menu item to display this block.');
-  t('Show only on selected pages');
   t('Slideshow Assignment');
   t('Slideshow Images');
+  t('Tab Body');
+  t('Tab Label');
+  t('Tabs');
 
   return $field_instances;
 }

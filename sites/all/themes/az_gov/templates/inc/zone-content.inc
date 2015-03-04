@@ -1,5 +1,5 @@
 <div id="zone-content" class="zone">
-
+  <a name="main-content"></a>
 
   <?php if ($preface['count'] > 0): ?>
     <div id="preface-group" class="clearfix <?php echo $preface['class']; ?>">
