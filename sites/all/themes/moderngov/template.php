@@ -154,6 +154,19 @@ function _agency_1_menu_build_tree($menu_name, $parameters = array()) {
 }
 
 function agency_1_preprocess_html(&$page) {
+  $meta_ie_render_engine = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'content' =>  'IE=edge,chrome=1',
+      'http-equiv' => 'X-UA-Compatible',
+    ),
+    '#weight' => '-99999',
+  );
+
+  drupal_add_html_head($meta_ie_render_engine, 'meta_ie_render_engine');
+
+
   //Change the name of the home page
   if (drupal_is_front_page()) {
     $page['head_title'] = variable_get('site_name');

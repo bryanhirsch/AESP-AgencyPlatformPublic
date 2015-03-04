@@ -12,6 +12,9 @@
         }
       });
 
+
+      $('.quicktabs-tabpage').addClass('clearfix');
+
       $('.media').once(function () {
         var self = this;
         $(this).find('.file-image img').once(function () {
@@ -20,15 +23,6 @@
       });
 
       $(document).ready(function () {
-        //Move the quicktabs into the contextual links gear and hides the actual tabs from view.
-        $("[id^=block-quicktabs-draggable-views-]").each(function () {
-          var links = $(this).find('ul.quicktabs-tabs').contents();
-          $(this).find('.contextual-links-wrapper:first ul').append(links);
-          $(this).find('.contextual-links-wrapper:first').css('right', '50px');
-          $(this).find('h2.block-title:first').remove();
-          $(this).find('ul.quicktabs-tabs').remove();
-        });
-
         //Fix basic slideshow heights
         var slideshow_heights = function () {
           if ($('.node-basic-slideshow .field-slideshow-slide').length > 1) {
@@ -51,12 +45,12 @@
       //matches the heights of the preface rows or the preface regions.
       var preface_match = function () {
         var maxHeight = 0;
-        $('.total-prefaces-1 .basic-block-row > div, .total-prefaces-2 .preface > div, .total-prefaces-3 .preface > div').each(function () {
+        $('.total-prefaces-1 .mbp-defaults-row > div, .total-prefaces-2 .preface > div, .total-prefaces-3 .preface > div').each(function () {
           $(this).height('auto');
           maxHeight = maxHeight > $(this).height() ? maxHeight : $(this).height();
         });
         if ($(window).width() >= 600) {
-          $('.total-prefaces-1 .basic-block-row > div, .total-prefaces-2 .preface > div, .total-prefaces-3 .preface > div').each(function () {
+          $('.total-prefaces-1 .mbp-defaults-row > div, .total-prefaces-2 .preface > div, .total-prefaces-3 .preface > div').each(function () {
             $(this).height(maxHeight);
           });
         }
@@ -94,21 +88,8 @@
         $('#zone-content').css('padding-bottom', $('#zone-footer').height() + 20);
       });
 
-      //adds the mobile button for main menu
-      if ($('.button-link-wrapper').length == 0) {
-        var menu_button = '<div class="mobile-menu-expand">Expand Menu Item</div>';
-        $('.region-menu ul.menu li.expanded > a').wrap('<div class="button-link-wrapper">')
-        $('.button-link-wrapper a').after(menu_button);
-        $('.mobile-menu-expand').click(function () {
-          $(this).toggleClass('mobile-menu-open');
-          $(this).parent().parent().toggleClass('open-menu-item');
-          $(this).parent().siblings('ul').slideToggle(300);
-        });
-      }
-      //if the window is resized, the menu items will collapse.
       $(window).resize(function () {
-        $('.mobile-menu-open').click();
-        $('.region-menu ul.menu ul').css('display', '');
+        $('#block-system-main-menu .glyphicon-minus-sign').click();
       });
 
       //moves the sliver within the page tag for container height fixes
@@ -169,6 +150,41 @@
           }
         });
       });
+
+
+      $('.menu-block-wrapper ul.menu li.expanded').once(function () {
+        $(this).find('ul').hide();
+        $(this).prepend('<span class="glyphicon glyphicon-chevron-right"/>');
+        $(this).find('.glyphicon').click(function () {
+          $(this).siblings('ul').slideToggle('slow');
+          $(this).toggleClass('glyphicon-chevron-down');
+          $(this).toggleClass('glyphicon-chevron-right');
+        });
+      });
+
+      //adds the mobile button for main menu
+      $('#block-system-main-menu ul.menu li.expanded').once(function () {
+        $(this).prepend('<span class="glyphicon glyphicon-plus-sign" />');
+        $(this).find('.glyphicon').click(function () {
+          $(this).toggleClass('glyphicon-plus-sign');
+          $(this).toggleClass('glyphicon-minus-sign');
+          $(this).siblings('ul').slideToggle('slow');
+        });
+      });
+
+      $('.menu-li-home a').css('background', 'none').html('<span class="glyphicon glyphicon-home"/>Home');
+
+      $('#zone-branding .region-menu li > ul').each(function () {
+        $(this).css('z-index', '10');
+        var left = $(this).offset().left;
+        var width = $(this).width();
+        var windowwidth = $(window).width();
+        if (left > windowwidth || left + width > windowwidth) {
+          $(this).css('left', '-99%').css('z-index', $(this).closest('ul').css('z-index') + 1);
+          $(this).find('ul').css('left', '-99%');
+        }
+      });
+
     }
   }
 })(jQuery);

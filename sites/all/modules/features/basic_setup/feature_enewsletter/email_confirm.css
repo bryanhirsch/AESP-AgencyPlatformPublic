@@ -1,0 +1,25 @@
+.sub-password {
+  position: relative;
+  left: -160px;
+  top: -50px;
+  width: 140px;
+  height: 95px;
+  background: #fff;
+  font-weight: 300;
+  padding: 20px;
+  margin-bottom: -95px;
+  border-radius: 20px;
+  box-shadow: 0 6px 7px -1px rgba(0, 0, 0, 0.5);
+}
+
+.sub-password:after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  margin-top: -50px;
+  margin-left: 119px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 15px solid #4679bd;
+}

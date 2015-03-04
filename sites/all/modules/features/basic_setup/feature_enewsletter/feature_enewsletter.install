@@ -1,0 +1,16 @@
+<?php
+
+
+/**
+ *  Implements hook_uninstall().
+ */
+function feature_enewsletter_uninstall() {
+  $query = db_select('variable', 'v')
+    ->condition('name', 'feature_enewsletter', 'like')
+    ->fields('v', array('name'))
+    ->execute();
+
+  while($row = $query->fetchAssoc()){
+      variable_del($row['name']);
+  }
+}
