@@ -1,9 +1,11 @@
 .node .field {
-  margin-bottom:15px;
+  margin-bottom: 15px;
 }
+
 .node .field:last-child {
-  margin-bottom:0px;
+  margin-bottom: 0px;
 }
+
 .node.node-unpublished {
   background-color: rgb(255, 235, 224);
 }
@@ -97,6 +99,12 @@
       }
     }
   }
+
+  .node-form {
+    .vertical-tabs-panes {
+      overflow: visible;;
+    }
+  }
 }
 
 /* Hide content title in block */
@@ -187,35 +195,90 @@
 
 #home-rotator {
   border: none;
+  //height: 291px;
 }
 
 .view-home-page-feature-rotator {
   width: 100%;
+  h2 {
+    border-bottom: none !important;
+    a {
+      color: #fff !important;
+      font-style: normal;
+    }
+  }
   .home-rotator-slide {
-    width: 100%;
     margin: 0;
+    width: 100% !important;
+    height: auto !important;
   }
   .home-rotator-photo {
     float: right;
-    width: 67%;
+    width: 60%;
+    img {
+      width: 100%;
+      height: 290px !important;
+    }
   }
+
   .home-rotator-text-block {
+    width: 40%;
     float: left;
-    width: 32%;
     margin: 0;
+    background: #494949;
+    .home-top-intro {
+      margin: 0 15px;
+      height: 200px;
+      max-height: 200px;
+    }
+    #home-top-read-more {
+      margin: 15px;
+      border-bottom: 1px solid #666;
+      width: 80%;
+      text-align: left;
+      padding-bottom: 10px;
+      a {
+        margin-left: 30px;
+      }
+    }
   }
+  #home-top-numbers {
+    ul {
+      padding: 0 0 0 40px;
+      float: left;
+    }
+    a {
+      text-indent: -9999px;
+      background: #f1d6b8;
+      height: 15px;
+      width: 15px;
+      border-radius: 10px;
+      &.activeSlide {
+        background: #ed5c2d;
+      }
+    }
+  }
+
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
+  #home-rotator {
+    height: auto;
+  }
   .view-home-page-feature-rotator {
+    .home-rotator-slide {
+      position: inherit !important;
+    }
     .home-rotator-photo {
-      float: none;
       width: 100%;
+      float: none;
+      img {
+        height: auto !important;
+      }
     }
     .home-rotator-text-block {
-      float: none;
       width: 100%;
-      margin: 0;
+      float: none;
     }
   }
 }

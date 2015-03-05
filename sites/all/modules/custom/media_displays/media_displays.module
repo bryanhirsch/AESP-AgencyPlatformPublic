@@ -115,3 +115,7 @@ function media_displays_field_formatter_view($entity_type, $entity, $field, $ins
   }
   return $element;
 }
+
+function media_displays_init(){
+  drupal_add_css('.view-media-default iframe {width:200px; height:140px;}', 'inline');
+}

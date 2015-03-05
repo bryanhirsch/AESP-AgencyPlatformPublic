@@ -11,19 +11,19 @@
 }
 
 #preface-group.total-prefaces-1 .region-preface-first {
-  .basic-block-row {
+  .mbp-defaults-row {
     border: none;
     > div {
       margin: 0 10px;
     }
   }
-  .basic-block-row.views-row-first > div {
+  .mbp-defaults-row.views-row-first > div {
     margin: 0 10px 0 0;
   }
-  .basic-block-row.views-row-last > div {
+  .mbp-defaults-row.views-row-last > div {
     margin: 0 0 0 10px;
   }
-  .basic-block-row.views-row-first.views-row-last > div {
+  .mbp-defaults-row.views-row-first.views-row-last > div {
     margin: 0;
   }
 }
